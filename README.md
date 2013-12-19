@@ -1,4 +1,4 @@
-tout-doux-app
+ToutDouxApp
 =============
 
 Android school project application
