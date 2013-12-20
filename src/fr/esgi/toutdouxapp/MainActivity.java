@@ -6,11 +6,17 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainActivity extends Activity {
+	
+	private final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,13 +26,18 @@ public class MainActivity extends Activity {
 
         List<Task> tasks = setListTasks();
 
-        final ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < tasks.size(); ++i) {
-            list.add(tasks.get(i).getTitle());
-        }
-
         final ArrayAdapter<Task> adapter = new TaskArrayAdapter(this, tasks);
         listview.setAdapter(adapter);
+                
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        	@Override
+            public void onItemClick(AdapterView<?> parent, final View view, int position, long id) {	            
+	            Intent taskActivityIntent = new Intent(MainActivity.this, TaskActivity.class);
+	      		startActivity(taskActivityIntent);
+            }
+
+        });
     }
 
     @Override
