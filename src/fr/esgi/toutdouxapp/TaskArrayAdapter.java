@@ -14,8 +14,8 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
     private final List<Task> list;
     private final Activity context;
 
-    public TaskArrayAdapter(Activity context, List<Task> list) {
-        super(context, R.layout.list_view, list);
+    public TaskArrayAdapter(Activity context, int resource, List<Task> list) {
+        super(context, resource, list);
         this.context = context;
         this.list = list;
     }
@@ -27,7 +27,7 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflator = context.getLayoutInflater();
-        View view = inflator.inflate(R.layout.list_view, null);
+        View view = inflator.inflate(R.layout.activity_tasklist_row, null);
         final ViewHolder viewHolder = new ViewHolder();
         viewHolder.text = (TextView) view.findViewById(R.id.title);
         view.setTag(viewHolder);
