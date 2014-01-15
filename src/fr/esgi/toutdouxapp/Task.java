@@ -8,10 +8,12 @@ import android.os.Parcelable;
 public class Task implements Parcelable {
 
     private String title;
+    private String description;
 
-    public Task(String title) {
+    public Task(String title, String description) {
         super();
         this.setTitle(title);
+        this.setDescription(description);
     }
 
     public String getTitle() {
@@ -20,6 +22,14 @@ public class Task implements Parcelable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+    
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
@@ -30,6 +40,7 @@ public class Task implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.getTitle());
+        dest.writeString(this.getDescription());
     }
 
     public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {
@@ -46,6 +57,7 @@ public class Task implements Parcelable {
 
     public Task(Parcel in) {
         this.setTitle(in.readString());
+        this.setDescription(in.readString());
     }
 
 }
