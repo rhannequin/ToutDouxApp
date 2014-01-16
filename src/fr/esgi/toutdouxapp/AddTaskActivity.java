@@ -16,8 +16,8 @@ import android.widget.TimePicker;
 public class AddTaskActivity extends Activity {
 
   final private String TAG = "AddTaskActivity";
-  EditText titleInput;
-  EditText descriptionInput;
+
+  EditText titleInput, descriptionInput;
   DatePicker datePicker;
   TimePicker timePicker;
 
@@ -52,7 +52,7 @@ public class AddTaskActivity extends Activity {
           00);
       final Date dueDate = cal.getTime();
 
-      Task newTask = new Task(title, description, dueDate);
+      Task newTask = new Task(title, description, dueDate, new Category("my category"));
   }
 
   private void initFormFields() {

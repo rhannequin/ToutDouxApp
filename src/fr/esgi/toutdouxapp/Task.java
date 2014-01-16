@@ -12,15 +12,18 @@ public class Task implements Parcelable {
     private String title;
     private String description;
     private Date dueDate;
+    private Category category;
 
     public Task(
             String title,
             String description,
-            Date dueDate) {
+            Date dueDate,
+            Category category) {
         super();
         this.setTitle(title);
         this.setDescription(description);
         this.setDueDate(dueDate);
+        this.setCategory(category);
     }
 
     public String getTitle() {
@@ -47,6 +50,14 @@ public class Task implements Parcelable {
         this.dueDate = dueDate;
     }
 
+    public Category getCategory() {
+        return this.category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -57,6 +68,7 @@ public class Task implements Parcelable {
         dest.writeString(this.getTitle());
         dest.writeString(this.getDescription());
         dest.writeLong(this.getDueDate().getTime());
+        dest.writeParcelable(this.getCategory(), flags);
     }
 
     public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {
@@ -75,6 +87,7 @@ public class Task implements Parcelable {
         this.setTitle(in.readString());
         this.setDescription(in.readString());
         this.setDueDate(new Date(in.readLong()));
+        this.setCategory((Category)in.readParcelable(Category.class.getClassLoader()));
     }
 
     public String getTimeLeft() {

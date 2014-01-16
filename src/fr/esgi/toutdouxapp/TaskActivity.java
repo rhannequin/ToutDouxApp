@@ -8,34 +8,34 @@ import android.widget.TextView;
 
 public class TaskActivity extends Activity {
 
-  Task task;
-  private TextView titleView;
-  private TextView descriptionView;
-  private TextView dueDateView;
+    Task task;
+    private TextView titleView, descriptionView, dueDateView, categoryView;
 
-  @Override
-  protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-    setContentView(R.layout.activity_task);
-    getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        setContentView(R.layout.activity_task);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
-    titleView = (TextView) findViewById(R.id.title);
-    descriptionView = (TextView) findViewById(R.id.description);
-    dueDateView = (TextView) findViewById(R.id.due_date);
+        titleView = (TextView) findViewById(R.id.title);
+        descriptionView = (TextView) findViewById(R.id.description);
+        dueDateView = (TextView) findViewById(R.id.due_date);
+        categoryView = (TextView) findViewById(R.id.category);
 
-    final Intent intent = getIntent();
-    task = (Task) intent.getParcelableExtra("task");
-  }
+        final Intent intent = getIntent();
+        task = (Task) intent.getParcelableExtra("task");
+    }
 
-  @Override
-  protected void onStart() {
-    super.onStart();
+    @Override
+    protected void onStart() {
+        super.onStart();
 
-    titleView.setText(task.getTitle());
-    descriptionView.setText(task.getDescription());
-    dueDateView.setText(task.getTimeLeft());
-  }
+        titleView.setText(task.getTitle());
+        descriptionView.setText(task.getDescription());
+        dueDateView.setText(task.getTimeLeft());
+        categoryView.setText("Category: " + task.getCategory().getTitle());
+    }
 
 }

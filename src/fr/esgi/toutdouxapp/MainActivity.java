@@ -22,6 +22,9 @@ public class MainActivity extends Activity {
     private ListView listView;
     private ArrayAdapter<Task> adapter;
 
+    public List<Category> categories;
+    public List<Task> tasks;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +34,8 @@ public class MainActivity extends Activity {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
         listView = (ListView) findViewById(R.id.list);
-        List<Task> tasks = setListTasks();
+        this.categories = setListCategories();
+        this.tasks = setListTasks();
 
         adapter = new TaskArrayAdapter(this, R.layout.activity_tasklist_row, tasks);
         listView.setAdapter(adapter);
@@ -59,12 +63,14 @@ public class MainActivity extends Activity {
     }
 
     private List<Task> setListTasks() {
+        List<Category> categories = this.categories;
         List<Task> tasks = new ArrayList<Task>();
         for(int i = 1; i <= 5; i++) {
             final String title = "This is my task #" + i;
             final String description = "This is my description #" + i;
             final Date dueDate = getOneDay(i);
-            Task task = new Task(title, description, dueDate);
+            final Category category = categories.get(i-1);
+            Task task = new Task(title, description, dueDate, category);
             tasks.add(task);
         }
         return tasks;
@@ -74,6 +80,16 @@ public class MainActivity extends Activity {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, dayBefore);
         return cal.getTime();
+    }
+
+    private List<Category> setListCategories() {
+        List<Category> categories = new ArrayList<Category>();
+        for(int i = 1; i <= 5; i++) {
+            final String title = "This is my category #" + i;
+            Category category = new Category(title);
+            categories.add(category);
+        }
+        return categories;
     }
 
 }
