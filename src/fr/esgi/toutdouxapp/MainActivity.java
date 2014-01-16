@@ -11,25 +11,24 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
     private final String TAG = "MainActivity";
-    ListView listView;
-    ArrayAdapter adapter;
+    private ListView listView;
+    private ArrayAdapter<Task> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         listView = (ListView) findViewById(R.id.list);
         List<Task> tasks = setListTasks();
 
         adapter = new TaskArrayAdapter(this, R.layout.activity_tasklist_row, tasks);
         listView.setAdapter(adapter);
-        
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         	@Override
 	        public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
@@ -39,12 +38,6 @@ public class MainActivity extends Activity {
 	        }
         });
     }
-
-//    public void onClickTaskItem(View v) {
-//        Intent taskActivityIntent = new Intent(this, TaskActivity.class);
-//        taskActivityIntent.putExtra("task", setListTasks().get(0));
-//        startActivity(taskActivityIntent);
-//    }
 
     private List<Task> setListTasks() {
         List<Task> tasks = new ArrayList<Task>();

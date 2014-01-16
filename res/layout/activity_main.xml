@@ -4,15 +4,14 @@
     android:layout_height="fill_parent" >
 
     <ListView
-            android:id="@+id/list"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:dividerHeight="1px"
-            android:cacheColorHint="#0000"
-            android:clipToPadding="true"
-            android:layout_margin="5dp"
-            android:soundEffectsEnabled="true"
-            android:scrollbars="none" >
-    </ListView>
+		android:id="@+id/list"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:dividerHeight="1px"
+		android:cacheColorHint="#0000"
+		android:clipToPadding="true"
+		android:layout_margin="5dp"
+		android:soundEffectsEnabled="true"
+		android:scrollbars="none" />
 
 </LinearLayout>

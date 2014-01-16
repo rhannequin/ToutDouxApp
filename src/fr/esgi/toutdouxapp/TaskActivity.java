@@ -8,8 +8,8 @@ import android.widget.TextView;
 public class TaskActivity extends Activity {
 
   Task task;
-  TextView titleView;
-  TextView descriptionView;
+  private TextView titleView;
+  private TextView descriptionView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +19,7 @@ public class TaskActivity extends Activity {
     titleView = (TextView) findViewById(R.id.title);
     descriptionView = (TextView) findViewById(R.id.description);
 
-    Intent intent = getIntent();
+    final Intent intent = getIntent();
     task = (Task) intent.getParcelableExtra("task");
   }
 
