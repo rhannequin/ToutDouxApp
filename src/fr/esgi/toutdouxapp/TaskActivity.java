@@ -10,6 +10,7 @@ public class TaskActivity extends Activity {
   Task task;
   private TextView titleView;
   private TextView descriptionView;
+  private TextView dueDateView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +19,7 @@ public class TaskActivity extends Activity {
 
     titleView = (TextView) findViewById(R.id.title);
     descriptionView = (TextView) findViewById(R.id.description);
+    dueDateView = (TextView) findViewById(R.id.due_date);
 
     final Intent intent = getIntent();
     task = (Task) intent.getParcelableExtra("task");
@@ -29,6 +31,7 @@ public class TaskActivity extends Activity {
 
     titleView.setText(task.getTitle());
     descriptionView.setText(task.getDescription());
+    dueDateView.setText(task.getTimeLeft());
   }
 
 }

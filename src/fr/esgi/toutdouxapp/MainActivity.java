@@ -1,5 +1,7 @@
 package fr.esgi.toutdouxapp;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,24 +32,31 @@ public class MainActivity extends Activity {
         listView.setAdapter(adapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        	@Override
-	        public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-        		Intent taskActivityIntent = new Intent(MainActivity.this, TaskActivity.class);
-        		taskActivityIntent.putExtra("task", setListTasks().get(position));
-        		startActivity(taskActivityIntent);
-	        }
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+                Intent taskActivityIntent = new Intent(MainActivity.this, TaskActivity.class);
+                taskActivityIntent.putExtra("task", setListTasks().get(position));
+                startActivity(taskActivityIntent);
+            }
         });
     }
 
     private List<Task> setListTasks() {
         List<Task> tasks = new ArrayList<Task>();
         for(int i = 1; i <= 5; i++) {
-        	String title = "This is my task #" + i;
-        	String description = "This is my description #" + i;
-            Task task = new Task(title, description);
+            final String title = "This is my task #" + i;
+            final String description = "This is my description #" + i;
+            final Date dueDate = getOneDay(i);
+            Task task = new Task(title, description, dueDate);
             tasks.add(task);
         }
         return tasks;
+    }
+
+    private Date getOneDay(int dayBefore) {
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, dayBefore);
+        return cal.getTime();
     }
 
 }
