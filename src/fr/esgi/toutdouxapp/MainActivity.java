@@ -66,11 +66,11 @@ public class MainActivity extends Activity {
         ArrayList<Category> categories = this.categories;
         ArrayList<Task> tasks = new ArrayList<Task>();
         for(int i = 1; i <= 5; i++) {
-            final String title = "This is my task #" + i;
-            final String description = "This is my description #" + i;
-            final Date dueDate = getOneDay(i);
-            final Category category = categories.get(i-1);
-            Task task = new Task(title, description, dueDate, category);
+            Task task = new Task();
+            task.setTitle("This is my task #" + i);
+            task.setDescription("This is my description #" + i);
+            task.setDueDate(getOneDay(i));
+            task.setCategory(categories.get(i-1));
             tasks.add(task);
         }
         return tasks;
