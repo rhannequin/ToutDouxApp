@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
     }
 
     private ArrayList<Task> setListTasks() {
-        ArrayList<Task> oldTasks = new ArrayList<Task>();
+        ArrayList<Task> oldTasks = datasource.getAllTasks();
         for(Task task : oldTasks) {
             datasource.deleteTask(task);
         }

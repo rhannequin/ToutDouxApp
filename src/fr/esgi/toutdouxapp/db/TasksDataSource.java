@@ -10,6 +10,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class TasksDataSource {
 
@@ -20,6 +21,8 @@ public class TasksDataSource {
         MySQLiteHelper.COLUMN_ID,
         MySQLiteHelper.COLUMN_TITLE,
         MySQLiteHelper.COLUMN_DESCRIPTION };
+
+    private String TAG = "TasksDataSource";
 
     public TasksDataSource(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -75,6 +78,7 @@ public class TasksDataSource {
         Task task = new Task();
         task.setId(cursor.getLong(0));
         task.setTitle(cursor.getString(1));
+        task.setDescription(cursor.getString(2));
         return task;
     }
 
