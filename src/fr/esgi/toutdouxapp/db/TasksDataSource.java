@@ -1,8 +1,7 @@
 package fr.esgi.toutdouxapp.db;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 import fr.esgi.toutdouxapp.Task;
 import android.content.ContentValues;
@@ -20,7 +19,8 @@ public class TasksDataSource {
     private String[] allColumns = {
         MySQLiteHelper.COLUMN_ID,
         MySQLiteHelper.COLUMN_TITLE,
-        MySQLiteHelper.COLUMN_DESCRIPTION };
+        MySQLiteHelper.COLUMN_DESCRIPTION,
+        MySQLiteHelper.COLUMN_DUE_DATE };
 
     private String TAG = "TasksDataSource";
 
@@ -36,10 +36,11 @@ public class TasksDataSource {
         dbHelper.close();
     }
 
-    public Task createTask(String title, String description) {
+    public Task createTask(String title, String description, Date dueDate) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_TITLE, title);
         values.put(MySQLiteHelper.COLUMN_DESCRIPTION, description);
+        values.put(MySQLiteHelper.COLUMN_DUE_DATE, dueDate.getTime());
         long insertId = database.insert(MySQLiteHelper.TABLE_TASKS, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_TASKS,
             allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
@@ -79,6 +80,7 @@ public class TasksDataSource {
         task.setId(cursor.getLong(0));
         task.setTitle(cursor.getString(1));
         task.setDescription(cursor.getString(2));
+        task.setDueDate(new Date(cursor.getLong(3)));
         return task;
     }
 

@@ -86,7 +86,7 @@ public class MainActivity extends Activity {
         }
 //        ArrayList<Category> categories = this.categories;
         for(int i = 1; i <= 5; i++) {
-            datasource.createTask("This is my task #" + i, "This is my description #" + i);
+            datasource.createTask("This is my task #" + i, "This is my description #" + i, getOneDay(i));
         }
         return datasource.getAllTasks();
     }

@@ -11,6 +11,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_DUE_DATE = "due_date";
 
     private static final String DATABASE_NAME = "my_db.db";
     private static final int DATABASE_VERSION = 1;
@@ -20,8 +21,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     // Database creation sql statement
     private static final String DATABASE_CREATE = "create table " + TABLE_TASKS + "(" +
         COLUMN_ID + " integer primary key autoincrement, " +
-        COLUMN_TITLE + " text not null, " +
-        COLUMN_DESCRIPTION + " text not null);";
+        COLUMN_TITLE + " VARCHAR(255) not null, " +
+        COLUMN_DESCRIPTION + " VARCHAR(255) not null, " +
+        COLUMN_DUE_DATE + " DATETIME not null);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -29,7 +31,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        createDatabase(database);
+        database.execSQL(DATABASE_CREATE);
     }
 
     @Override
@@ -39,10 +41,6 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             newVersion + ", which will destroy all old data");
         dropDatabase(db);
         onCreate(db);
-    }
-
-    public void createDatabase(SQLiteDatabase db) {
-        db.execSQL(DATABASE_CREATE);
     }
 
     public void dropDatabase(SQLiteDatabase db) {

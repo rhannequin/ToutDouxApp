@@ -24,7 +24,7 @@ public class TaskActivity extends Activity {
 
         titleView = (TextView) findViewById(R.id.title);
         descriptionView = (TextView) findViewById(R.id.description);
-        // dueDateView = (TextView) findViewById(R.id.due_date);
+        dueDateView = (TextView) findViewById(R.id.due_date);
         // categoryView = (TextView) findViewById(R.id.category);
 
         final Intent intent = getIntent();
@@ -37,7 +37,7 @@ public class TaskActivity extends Activity {
 
         titleView.setText(task.getTitle());
         descriptionView.setText(task.getDescription());
-        // dueDateView.setText(task.getTimeLeft());
+        dueDateView.setText(task.getTimeLeft());
         // categoryView.setText("Category: " + task.getCategory().getTitle());
     }
 
