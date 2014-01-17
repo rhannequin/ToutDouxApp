@@ -3,7 +3,6 @@ package fr.esgi.toutdouxapp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.List;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -22,8 +21,8 @@ public class MainActivity extends Activity {
     private ListView listView;
     private ArrayAdapter<Task> adapter;
 
-    public List<Category> categories;
-    public List<Task> tasks;
+    public ArrayList<Category> categories;
+    public ArrayList<Task> tasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +43,15 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
                 Intent taskActivityIntent = new Intent(MainActivity.this, TaskActivity.class);
-                taskActivityIntent.putExtra("task", setListTasks().get(position));
+                taskActivityIntent.putExtra("task", MainActivity.this.tasks.get(position));
                 startActivity(taskActivityIntent);
             }
         });
     }
 
     public void addTaskHandler(View v) {
-        final Intent intent = new Intent(this, AddTaskActivity.class);
+        Intent intent = new Intent(this, AddTaskActivity.class);
+        intent.putParcelableArrayListExtra("categories", this.categories);
         startActivity(intent);
     }
 
@@ -62,9 +62,9 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    private List<Task> setListTasks() {
-        List<Category> categories = this.categories;
-        List<Task> tasks = new ArrayList<Task>();
+    private ArrayList<Task> setListTasks() {
+        ArrayList<Category> categories = this.categories;
+        ArrayList<Task> tasks = new ArrayList<Task>();
         for(int i = 1; i <= 5; i++) {
             final String title = "This is my task #" + i;
             final String description = "This is my description #" + i;
@@ -82,8 +82,8 @@ public class MainActivity extends Activity {
         return cal.getTime();
     }
 
-    private List<Category> setListCategories() {
-        List<Category> categories = new ArrayList<Category>();
+    private ArrayList<Category> setListCategories() {
+        ArrayList<Category> categories = new ArrayList<Category>();
         for(int i = 1; i <= 5; i++) {
             final String title = "This is my category #" + i;
             Category category = new Category(title);

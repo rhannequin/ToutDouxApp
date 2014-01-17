@@ -14,44 +14,49 @@
             android:orientation="vertical" >
 
             <EditText
-              android:id="@+id/editText1"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginTop="14dp"
-              android:ems="10"
-              android:hint="Title" >
+                android:id="@+id/editText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:ems="10"
+                android:hint="Title" >
 
-              <requestFocus />
-          </EditText>
+                <requestFocus />
+            </EditText>
 
-          <EditText
-              android:id="@+id/editText2"
-              android:layout_width="wrap_content"
-              android:layout_height="80dp"
-              android:layout_marginTop="14dp"
-              android:ems="10"
-              android:hint="Description"
-              android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginTop="14dp"
+                android:ems="10"
+                android:hint="Description"
+                android:inputType="textMultiLine" />
 
-          <DatePicker
-              android:id="@+id/datePicker1"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content" />
+            <DatePicker
+                android:id="@+id/datePicker1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-          <TimePicker
-              android:id="@+id/timePicker1"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="28dp" />
+            <TimePicker
+                android:id="@+id/timePicker1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="28dp" />
+
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
 
         <Button
-          android:id="@+id/button1"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="Create Task"
-          android:onClick="submitForm" />
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Task"
+            android:onClick="submitForm" />
 
     </LinearLayout>
 

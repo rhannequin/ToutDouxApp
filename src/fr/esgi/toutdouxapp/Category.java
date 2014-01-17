@@ -48,4 +48,8 @@ public class Category implements Parcelable {
         this.setTitle(in.readString());
     }
 
+    public String toString() {
+        return this.getTitle();
+    }
+
 }
