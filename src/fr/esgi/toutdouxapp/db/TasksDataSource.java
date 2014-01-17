@@ -17,10 +17,10 @@ public class TasksDataSource {
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
     private String[] allColumns = {
-        MySQLiteHelper.COLUMN_ID,
-        MySQLiteHelper.COLUMN_TITLE,
-        MySQLiteHelper.COLUMN_DESCRIPTION,
-        MySQLiteHelper.COLUMN_DUE_DATE };
+        MySQLiteHelper.COLUMN_TASK_ID,
+        MySQLiteHelper.COLUMN_TASK_TITLE,
+        MySQLiteHelper.COLUMN_TASK_DESCRIPTION,
+        MySQLiteHelper.COLUMN_TASK_DUE_DATE };
 
     private String TAG = "TasksDataSource";
 
@@ -38,12 +38,12 @@ public class TasksDataSource {
 
     public Task createTask(String title, String description, Date dueDate) {
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_TITLE, title);
-        values.put(MySQLiteHelper.COLUMN_DESCRIPTION, description);
-        values.put(MySQLiteHelper.COLUMN_DUE_DATE, dueDate.getTime());
+        values.put(MySQLiteHelper.COLUMN_TASK_TITLE, title);
+        values.put(MySQLiteHelper.COLUMN_TASK_DESCRIPTION, description);
+        values.put(MySQLiteHelper.COLUMN_TASK_DUE_DATE, dueDate.getTime());
         long insertId = database.insert(MySQLiteHelper.TABLE_TASKS, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_TASKS,
-            allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
+            allColumns, MySQLiteHelper.COLUMN_TASK_ID + " = " + insertId, null,
             null, null, null);
         cursor.moveToFirst();
         Task newTask = cursorToTask(cursor);
@@ -54,7 +54,7 @@ public class TasksDataSource {
     public void deleteTask(Task task) {
         long id = task.getId();
         System.out.println("Task deleted with id: " + id);
-        database.delete(MySQLiteHelper.TABLE_TASKS, MySQLiteHelper.COLUMN_ID
+        database.delete(MySQLiteHelper.TABLE_TASKS, MySQLiteHelper.COLUMN_TASK_ID
             + " = " + id, null);
     }
 

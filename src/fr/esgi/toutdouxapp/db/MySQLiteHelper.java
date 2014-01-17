@@ -7,23 +7,38 @@ import android.util.Log;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 
+    // Tables
     public static final String TABLE_TASKS = "tasks";
-    public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_TITLE = "title";
-    public static final String COLUMN_DESCRIPTION = "description";
-    public static final String COLUMN_DUE_DATE = "due_date";
+    public static final String TABLE_CATEGORIES = "categories";
 
+    // Task attributes
+    public static final String COLUMN_TASK_ID = "_id";
+    public static final String COLUMN_TASK_TITLE = "title";
+    public static final String COLUMN_TASK_DESCRIPTION = "description";
+    public static final String COLUMN_TASK_DUE_DATE = "due_date";
+
+    // Category attributes
+    public static final String COLUMN_CATEGORY_ID = "_id";
+    public static final String COLUMN_CATEGORY_TITLE = "title";
+
+    // Database values
     private static final String DATABASE_NAME = "my_db.db";
     private static final int DATABASE_VERSION = 1;
 
     private String TAG = "MySQLiteHelper";
 
     // Database creation sql statement
-    private static final String DATABASE_CREATE = "create table " + TABLE_TASKS + "(" +
-        COLUMN_ID + " integer primary key autoincrement, " +
-        COLUMN_TITLE + " VARCHAR(255) not null, " +
-        COLUMN_DESCRIPTION + " VARCHAR(255) not null, " +
-        COLUMN_DUE_DATE + " DATETIME not null);";
+    private static final String DATABASE_CREATE_TABLE_TASKS =
+        "CREATE TABLE " + TABLE_TASKS + "(" +
+            COLUMN_TASK_ID + " integer primary key autoincrement, " +
+            COLUMN_TASK_TITLE + " VARCHAR(255) not null, " +
+            COLUMN_TASK_DESCRIPTION + " VARCHAR(255) not null, " +
+            COLUMN_TASK_DUE_DATE + " DATETIME not null);";
+
+    private static final String DATABASE_CREATE_TABLE_CATEGORIES =
+        "CREATE TABLE " + TABLE_CATEGORIES + "(" +
+            COLUMN_CATEGORY_ID + " integer primary key autoincrement, " +
+            COLUMN_CATEGORY_TITLE + " VARCHAR(255) not null);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -31,7 +46,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL(DATABASE_CREATE);
+        database.execSQL(DATABASE_CREATE_TABLE_TASKS);
+        database.execSQL(DATABASE_CREATE_TABLE_CATEGORIES);
     }
 
     @Override
@@ -45,6 +61,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     public void dropDatabase(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASKS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
     }
 
 }
