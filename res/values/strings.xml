@@ -6,4 +6,24 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_task">TaskActivity</string>
 
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+    <string-array name="nav_drawer_items">
+        <item >Home</item>
+        <item >Find People</item>
+        <item >Photos</item>
+        <item >Communities</item>
+        <item >Pages</item>
+        <item >What\'s Hot</item>
+    </string-array>
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_people</item>
+        <item>@drawable/ic_photos</item>
+        <item>@drawable/ic_communities</item>
+        <item>@drawable/ic_pages</item>
+        <item>@drawable/ic_whats_hot</item>
+    </array>
+    <string name="desc_list_item_icon">Item Icon</string>
+
 </resources>
