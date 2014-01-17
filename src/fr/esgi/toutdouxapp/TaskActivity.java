@@ -21,8 +21,8 @@ public class TaskActivity extends Activity {
 
         titleView = (TextView) findViewById(R.id.title);
         descriptionView = (TextView) findViewById(R.id.description);
-        dueDateView = (TextView) findViewById(R.id.due_date);
-        categoryView = (TextView) findViewById(R.id.category);
+        // dueDateView = (TextView) findViewById(R.id.due_date);
+        // categoryView = (TextView) findViewById(R.id.category);
 
         final Intent intent = getIntent();
         task = (Task) intent.getParcelableExtra("task");
@@ -34,8 +34,8 @@ public class TaskActivity extends Activity {
 
         titleView.setText(task.getTitle());
         descriptionView.setText(task.getDescription());
-        dueDateView.setText(task.getTimeLeft());
-        categoryView.setText("Category: " + task.getCategory().getTitle());
+        // dueDateView.setText(task.getTimeLeft());
+        // categoryView.setText("Category: " + task.getCategory().getTitle());
     }
 
 }

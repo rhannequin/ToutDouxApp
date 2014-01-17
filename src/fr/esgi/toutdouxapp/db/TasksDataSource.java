@@ -1,5 +1,6 @@
 package fr.esgi.toutdouxapp.db;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,10 @@ public class TasksDataSource {
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
-    private String[] allColumns = { MySQLiteHelper.COLUMN_ID, MySQLiteHelper.COLUMN_TASK };
+    private String[] allColumns = {
+        MySQLiteHelper.COLUMN_ID,
+        MySQLiteHelper.COLUMN_TITLE,
+        MySQLiteHelper.COLUMN_DESCRIPTION };
 
     public TasksDataSource(Context context) {
         dbHelper = new MySQLiteHelper(context);
@@ -29,9 +33,10 @@ public class TasksDataSource {
         dbHelper.close();
     }
 
-    public Task createTask(String task) {
+    public Task createTask(String title, String description) {
         ContentValues values = new ContentValues();
-        values.put(MySQLiteHelper.COLUMN_TASK, task);
+        values.put(MySQLiteHelper.COLUMN_TITLE, title);
+        values.put(MySQLiteHelper.COLUMN_DESCRIPTION, description);
         long insertId = database.insert(MySQLiteHelper.TABLE_TASKS, null, values);
         Cursor cursor = database.query(MySQLiteHelper.TABLE_TASKS,
             allColumns, MySQLiteHelper.COLUMN_ID + " = " + insertId, null,
@@ -49,8 +54,8 @@ public class TasksDataSource {
             + " = " + id, null);
     }
 
-    public List<Task> getAllTasks() {
-        List<Task> tasks = new ArrayList<Task>();
+    public ArrayList<Task> getAllTasks() {
+        ArrayList<Task> tasks = new ArrayList<Task>();
 
         Cursor cursor = database.query(MySQLiteHelper.TABLE_TASKS,
             allColumns, null, null, null, null, null);

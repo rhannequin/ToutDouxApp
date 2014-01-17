@@ -66,8 +66,8 @@ public class AddTaskActivity extends Activity {
         Task newTask = new Task();
         newTask.setTitle(title);
         newTask.setDescription(description);
-        newTask.setDueDate(dueDate);
-        newTask.setCategory(category);
+        // newTask.setDueDate(dueDate);
+        // newTask.setCategory(category);
     }
 
     private void initFormFields() {

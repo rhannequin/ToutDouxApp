@@ -12,8 +12,8 @@ public class Task implements Parcelable {
     private long id;
     private String title;
     private String description;
-    private Date dueDate;
-    private Category category;
+    // private Date dueDate;
+    // private Category category;
 
     public Task() {
         super();
@@ -43,7 +43,7 @@ public class Task implements Parcelable {
         this.description = description;
     }
 
-    public Date getDueDate() {
+    /* public Date getDueDate() {
         return this.dueDate;
     }
 
@@ -57,7 +57,7 @@ public class Task implements Parcelable {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
+    } */
 
     @Override
     public int describeContents() {
@@ -69,8 +69,8 @@ public class Task implements Parcelable {
         dest.writeLong(this.getId());
         dest.writeString(this.getTitle());
         dest.writeString(this.getDescription());
-        dest.writeLong(this.getDueDate().getTime());
-        dest.writeParcelable(this.getCategory(), flags);
+        // dest.writeLong(this.getDueDate().getTime());
+        // dest.writeParcelable(this.getCategory(), flags);
     }
 
     public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {
@@ -89,11 +89,11 @@ public class Task implements Parcelable {
         this.setId(in.readLong());
         this.setTitle(in.readString());
         this.setDescription(in.readString());
-        this.setDueDate(new Date(in.readLong()));
-        this.setCategory((Category)in.readParcelable(Category.class.getClassLoader()));
+        // this.setDueDate(new Date(in.readLong()));
+        // this.setCategory((Category)in.readParcelable(Category.class.getClassLoader()));
     }
 
-    public String getTimeLeft() {
+    /*public String getTimeLeft() {
         Date now = new Date();
 
         final long timeNow = now.getTime();
@@ -111,6 +111,6 @@ public class Task implements Parcelable {
         }
 
         return result;
-    }
+    }*/
 
 }

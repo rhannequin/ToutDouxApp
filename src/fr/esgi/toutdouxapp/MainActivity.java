@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
 
+import fr.esgi.toutdouxapp.db.TasksDataSource;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +21,7 @@ public class MainActivity extends Activity {
     private final String TAG = "MainActivity";
     private ListView listView;
     private ArrayAdapter<Task> adapter;
+    private TasksDataSource datasource;
 
     public ArrayList<Category> categories;
     public ArrayList<Task> tasks;
@@ -31,6 +33,9 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_main);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+
+        datasource = new TasksDataSource(this);
+        datasource.open();
 
         listView = (ListView) findViewById(R.id.list);
         this.categories = setListCategories();
@@ -62,18 +67,28 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        datasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        datasource.close();
+        super.onPause();
+    }
+
     private ArrayList<Task> setListTasks() {
-        ArrayList<Category> categories = this.categories;
-        ArrayList<Task> tasks = new ArrayList<Task>();
-        for(int i = 1; i <= 5; i++) {
-            Task task = new Task();
-            task.setTitle("This is my task #" + i);
-            task.setDescription("This is my description #" + i);
-            task.setDueDate(getOneDay(i));
-            task.setCategory(categories.get(i-1));
-            tasks.add(task);
+        ArrayList<Task> oldTasks = new ArrayList<Task>();
+        for(Task task : oldTasks) {
+            datasource.deleteTask(task);
         }
-        return tasks;
+//        ArrayList<Category> categories = this.categories;
+        for(int i = 1; i <= 5; i++) {
+            datasource.createTask("This is my task #" + i, "This is my description #" + i);
+        }
+        return datasource.getAllTasks();
     }
 
     private Date getOneDay(int dayBefore) {
