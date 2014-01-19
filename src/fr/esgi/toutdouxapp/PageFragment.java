@@ -17,7 +17,7 @@ public class PageFragment extends Fragment{
         int position = getArguments().getInt("position");
  
         // List of rivers
-        String[] countries = getResources().getStringArray(R.array.countries);
+        String[] pages = getResources().getStringArray(R.array.pages);
  
         // Creating view corresponding to the fragment
         View v = inflater.inflate(R.layout.fragment_layout, container, false);
@@ -26,7 +26,7 @@ public class PageFragment extends Fragment{
         TextView tv = (TextView) v.findViewById(R.id.tv_content);
  
         // Setting currently selected river name in the TextView
-        tv.setText(countries[position]);
+        tv.setText(pages[position]);
  
         return v;
     }

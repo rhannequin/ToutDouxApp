@@ -4,11 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,21 +28,15 @@ public class MainActivity extends ActionBarActivity {
     int mPosition = -1;
     String mTitle = "";
 
-    // Array of strings storing country names
-    String[] mCountries ;
+    // Array of strings storing page names
+    String[] mPages ;
  
     // Array of integers points to images stored in /res/drawable-ldpi/
-    int[] mFlags = new int[]{
-        R.drawable.india,
-        R.drawable.pakistan,
-        R.drawable.srilanka,
-        R.drawable.china,
-        R.drawable.bangladesh,
-        R.drawable.nepal,
-        R.drawable.afghanistan,
-        R.drawable.nkorea,
-        R.drawable.skorea,
-        R.drawable.japan
+    int[] mIcons = new int[]{
+        R.drawable.ic_action_view_as_list,
+        R.drawable.ic_todo,
+        R.drawable.ic_done,
+        R.drawable.ic_action_add_category
     };
 
     // Array of strings to initial counts
@@ -51,17 +48,23 @@ public class MainActivity extends ActionBarActivity {
     private LinearLayout mDrawer ;
     private List<HashMap<String,String>> mList ;
     private SimpleAdapter mAdapter;
-    final private String COUNTRY = "country";
-    final private String FLAG = "flag";
+    final private String PAGE = "page";
+    final private String ICON = "icon";
     final private String COUNT = "count";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        // Set header with custom options
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#333333")));
+        
         setContentView(R.layout.activity_main);
 
-        // Getting an array of country names
-        mCountries = getResources().getStringArray(R.array.countries);
+        // Getting an array of page names
+        mPages = getResources().getStringArray(R.array.pages);
 
         // Title of the activity
         mTitle = (String)getTitle();
@@ -72,21 +75,21 @@ public class MainActivity extends ActionBarActivity {
         // Getting a reference to the sidebar drawer ( Title + ListView )
         mDrawer = ( LinearLayout) findViewById(R.id.drawer);
 
-        // Each row in the list stores country name, count and flag
+        // Each row in the list stores page name, count and icon
         mList = new ArrayList<HashMap<String,String>>();
-        for(int i=0;i<10;i++){
+        for(int i=0;i<4;i++){
             HashMap<String, String> hm = new HashMap<String,String>();
-            hm.put(COUNTRY, mCountries[i]);
+            hm.put(PAGE, mPages[i]);
             hm.put(COUNT, mCount[i]);
-            hm.put(FLAG, Integer.toString(mFlags[i]) );
+            hm.put(ICON, Integer.toString(mIcons[i]) );
             mList.add(hm);
         }
 
         // Keys used in Hashmap
-        String[] from = { FLAG,COUNTRY,COUNT };
+        String[] from = { ICON,PAGE,COUNT };
 
         // Ids of views in listview_layout
-        int[] to = { R.id.flag , R.id.country , R.id.count};
+        int[] to = { R.id.icon , R.id.page , R.id.count};
 
         // Instantiating an adapter to store each items
         // R.layout.drawer_layout defines the layout of each item
@@ -100,13 +103,13 @@ public class MainActivity extends ActionBarActivity {
 
             /** Called when drawer is closed */
             public void onDrawerClosed(View view) {
-                highlightSelectedCountry();
+                highlightSelectedPage();
                 supportInvalidateOptionsMenu();
             }
 
             /** Called when a drawer is opened */
             public void onDrawerOpened(View drawerView) {
-                getSupportActionBar().setTitle("Select a Country");
+                getSupportActionBar().setTitle(getString(R.string.app_name));
                 supportInvalidateOptionsMenu();
             }
         };
@@ -123,10 +126,10 @@ public class MainActivity extends ActionBarActivity {
                 // Increment hit count of the drawer list item
                 incrementHitCount(position);
 
-                if(position < 5) { // Show fragment for countries : 0 to 4
+                if(position < 5) { // Show fragment for pages : 0 to 4
                     showFragment(position);
-                } else { // Show message box for countries : 5 to 9
-                    Toast.makeText(getApplicationContext(), mCountries[position], Toast.LENGTH_LONG).show();
+                } else { // Show message box for pages : 5 to 9
+                    Toast.makeText(getApplicationContext(), mPages[position], Toast.LENGTH_LONG).show();
                 }
 
                 // Closing the drawer
@@ -134,11 +137,7 @@ public class MainActivity extends ActionBarActivity {
             }
 
         });
- 
-        // Enabling Up navigation
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        
 
         // Setting the adapter to the listView
         mDrawerList.setAdapter(mAdapter);
@@ -183,8 +182,8 @@ public class MainActivity extends ActionBarActivity {
 
     public void showFragment(int position){
 
-        //Currently selected country
-        mTitle = mCountries[position];
+        //Currently selected page
+        mTitle = mPages[position];
 
         // Creating a fragment object
         PageFragment cFragment = new PageFragment();
@@ -211,8 +210,8 @@ public class MainActivity extends ActionBarActivity {
         ft.commit();
     }
  
-    // Highlight the selected country : 0 to 4
-    public void highlightSelectedCountry(){
+    // Highlight the selected page : 0 to 4
+    public void highlightSelectedPage(){
         int selectedItem = mDrawerList.getCheckedItemPosition();
         
         if(selectedItem > 4) {
@@ -222,7 +221,7 @@ public class MainActivity extends ActionBarActivity {
         }
 
         if(mPosition!=-1) {
-            getSupportActionBar().setTitle(mCountries[mPosition]);
+            getSupportActionBar().setTitle(mPages[mPosition]);
         }
     }
 }

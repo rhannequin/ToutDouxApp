@@ -8,17 +8,11 @@
     <dimen name="count">10dp</dimen>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
-    <string-array name="countries">
-        <item>India</item>
-        <item>Pakistan</item>
-        <item>Sri Lanka</item>
-        <item>China</item>
-        <item>Bangladesh</item>
-        <item>Nepal</item>
-        <item>Afghanistan</item>
-        <item>North Korea</item>
-        <item>South Korea</item>
-        <item>Japan</item>
+    <string-array name="pages">
+        <item>All tasks</item>
+        <item>To do</item>
+        <item>Done</item>
+        <item>New category</item>
     </string-array>
 
 </resources>
