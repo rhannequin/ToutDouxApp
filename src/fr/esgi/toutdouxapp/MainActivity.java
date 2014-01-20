@@ -3,7 +3,10 @@ package fr.esgi.toutdouxapp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Random;
 
+import fr.esgi.toutdouxapp.db.CategoriesDataSource;
+import fr.esgi.toutdouxapp.db.TasksDataSource;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +23,8 @@ public class MainActivity extends Activity {
     private final String TAG = "MainActivity";
     private ListView listView;
     private ArrayAdapter<Task> adapter;
+    private TasksDataSource tasksDatasource;
+    private CategoriesDataSource categoriesDatasource;
 
     public ArrayList<Category> categories;
     public ArrayList<Task> tasks;
@@ -33,8 +38,22 @@ public class MainActivity extends Activity {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
         listView = (ListView) findViewById(R.id.list);
-        this.categories = setListCategories();
-        this.tasks = setListTasks();
+
+        categoriesDatasource = new CategoriesDataSource(this);
+        categoriesDatasource.open();
+        this.categories = categoriesDatasource.getAllCategories();
+        if(this.categories.size() == 0) {
+            this.categories = setListCategories();
+        }
+
+        tasksDatasource = new TasksDataSource(this);
+        tasksDatasource.open();
+        //this.tasks = setListTasks();
+
+        this.tasks = tasksDatasource.getAllTasks();
+        if(this.tasks.size() == 0) {
+            this.tasks = setListTasks();
+        }
 
         adapter = new TaskArrayAdapter(this, R.layout.activity_tasklist_row, tasks);
         listView.setAdapter(adapter);
@@ -62,18 +81,29 @@ public class MainActivity extends Activity {
         return true;
     }
 
+    @Override
+    protected void onResume() {
+        tasksDatasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        tasksDatasource.close();
+        super.onPause();
+    }
+
     private ArrayList<Task> setListTasks() {
         ArrayList<Category> categories = this.categories;
-        ArrayList<Task> tasks = new ArrayList<Task>();
+        tasksDatasource.resetTable();
         for(int i = 1; i <= 5; i++) {
-            final String title = "This is my task #" + i;
-            final String description = "This is my description #" + i;
-            final Date dueDate = getOneDay(i);
-            final Category category = categories.get(i-1);
-            Task task = new Task(title, description, dueDate, category);
-            tasks.add(task);
+            tasksDatasource.createTask(
+                "This is my task #" + i,
+                "This is my description #" + i,
+                getOneDay(i),
+                categories.get(new Random().nextInt(categories.size())).getId());
         }
-        return tasks;
+        return tasksDatasource.getAllTasks();
     }
 
     private Date getOneDay(int dayBefore) {
@@ -83,13 +113,11 @@ public class MainActivity extends Activity {
     }
 
     private ArrayList<Category> setListCategories() {
-        ArrayList<Category> categories = new ArrayList<Category>();
+        categoriesDatasource.resetTable();
         for(int i = 1; i <= 5; i++) {
-            final String title = "This is my category #" + i;
-            Category category = new Category(title);
-            categories.add(category);
+            categoriesDatasource.createCategory("This is my category #" + i);
         }
-        return categories;
+        return categoriesDatasource.getAllCategories();
     }
 
 }

@@ -7,11 +7,19 @@ import android.os.Parcelable;
 @SuppressLint("ParcelCreator")
 public class Category implements Parcelable {
 
+    private long id;
     private String title;
 
-    public Category(String title) {
+    public Category() {
         super();
-        this.setTitle(title);
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -29,6 +37,7 @@ public class Category implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.getId());
         dest.writeString(this.getTitle());
     }
 
@@ -45,6 +54,7 @@ public class Category implements Parcelable {
     };
 
     public Category(Parcel in) {
+        this.setId(in.readLong());
         this.setTitle(in.readString());
     }
 

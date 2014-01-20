@@ -3,6 +3,7 @@ package fr.esgi.toutdouxapp;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -10,6 +11,8 @@ public class TaskActivity extends Activity {
 
     Task task;
     private TextView titleView, descriptionView, dueDateView, categoryView;
+
+    private String TAG = "TaskActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

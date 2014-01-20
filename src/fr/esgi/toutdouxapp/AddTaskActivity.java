@@ -63,7 +63,11 @@ public class AddTaskActivity extends Activity {
         final Date dueDate = cal.getTime();
         Category category = (Category) categoriesSpinner.getSelectedItem();
 
-        Task newTask = new Task(title, description, dueDate, category);
+        Task newTask = new Task();
+        newTask.setTitle(title);
+        newTask.setDescription(description);
+        newTask.setDueDate(dueDate);
+        // newTask.setCategory(category);
     }
 
     private void initFormFields() {
