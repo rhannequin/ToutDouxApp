@@ -16,6 +16,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public static final String COLUMN_TASK_TITLE = "title";
     public static final String COLUMN_TASK_DESCRIPTION = "description";
     public static final String COLUMN_TASK_DUE_DATE = "due_date";
+    public static final String COLUMN_TASK_CATEGORY_ID = "category_id";
 
     // Category attributes
     public static final String COLUMN_CATEGORY_ID = "_id";
@@ -33,7 +34,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             COLUMN_TASK_ID + " integer primary key autoincrement, " +
             COLUMN_TASK_TITLE + " VARCHAR(255) not null, " +
             COLUMN_TASK_DESCRIPTION + " VARCHAR(255) not null, " +
-            COLUMN_TASK_DUE_DATE + " DATETIME not null);";
+            COLUMN_TASK_DUE_DATE + " DATETIME not null, " +
+            COLUMN_TASK_CATEGORY_ID + " integer not null);";
 
     private static final String DATABASE_CREATE_TABLE_CATEGORIES =
         "CREATE TABLE " + TABLE_CATEGORIES + "(" +

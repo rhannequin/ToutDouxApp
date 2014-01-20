@@ -1,6 +1,5 @@
 package fr.esgi.toutdouxapp.db;
 
-import java.util.Date;
 import java.util.ArrayList;
 
 import fr.esgi.toutdouxapp.Category;
@@ -38,20 +37,7 @@ public class CategoriesDataSource {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_CATEGORY_TITLE, title);
         long insertId = database.insert(MySQLiteHelper.TABLE_CATEGORIES, null, values);
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_CATEGORIES,
-            allColumns, MySQLiteHelper.COLUMN_CATEGORY_ID + " = " + insertId, null,
-            null, null, null);
-        cursor.moveToFirst();
-        Category newCategory = cursorToCategory(cursor);
-        cursor.close();
-        return newCategory;
-    }
-
-    public void deleteCategory(Category category) {
-        long id = category.getId();
-        System.out.println("Category deleted with id: " + id);
-        database.delete(MySQLiteHelper.TABLE_CATEGORIES, MySQLiteHelper.COLUMN_CATEGORY_ID
-            + " = " + id, null);
+        return getOneCategory(insertId);
     }
 
     public ArrayList<Category> getAllCategories() {
@@ -69,6 +55,27 @@ public class CategoriesDataSource {
         // make sure to close the cursor
         cursor.close();
         return categories;
+    }
+
+    public Category getOneCategory(long id) {
+        Cursor cursor = database.query(MySQLiteHelper.TABLE_CATEGORIES,
+            allColumns, MySQLiteHelper.COLUMN_CATEGORY_ID + " = " + id, null,
+            null, null, null);
+        cursor.moveToFirst();
+        Category category = cursorToCategory(cursor);
+        cursor.close();
+        return category;
+    }
+
+    public void deleteCategory(Category category) {
+        long id = category.getId();
+        System.out.println("Category deleted with id: " + id);
+        database.delete(MySQLiteHelper.TABLE_CATEGORIES, MySQLiteHelper.COLUMN_CATEGORY_ID
+            + " = " + id, null);
+    }
+
+    public void resetTable() {
+        database.delete(MySQLiteHelper.TABLE_CATEGORIES, null, null);
     }
 
     private Category cursorToCategory(Cursor cursor) {

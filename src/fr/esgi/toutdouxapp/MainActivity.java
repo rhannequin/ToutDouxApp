@@ -3,6 +3,7 @@ package fr.esgi.toutdouxapp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
+import java.util.Random;
 
 import fr.esgi.toutdouxapp.db.CategoriesDataSource;
 import fr.esgi.toutdouxapp.db.TasksDataSource;
@@ -36,15 +37,23 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
-        tasksDatasource = new TasksDataSource(this);
-        tasksDatasource.open();
+        listView = (ListView) findViewById(R.id.list);
 
         categoriesDatasource = new CategoriesDataSource(this);
         categoriesDatasource.open();
+        this.categories = categoriesDatasource.getAllCategories();
+        if(this.categories.size() == 0) {
+            this.categories = setListCategories();
+        }
 
-        listView = (ListView) findViewById(R.id.list);
-        this.categories = setListCategories();
-        this.tasks = setListTasks();
+        tasksDatasource = new TasksDataSource(this);
+        tasksDatasource.open();
+        //this.tasks = setListTasks();
+
+        this.tasks = tasksDatasource.getAllTasks();
+        if(this.tasks.size() == 0) {
+            this.tasks = setListTasks();
+        }
 
         adapter = new TaskArrayAdapter(this, R.layout.activity_tasklist_row, tasks);
         listView.setAdapter(adapter);
@@ -85,13 +94,14 @@ public class MainActivity extends Activity {
     }
 
     private ArrayList<Task> setListTasks() {
-        ArrayList<Task> oldTasks = tasksDatasource.getAllTasks();
-        for(Task task : oldTasks) {
-            tasksDatasource.deleteTask(task);
-        }
-//        ArrayList<Category> categories = this.categories;
+        ArrayList<Category> categories = this.categories;
+        tasksDatasource.resetTable();
         for(int i = 1; i <= 5; i++) {
-            tasksDatasource.createTask("This is my task #" + i, "This is my description #" + i, getOneDay(i));
+            tasksDatasource.createTask(
+                "This is my task #" + i,
+                "This is my description #" + i,
+                getOneDay(i),
+                categories.get(new Random().nextInt(categories.size())).getId());
         }
         return tasksDatasource.getAllTasks();
     }
@@ -103,10 +113,7 @@ public class MainActivity extends Activity {
     }
 
     private ArrayList<Category> setListCategories() {
-        ArrayList<Category> oldCategories = categoriesDatasource.getAllCategories();
-        for(Category category : oldCategories) {
-            categoriesDatasource.deleteCategory(category);
-        }
+        categoriesDatasource.resetTable();
         for(int i = 1; i <= 5; i++) {
             categoriesDatasource.createCategory("This is my category #" + i);
         }
