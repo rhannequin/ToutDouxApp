@@ -3,6 +3,7 @@ package fr.esgi.toutdouxapp;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class CategoryArrayAdapter extends ArrayAdapter<Category> {
         final ViewHolder viewHolder = new ViewHolder();
         viewHolder.text = (TextView) view.findViewById(R.id.title);
         view.setTag(viewHolder);
+        view.setBackgroundColor(Color.parseColor(list.get(position).getColor()));
         ViewHolder holder = (ViewHolder) view.getTag();
         holder.text.setText(list.get(position).getTitle());
         return view;
