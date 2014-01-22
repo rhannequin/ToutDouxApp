@@ -3,12 +3,16 @@ package fr.esgi.toutdouxapp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Random;
 
+import fr.esgi.toutdouxapp.db.CategoriesDataSource;
+import fr.esgi.toutdouxapp.db.TasksDataSource;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -20,6 +24,11 @@ public class MainActivity extends Activity {
     private final String TAG = "MainActivity";
     private ListView listView;
     private ArrayAdapter<Task> adapter;
+    private TasksDataSource tasksDatasource;
+    private CategoriesDataSource categoriesDatasource;
+
+    public ArrayList<Category> categories;
+    public ArrayList<Task> tasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +39,44 @@ public class MainActivity extends Activity {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
         listView = (ListView) findViewById(R.id.list);
-        List<Task> tasks = setListTasks();
+    }
+
+    public void addTaskHandler(View v) {
+        Intent intent = new Intent(this, AddTaskActivity.class);
+        intent.putParcelableArrayListExtra("categories", this.categories);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        tasksDatasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        categoriesDatasource = new CategoriesDataSource(this);
+        categoriesDatasource.open();
+        this.categories = categoriesDatasource.getAllCategories();
+        if(this.categories.size() == 0) {
+            this.categories = setListCategories();
+        }
+
+        tasksDatasource = new TasksDataSource(this);
+        tasksDatasource.open();
+        this.tasks = tasksDatasource.getAllTasks();
+        if(this.tasks.size() == 0) {
+            this.tasks = setListTasks();
+        }
 
         adapter = new TaskArrayAdapter(this, R.layout.activity_tasklist_row, tasks);
         listView.setAdapter(adapter);
@@ -39,28 +85,49 @@ public class MainActivity extends Activity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
                 Intent taskActivityIntent = new Intent(MainActivity.this, TaskActivity.class);
-                taskActivityIntent.putExtra("task", setListTasks().get(position));
+                taskActivityIntent.putExtra("task", MainActivity.this.tasks.get(position));
                 startActivity(taskActivityIntent);
             }
         });
     }
 
-    private List<Task> setListTasks() {
-        List<Task> tasks = new ArrayList<Task>();
-        for(int i = 1; i <= 5; i++) {
-            final String title = "This is my task #" + i;
-            final String description = "This is my description #" + i;
-            final Date dueDate = getOneDay(i);
-            Task task = new Task(title, description, dueDate);
-            tasks.add(task);
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(tasksDatasource != null) {
+            tasksDatasource.close();
         }
-        return tasks;
+    }
+
+    private ArrayList<Task> setListTasks() {
+        ArrayList<Category> categories = this.categories;
+        tasksDatasource.resetTable();
+        for(int i = 1; i <= 5; i++) {
+            tasksDatasource.createTask(
+                "This is my task #" + i,
+                "This is my description #" + i,
+                getOneDay(i),
+                categories.get(new Random().nextInt(categories.size())).getId());
+        }
+        return tasksDatasource.getAllTasks();
     }
 
     private Date getOneDay(int dayBefore) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.DATE, dayBefore);
         return cal.getTime();
+    }
+
+    private ArrayList<Category> setListCategories() {
+        categoriesDatasource.resetTable();
+        for(int i = 1; i <= 5; i++) {
+            String title = "This is my category #" + i;
+            Random r = new Random();
+            int color = Color.argb(255, r.nextInt(256), r.nextInt(256), r.nextInt(256));
+            String hexa = String.format("#%06X", 0xFFFFFF & color);
+            categoriesDatasource.createCategory(title, hexa);
+        }
+        return categoriesDatasource.getAllCategories();
     }
 
 }
