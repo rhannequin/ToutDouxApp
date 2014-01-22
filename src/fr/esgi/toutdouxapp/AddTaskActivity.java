@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import fr.esgi.toutdouxapp.db.TasksDataSource;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -20,6 +21,7 @@ import android.widget.TimePicker;
 public class AddTaskActivity extends Activity {
 
     final private String TAG = "AddTaskActivity";
+    private TasksDataSource tasksDatasource;
 
     ArrayList<Category> categories;
 
@@ -36,6 +38,9 @@ public class AddTaskActivity extends Activity {
         setContentView(R.layout.activity_add_task);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
+        tasksDatasource = new TasksDataSource(this);
+        tasksDatasource.open();
+
         final Intent intent = getIntent();
         this.categories = intent.getParcelableArrayListExtra("categories");
 
@@ -47,6 +52,18 @@ public class AddTaskActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.add_task, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        tasksDatasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        tasksDatasource.close();
+        super.onPause();
     }
 
     public void submitForm(View v) {
@@ -63,11 +80,7 @@ public class AddTaskActivity extends Activity {
         final Date dueDate = cal.getTime();
         Category category = (Category) categoriesSpinner.getSelectedItem();
 
-        Task newTask = new Task();
-        newTask.setTitle(title);
-        newTask.setDescription(description);
-        newTask.setDueDate(dueDate);
-        // newTask.setCategory(category);
+        tasksDatasource.createTask(title, description, dueDate, category.getId());
     }
 
     private void initFormFields() {
@@ -80,8 +93,6 @@ public class AddTaskActivity extends Activity {
         ArrayAdapter<Category> spinnerArrayAdapter = new ArrayAdapter<Category>(
             this,
             android.R.layout.simple_spinner_item, this.categories);
-
-          // Step 3: Tell the spinner about our adapter
         this.categoriesSpinner.setAdapter(spinnerArrayAdapter);
     }
 
