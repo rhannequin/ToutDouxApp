@@ -38,8 +38,7 @@ public class TasksDataSource {
     }
 
     public void close() {
-        dbHelper.close();
-        categoriesDatasource.close();
+        database.close();
     }
 
     public Task createTask(String title, String description, Date dueDate, long categoryId) {

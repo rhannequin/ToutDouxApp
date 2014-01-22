@@ -39,6 +39,30 @@ public class MainActivity extends Activity {
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
         listView = (ListView) findViewById(R.id.list);
+    }
+
+    public void addTaskHandler(View v) {
+        Intent intent = new Intent(this, AddTaskActivity.class);
+        intent.putParcelableArrayListExtra("categories", this.categories);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    protected void onResume() {
+        tasksDatasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
         categoriesDatasource = new CategoriesDataSource(this);
         categoriesDatasource.open();
@@ -65,25 +89,6 @@ public class MainActivity extends Activity {
                 startActivity(taskActivityIntent);
             }
         });
-    }
-
-    public void addTaskHandler(View v) {
-        Intent intent = new Intent(this, AddTaskActivity.class);
-        intent.putParcelableArrayListExtra("categories", this.categories);
-        startActivity(intent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-    @Override
-    protected void onResume() {
-        tasksDatasource.open();
-        super.onResume();
     }
 
     @Override

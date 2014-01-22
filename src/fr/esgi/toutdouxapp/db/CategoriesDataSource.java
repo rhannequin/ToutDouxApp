@@ -31,7 +31,7 @@ public class CategoriesDataSource {
     }
 
     public void close() {
-        dbHelper.close();
+        database.close();
     }
 
     public Category createCategory(String title, String color) {

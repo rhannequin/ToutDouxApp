@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 public class AddTaskActivity extends Activity {
 
@@ -81,6 +82,9 @@ public class AddTaskActivity extends Activity {
         Category category = (Category) categoriesSpinner.getSelectedItem();
 
         tasksDatasource.createTask(title, description, dueDate, category.getId());
+
+        Toast.makeText(getApplicationContext(), "Task created!", Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     private void initFormFields() {
