@@ -21,6 +21,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     // Category attributes
     public static final String COLUMN_CATEGORY_ID = "_id";
     public static final String COLUMN_CATEGORY_TITLE = "title";
+    public static final String COLUMN_CATEGORY_COLOR = "color";
 
     // Database values
     private static final String DATABASE_NAME = "my_db.db";
@@ -40,7 +41,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final String DATABASE_CREATE_TABLE_CATEGORIES =
         "CREATE TABLE " + TABLE_CATEGORIES + "(" +
             COLUMN_CATEGORY_ID + " integer primary key autoincrement, " +
-            COLUMN_CATEGORY_TITLE + " VARCHAR(255) not null);";
+            COLUMN_CATEGORY_TITLE + " VARCHAR(255) not null, " +
+            COLUMN_CATEGORY_COLOR + " VARCHAR(10) not null);";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

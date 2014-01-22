@@ -10,6 +10,7 @@ import fr.esgi.toutdouxapp.db.TasksDataSource;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -48,8 +49,6 @@ public class MainActivity extends Activity {
 
         tasksDatasource = new TasksDataSource(this);
         tasksDatasource.open();
-        //this.tasks = setListTasks();
-
         this.tasks = tasksDatasource.getAllTasks();
         if(this.tasks.size() == 0) {
             this.tasks = setListTasks();
@@ -115,7 +114,11 @@ public class MainActivity extends Activity {
     private ArrayList<Category> setListCategories() {
         categoriesDatasource.resetTable();
         for(int i = 1; i <= 5; i++) {
-            categoriesDatasource.createCategory("This is my category #" + i);
+            String title = "This is my category #" + i;
+            Random r = new Random();
+            int color = Color.argb(255, r.nextInt(256), r.nextInt(256), r.nextInt(256));
+            String hexa = String.format("#%06X", 0xFFFFFF & color);
+            categoriesDatasource.createCategory(title, hexa);
         }
         return categoriesDatasource.getAllCategories();
     }

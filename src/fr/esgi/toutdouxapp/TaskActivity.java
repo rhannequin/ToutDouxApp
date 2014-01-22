@@ -38,7 +38,8 @@ public class TaskActivity extends Activity {
         titleView.setText(task.getTitle());
         descriptionView.setText(task.getDescription());
         dueDateView.setText(task.getTimeLeft());
-        categoryView.setText("Category: " + task.getCategory().getTitle());
+        Category category = task.getCategory();
+        categoryView.setText("Category: " + category.getTitle() + " (" + category.getColor() + ")");
     }
 
 }

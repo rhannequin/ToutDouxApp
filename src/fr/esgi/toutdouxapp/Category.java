@@ -9,6 +9,7 @@ public class Category implements Parcelable {
 
     private long id;
     private String title;
+    private String color;
 
     public Category() {
         super();
@@ -30,6 +31,14 @@ public class Category implements Parcelable {
         this.title = title;
     }
 
+    public String getColor() {
+        return this.color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -39,6 +48,7 @@ public class Category implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeLong(this.getId());
         dest.writeString(this.getTitle());
+        dest.writeString(this.getColor());
     }
 
     public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>() {
@@ -56,6 +66,7 @@ public class Category implements Parcelable {
     public Category(Parcel in) {
         this.setId(in.readLong());
         this.setTitle(in.readString());
+        this.setColor(in.readString());
     }
 
     public String toString() {

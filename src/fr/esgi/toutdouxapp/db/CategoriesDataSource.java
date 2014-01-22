@@ -17,7 +17,8 @@ public class CategoriesDataSource {
     private MySQLiteHelper dbHelper;
     private String[] allColumns = {
         MySQLiteHelper.COLUMN_CATEGORY_ID,
-        MySQLiteHelper.COLUMN_CATEGORY_TITLE };
+        MySQLiteHelper.COLUMN_CATEGORY_TITLE,
+        MySQLiteHelper.COLUMN_CATEGORY_COLOR };
 
     private String TAG = "CategoriesDataSource";
 
@@ -33,9 +34,10 @@ public class CategoriesDataSource {
         dbHelper.close();
     }
 
-    public Category createCategory(String title) {
+    public Category createCategory(String title, String color) {
         ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_CATEGORY_TITLE, title);
+        values.put(MySQLiteHelper.COLUMN_CATEGORY_COLOR, color);
         long insertId = database.insert(MySQLiteHelper.TABLE_CATEGORIES, null, values);
         return getOneCategory(insertId);
     }
@@ -82,6 +84,7 @@ public class CategoriesDataSource {
         Category category = new Category();
         category.setId(cursor.getLong(0));
         category.setTitle(cursor.getString(1));
+        category.setColor(cursor.getString(2));
         return category;
     }
 
