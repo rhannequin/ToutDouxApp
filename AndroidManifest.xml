@@ -30,6 +30,10 @@
             android:name="fr.esgi.toutdouxapp.AddTaskActivity"
             android:label="@string/title_activity_add_task" >
         </activity>
+        <activity
+            android:name="fr.esgi.toutdouxapp.CategoriesListActivity"
+            android:label="@string/title_activity_categories_list" >
+        </activity>
     </application>
 
 </manifest>

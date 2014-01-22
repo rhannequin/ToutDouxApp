@@ -47,6 +47,12 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
+    public void categoriesListHandler(View v) {
+        Intent intent = new Intent(this, CategoriesListActivity.class);
+        intent.putParcelableArrayListExtra("categories", this.categories);
+        startActivity(intent);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
