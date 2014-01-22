@@ -9,18 +9,22 @@ import android.os.Parcelable;
 @SuppressLint("ParcelCreator")
 public class Task implements Parcelable {
 
+    private long id;
     private String title;
     private String description;
     private Date dueDate;
+    private Category category;
 
-    public Task(
-            String title,
-            String description,
-            Date dueDate) {
+    public Task() {
         super();
-        this.setTitle(title);
-        this.setDescription(description);
-        this.setDueDate(dueDate);
+    }
+
+    public long getId() {
+        return this.id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -47,6 +51,14 @@ public class Task implements Parcelable {
         this.dueDate = dueDate;
     }
 
+    public Category getCategory() {
+        return this.category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -54,9 +66,11 @@ public class Task implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.getId());
         dest.writeString(this.getTitle());
         dest.writeString(this.getDescription());
         dest.writeLong(this.getDueDate().getTime());
+        dest.writeParcelable(this.getCategory(), flags);
     }
 
     public static final Parcelable.Creator<Task> CREATOR = new Parcelable.Creator<Task>() {
@@ -72,9 +86,11 @@ public class Task implements Parcelable {
     };
 
     public Task(Parcel in) {
+        this.setId(in.readLong());
         this.setTitle(in.readString());
         this.setDescription(in.readString());
         this.setDueDate(new Date(in.readLong()));
+        this.setCategory((Category)in.readParcelable(Category.class.getClassLoader()));
     }
 
     public String getTimeLeft() {
