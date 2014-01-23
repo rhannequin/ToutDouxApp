@@ -41,11 +41,11 @@ public class MainFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_layout, container, false);
     }
 
-    /*@Override
-    protected void onResume() {
+    @Override
+    public void onResume() {
         tasksDatasource.open();
         super.onResume();
-    }*/
+    }
 
     @Override
     public void onStart() {
@@ -86,6 +86,13 @@ public class MainFragment extends Fragment {
         startActivity(intent);
     }
 
+    public void categoriesListHandler(View v) {
+        Intent intent = new Intent(getActivity(), CategoriesListActivity.class);
+        intent.putParcelableArrayListExtra("categories", this.categories);
+        startActivity(intent);
+    }
+
+
     /*@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -93,13 +100,13 @@ public class MainFragment extends Fragment {
         return true;
     }*/
 
-    /*@Override
-    protected void onDestroy() {
+    @Override
+    public void onDestroy() {
         super.onDestroy();
         if(tasksDatasource != null) {
             tasksDatasource.close();
         }
-    }*/
+    }
 
     private ArrayList<Task> setListTasks() {
         ArrayList<Category> categories = this.categories;
