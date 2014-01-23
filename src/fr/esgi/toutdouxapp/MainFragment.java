@@ -12,6 +12,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -68,14 +70,14 @@ public class MainFragment extends Fragment {
         adapter = new TaskArrayAdapter(getActivity(), R.layout.activity_tasklist_row, tasks);
         listView.setAdapter(adapter);
 
-        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-                Intent taskActivityIntent = new Intent(MainActivity.this, TaskActivity.class);
-                taskActivityIntent.putExtra("task", MainActivity.this.tasks.get(position));
+                Intent taskActivityIntent = new Intent(getActivity(), TaskActivity.class);
+                taskActivityIntent.putExtra("task", MainFragment.this.tasks.get(position));
                 startActivity(taskActivityIntent);
             }
-        });*/
+        });
     }
     
     public void addTaskHandler(View v) {
