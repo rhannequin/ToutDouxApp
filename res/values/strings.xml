@@ -7,5 +7,6 @@
     <string name="title_activity_task">TaskActivity</string>
     <string name="title_activity_add_task">AddTaskActivity</string>
     <string name="title_activity_categories_list">CategoriesListActivity</string>
+    <string name="title_activity_add_category">AddCategoryActivity</string>
 
 </resources>

@@ -49,7 +49,6 @@ public class MainActivity extends Activity {
 
     public void categoriesListHandler(View v) {
         Intent intent = new Intent(this, CategoriesListActivity.class);
-        intent.putParcelableArrayListExtra("categories", this.categories);
         startActivity(intent);
     }
 
