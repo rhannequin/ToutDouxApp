@@ -26,31 +26,31 @@ public class CategoriesListActivity extends Activity {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_categorylist);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        
+
         categoriesDatasource = new CategoriesDataSource(this);
         categoriesDatasource.open();
 
         listView = (ListView) findViewById(R.id.list);
     }
-    
+
     @Override
     protected void onStart() {
         super.onStart();
-    	this.categories = categoriesDatasource.getAllCategories();
+        this.categories = categoriesDatasource.getAllCategories();
         adapter = new CategoryArrayAdapter(this, R.layout.activity_categorylist_row, this.categories);
         listView.setAdapter(adapter);
     }
-    
+
     @Override
     protected void onResume() {
-		categoriesDatasource.open();
+        categoriesDatasource.open();
         super.onResume();
     }
 
     @Override
     protected void onDestroy() {
-    	super.onDestroy();
-    	categoriesDatasource.close();
+        super.onDestroy();
+        categoriesDatasource.close();
     }
 
     @Override
