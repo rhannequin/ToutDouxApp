@@ -3,23 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
- 
-    <TextView
-        android:id="@+id/tv_content"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="center"
-        android:textSize="40sp" />
-    
     <ListView
-        android:id="@+id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:dividerHeight="1px"
-        android:cacheColorHint="#0000"
-        android:clipToPadding="true"
-        android:layout_margin="5dp"
-        android:soundEffectsEnabled="true"
-        android:scrollbars="none" />
- 
+       android:id="@+id/list"
+       android:layout_width="fill_parent"
+       android:layout_height="wrap_content"
+       android:dividerHeight="1px"
+       android:cacheColorHint="#0000"
+       android:clipToPadding="true"
+       android:layout_margin="5dp"
+       android:soundEffectsEnabled="true"
+       android:scrollbars="none" />
 </LinearLayout>
