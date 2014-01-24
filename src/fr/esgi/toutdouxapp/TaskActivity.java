@@ -1,5 +1,7 @@
 package fr.esgi.toutdouxapp;
 
+import fr.esgi.toutdouxapp.db.Category;
+import fr.esgi.toutdouxapp.db.Task;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;

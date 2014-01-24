@@ -2,6 +2,7 @@ package fr.esgi.toutdouxapp;
 
 import java.util.List;
 
+import fr.esgi.toutdouxapp.db.Task;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;

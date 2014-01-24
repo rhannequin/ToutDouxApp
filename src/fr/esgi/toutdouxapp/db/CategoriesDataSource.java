@@ -2,7 +2,7 @@ package fr.esgi.toutdouxapp.db;
 
 import java.util.ArrayList;
 
-import fr.esgi.toutdouxapp.Category;
+import fr.esgi.toutdouxapp.db.Category;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

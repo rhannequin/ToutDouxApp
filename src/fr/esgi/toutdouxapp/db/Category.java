@@ -1,4 +1,4 @@
-package fr.esgi.toutdouxapp;
+package fr.esgi.toutdouxapp.db;
 
 import android.annotation.SuppressLint;
 import android.os.Parcel;

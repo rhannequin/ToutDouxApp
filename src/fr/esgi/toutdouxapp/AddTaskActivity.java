@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import fr.esgi.toutdouxapp.db.Category;
 import fr.esgi.toutdouxapp.db.TasksDataSource;
 import android.os.Bundle;
 import android.app.Activity;

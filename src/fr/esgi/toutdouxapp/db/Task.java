@@ -1,4 +1,4 @@
-package fr.esgi.toutdouxapp;
+package fr.esgi.toutdouxapp.db;
 
 import java.util.Date;
 

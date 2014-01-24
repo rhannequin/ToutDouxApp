@@ -3,7 +3,7 @@ package fr.esgi.toutdouxapp.db;
 import java.util.Date;
 import java.util.ArrayList;
 
-import fr.esgi.toutdouxapp.Task;
+import fr.esgi.toutdouxapp.db.Task;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;

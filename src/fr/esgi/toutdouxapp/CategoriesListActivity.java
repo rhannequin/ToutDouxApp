@@ -3,6 +3,7 @@ package fr.esgi.toutdouxapp;
 import java.util.ArrayList;
 
 import fr.esgi.toutdouxapp.db.CategoriesDataSource;
+import fr.esgi.toutdouxapp.db.Category;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
