@@ -15,6 +15,7 @@ public class Task implements Parcelable {
     private String title;
     private String description;
     private Date dueDate;
+    private int state;
     private Category category;
 
     public Task() {
@@ -53,6 +54,14 @@ public class Task implements Parcelable {
         this.dueDate = dueDate;
     }
 
+    public int getState() {
+        return this.state;
+    }
+
+    public void setState(int state) {
+        this.state = state;
+    }
+
     public Category getCategory() {
         return this.category;
     }
@@ -72,6 +81,7 @@ public class Task implements Parcelable {
         dest.writeString(this.getTitle());
         dest.writeString(this.getDescription());
         dest.writeLong(this.getDueDate().getTime());
+        dest.writeInt(this.getState());
         dest.writeParcelable(this.getCategory(), flags);
     }
 
@@ -92,6 +102,7 @@ public class Task implements Parcelable {
         this.setTitle(in.readString());
         this.setDescription(in.readString());
         this.setDueDate(new Date(in.readLong()));
+        this.setState(in.readInt());
         this.setCategory((Category)in.readParcelable(Category.class.getClassLoader()));
     }
 
@@ -113,6 +124,10 @@ public class Task implements Parcelable {
         }
 
         return result;
+    }
+
+    public Boolean isDone() {
+        return this.getState() == 1;
     }
 
     public static ArrayList<Task> findAll (Context context) {

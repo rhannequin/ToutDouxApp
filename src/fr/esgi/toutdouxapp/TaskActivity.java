@@ -12,7 +12,7 @@ import android.widget.TextView;
 public class TaskActivity extends Activity {
 
     Task task;
-    private TextView titleView, descriptionView, dueDateView, categoryView;
+    private TextView titleView, descriptionView, dueDateView, stateView, categoryView;
 
     private String TAG = "TaskActivity";
 
@@ -27,6 +27,7 @@ public class TaskActivity extends Activity {
         titleView = (TextView) findViewById(R.id.title);
         descriptionView = (TextView) findViewById(R.id.description);
         dueDateView = (TextView) findViewById(R.id.due_date);
+        stateView = (TextView) findViewById(R.id.state);
         categoryView = (TextView) findViewById(R.id.category);
 
         final Intent intent = getIntent();
@@ -40,6 +41,7 @@ public class TaskActivity extends Activity {
         titleView.setText(task.getTitle());
         descriptionView.setText(task.getDescription());
         dueDateView.setText(task.getTimeLeft());
+        stateView.setText("State: " + (task.isDone() ? "done" : "todo"));
         Category category = task.getCategory();
         categoryView.setText("Category: " + category.getTitle() + " (" + category.getColor() + ")");
     }
