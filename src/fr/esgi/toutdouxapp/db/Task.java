@@ -1,8 +1,10 @@
 package fr.esgi.toutdouxapp.db;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -111,6 +113,29 @@ public class Task implements Parcelable {
         }
 
         return result;
+    }
+
+    public static ArrayList<Task> findAll (Context context) {
+        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        tasksDataSource.open();
+        ArrayList<Task> tasks = tasksDataSource.getAllTasks();
+        tasksDataSource.close();
+        return tasks;
+    }
+
+    public static Task create (Context context, String title, String description, Date dueDate, long categoryId) {
+        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        tasksDataSource.open();
+        Task task = tasksDataSource.createTask(title, description, dueDate, categoryId);
+        tasksDataSource.close();
+        return task;
+    }
+
+    public static void deleteAll (Context context) {
+        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        tasksDataSource.open();
+        tasksDataSource.resetTable();
+        tasksDataSource.close();
     }
 
 }

@@ -26,8 +26,6 @@ public class MainActivity extends Activity {
     private final String TAG = "MainActivity";
     private ListView listView;
     private ArrayAdapter<Task> adapter;
-    private TasksDataSource tasksDatasource;
-    private CategoriesDataSource categoriesDatasource;
 
     public ArrayList<Category> categories;
     public ArrayList<Task> tasks;
@@ -62,25 +60,15 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    protected void onResume() {
-        tasksDatasource.open();
-        super.onResume();
-    }
-
-    @Override
     protected void onStart() {
         super.onStart();
 
-        categoriesDatasource = new CategoriesDataSource(this);
-        categoriesDatasource.open();
-        this.categories = categoriesDatasource.getAllCategories();
+        this.categories = Category.findAll(this);
         if(this.categories.size() == 0) {
             this.categories = setListCategories();
         }
 
-        tasksDatasource = new TasksDataSource(this);
-        tasksDatasource.open();
-        this.tasks = tasksDatasource.getAllTasks();
+        this.tasks = Task.findAll(this);
         if(this.tasks.size() == 0) {
             this.tasks = setListTasks();
         }
@@ -98,25 +86,18 @@ public class MainActivity extends Activity {
         });
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if(tasksDatasource != null) {
-            tasksDatasource.close();
-        }
-    }
-
     private ArrayList<Task> setListTasks() {
         ArrayList<Category> categories = this.categories;
-        tasksDatasource.resetTable();
+        Task.deleteAll(this);
         for(int i = 1; i <= 5; i++) {
-            tasksDatasource.createTask(
+            Task.create(
+                this,
                 "This is my task #" + i,
                 "This is my description #" + i,
                 getOneDay(i),
                 categories.get(new Random().nextInt(categories.size())).getId());
         }
-        return tasksDatasource.getAllTasks();
+        return Task.findAll(this);
     }
 
     private Date getOneDay(int dayBefore) {
@@ -126,15 +107,15 @@ public class MainActivity extends Activity {
     }
 
     private ArrayList<Category> setListCategories() {
-        categoriesDatasource.resetTable();
+        Category.deleteAll(this);
         for(int i = 1; i <= 5; i++) {
             String title = "This is my category #" + i;
             Random r = new Random();
             int color = Color.argb(255, r.nextInt(256), r.nextInt(256), r.nextInt(256));
             String hexa = String.format("#%06X", 0xFFFFFF & color);
-            categoriesDatasource.createCategory(title, hexa);
+            Category.create(this, title, hexa);
         }
-        return categoriesDatasource.getAllCategories();
+        return Category.findAll(this);
     }
 
 }

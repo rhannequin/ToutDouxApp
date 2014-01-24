@@ -16,6 +16,7 @@ public class TasksDataSource {
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
+    private Context context;
     private String[] allColumns = {
         MySQLiteHelper.COLUMN_TASK_ID,
         MySQLiteHelper.COLUMN_TASK_TITLE,
@@ -23,17 +24,14 @@ public class TasksDataSource {
         MySQLiteHelper.COLUMN_TASK_DUE_DATE,
         MySQLiteHelper.COLUMN_TASK_CATEGORY_ID };
 
-    private CategoriesDataSource categoriesDatasource;
-
     private String TAG = "TasksDataSource";
 
     public TasksDataSource(Context context) {
+        this.context = context;
         dbHelper = new MySQLiteHelper(context);
-        this.categoriesDatasource = new CategoriesDataSource(context);
     }
 
     public void open() throws SQLException {
-        categoriesDatasource.open();
         database = dbHelper.getWritableDatabase();
     }
 
@@ -91,7 +89,7 @@ public class TasksDataSource {
         task.setTitle(cursor.getString(1));
         task.setDescription(cursor.getString(2));
         task.setDueDate(new Date(cursor.getLong(3)));
-        task.setCategory(this.categoriesDatasource.getOneCategory(cursor.getInt(4)));
+        task.setCategory(Category.findOne(context, cursor.getInt(4)));
         return task;
     }
 

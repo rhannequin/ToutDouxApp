@@ -1,6 +1,9 @@
 package fr.esgi.toutdouxapp.db;
 
+import java.util.ArrayList;
+
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -71,6 +74,37 @@ public class Category implements Parcelable {
 
     public String toString() {
         return this.getTitle();
+    }
+
+    public static ArrayList<Category> findAll (Context context) {
+        CategoriesDataSource categoriesDatasource = new CategoriesDataSource(context);
+        categoriesDatasource.open();
+        ArrayList<Category> categories = categoriesDatasource.getAllCategories();
+        categoriesDatasource.close();
+        return categories;
+    }
+
+    public static Category findOne (Context context, long id) {
+        CategoriesDataSource categoriesDatasource = new CategoriesDataSource(context);
+        categoriesDatasource.open();
+        Category category = categoriesDatasource.getOneCategory(id);
+        categoriesDatasource.close();
+        return category;
+    }
+
+    public static Category create (Context context, String title, String color) {
+        CategoriesDataSource categoriesDatasource = new CategoriesDataSource(context);
+        categoriesDatasource.open();
+        Category category = categoriesDatasource.createCategory(title, color);
+        categoriesDatasource.close();
+        return category;
+    }
+
+    public static void deleteAll (Context context) {
+        CategoriesDataSource categoriesDatasource = new CategoriesDataSource(context);
+        categoriesDatasource.open();
+        categoriesDatasource.resetTable();
+        categoriesDatasource.close();
     }
 
 }
