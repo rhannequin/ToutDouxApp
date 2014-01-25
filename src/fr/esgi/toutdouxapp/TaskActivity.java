@@ -1,5 +1,7 @@
 package fr.esgi.toutdouxapp;
 
+import fr.esgi.toutdouxapp.db.Category;
+import fr.esgi.toutdouxapp.db.Task;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -10,7 +12,7 @@ import android.widget.TextView;
 public class TaskActivity extends Activity {
 
     Task task;
-    private TextView titleView, descriptionView, dueDateView, categoryView;
+    private TextView titleView, descriptionView, dueDateView, stateView, categoryView;
 
     private String TAG = "TaskActivity";
 
@@ -18,13 +20,14 @@ public class TaskActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        //requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_task);
-        //getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
         titleView = (TextView) findViewById(R.id.title);
         descriptionView = (TextView) findViewById(R.id.description);
         dueDateView = (TextView) findViewById(R.id.due_date);
+        stateView = (TextView) findViewById(R.id.state);
         categoryView = (TextView) findViewById(R.id.category);
 
         final Intent intent = getIntent();
@@ -38,6 +41,7 @@ public class TaskActivity extends Activity {
         titleView.setText(task.getTitle());
         descriptionView.setText(task.getDescription());
         dueDateView.setText(task.getTimeLeft());
+        stateView.setText("State: " + (task.isDone() ? "done" : "todo"));
         Category category = task.getCategory();
         categoryView.setText("Category: " + category.getTitle() + " (" + category.getColor() + ")");
     }

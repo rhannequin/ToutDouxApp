@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import fr.esgi.toutdouxapp.db.Category;
+import fr.esgi.toutdouxapp.db.Task;
 import fr.esgi.toutdouxapp.db.TasksDataSource;
 import android.os.Bundle;
 import android.app.Activity;
@@ -22,7 +24,6 @@ import android.widget.Toast;
 public class AddTaskActivity extends Activity {
 
     final private String TAG = "AddTaskActivity";
-    private TasksDataSource tasksDatasource;
 
     ArrayList<Category> categories;
 
@@ -39,9 +40,6 @@ public class AddTaskActivity extends Activity {
         setContentView(R.layout.activity_add_task);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
-        tasksDatasource = new TasksDataSource(this);
-        tasksDatasource.open();
-
         final Intent intent = getIntent();
         this.categories = intent.getParcelableArrayListExtra("categories");
 
@@ -53,18 +51,6 @@ public class AddTaskActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.add_task, menu);
         return true;
-    }
-
-    @Override
-    protected void onResume() {
-        tasksDatasource.open();
-        super.onResume();
-    }
-
-    @Override
-    protected void onPause() {
-        tasksDatasource.close();
-        super.onPause();
     }
 
     public void submitForm(View v) {
@@ -81,7 +67,7 @@ public class AddTaskActivity extends Activity {
         final Date dueDate = cal.getTime();
         Category category = (Category) categoriesSpinner.getSelectedItem();
 
-        tasksDatasource.createTask(title, description, dueDate, category.getId());
+        Task.create(this, title, description, dueDate, category.getId());
 
         Toast.makeText(getApplicationContext(), "Task created!", Toast.LENGTH_SHORT).show();
         finish();

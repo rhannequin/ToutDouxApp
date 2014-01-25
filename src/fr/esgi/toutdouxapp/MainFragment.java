@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import fr.esgi.toutdouxapp.db.CategoriesDataSource;
+import fr.esgi.toutdouxapp.db.Category;
+import fr.esgi.toutdouxapp.db.Task;
 import fr.esgi.toutdouxapp.db.TasksDataSource;
 import android.os.Bundle;
 import android.app.Activity;
@@ -30,8 +32,6 @@ public class MainFragment extends Fragment {
     private final String TAG = "MainFragment";
     private ListView listView;
     private ArrayAdapter<Task> adapter;
-    private TasksDataSource tasksDatasource;
-    private CategoriesDataSource categoriesDatasource;
 
     public ArrayList<Category> categories;
     public ArrayList<Task> tasks;
@@ -42,27 +42,17 @@ public class MainFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        tasksDatasource.open();
-        super.onResume();
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         
         listView = (ListView) getView().findViewById(R.id.list);
 
-        categoriesDatasource = new CategoriesDataSource(getActivity());
-        categoriesDatasource.open();
-        this.categories = categoriesDatasource.getAllCategories();
+        this.categories = Category.findAll(getActivity());
         if(this.categories.size() == 0) {
             this.categories = setListCategories();
         }
 
-        tasksDatasource = new TasksDataSource(getActivity());
-        tasksDatasource.open();
-        this.tasks = tasksDatasource.getAllTasks();
+        this.tasks = Task.findAll(getActivity());
         if(this.tasks.size() == 0) {
             this.tasks = setListTasks();
         }
@@ -88,7 +78,6 @@ public class MainFragment extends Fragment {
 
     public void categoriesListHandler(View v) {
         Intent intent = new Intent(getActivity(), CategoriesListActivity.class);
-        intent.putParcelableArrayListExtra("categories", this.categories);
         startActivity(intent);
     }
 
@@ -100,25 +89,18 @@ public class MainFragment extends Fragment {
         return true;
     }*/
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        if(tasksDatasource != null) {
-            tasksDatasource.close();
-        }
-    }
-
     private ArrayList<Task> setListTasks() {
         ArrayList<Category> categories = this.categories;
-        tasksDatasource.resetTable();
+        Task.deleteAll(getActivity());
         for(int i = 1; i <= 5; i++) {
-            tasksDatasource.createTask(
+            Task.create(
+                getActivity(),
                 "This is my task #" + i,
                 "This is my description #" + i,
                 getOneDay(i),
                 categories.get(new Random().nextInt(categories.size())).getId());
         }
-        return tasksDatasource.getAllTasks();
+        return Task.findAll(getActivity());
     }
 
     private Date getOneDay(int dayBefore) {
@@ -128,15 +110,15 @@ public class MainFragment extends Fragment {
     }
 
     private ArrayList<Category> setListCategories() {
-        categoriesDatasource.resetTable();
+        Category.deleteAll(getActivity());
         for(int i = 1; i <= 5; i++) {
             String title = "This is my category #" + i;
             Random r = new Random();
             int color = Color.argb(255, r.nextInt(256), r.nextInt(256), r.nextInt(256));
             String hexa = String.format("#%06X", 0xFFFFFF & color);
-            categoriesDatasource.createCategory(title, hexa);
+            Category.create(getActivity(), title, hexa);
         }
-        return categoriesDatasource.getAllCategories();
+        return Category.findAll(getActivity());
     }
 
 }

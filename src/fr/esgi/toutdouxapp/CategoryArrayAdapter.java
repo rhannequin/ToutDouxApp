@@ -2,6 +2,7 @@ package fr.esgi.toutdouxapp;
 
 import java.util.List;
 
+import fr.esgi.toutdouxapp.db.Category;
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.LayoutInflater;
