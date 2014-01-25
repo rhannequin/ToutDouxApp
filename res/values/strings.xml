@@ -10,7 +10,7 @@
         <item>All tasks</item>
         <item>To do</item>
         <item>Done</item>
-        <item>New category</item>
+        <item>Categories</item>
     </string-array>
     <string name="title_activity_task">TaskActivity</string>
     <string name="title_activity_add_task">AddTaskActivity</string>

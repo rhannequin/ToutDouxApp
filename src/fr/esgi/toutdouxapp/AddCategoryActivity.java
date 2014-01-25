@@ -22,22 +22,13 @@ public class AddCategoryActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_add_category);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
         categoriesDatasource = new CategoriesDataSource(this);
         categoriesDatasource.open();
 
         this.titleInput = (EditText) findViewById(R.id.title);
         this.colorInput = (EditText) findViewById(R.id.color);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_category, menu);
-        return true;
     }
 
     @Override

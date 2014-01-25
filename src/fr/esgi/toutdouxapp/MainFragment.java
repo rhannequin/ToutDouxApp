@@ -70,23 +70,10 @@ public class MainFragment extends Fragment {
         });
     }
     
-    public void addTaskHandler(View v) {
+    /*public void addTaskHandler(View v) {
         Intent intent = new Intent(getActivity(), AddTaskActivity.class);
         intent.putParcelableArrayListExtra("categories", this.categories);
         startActivity(intent);
-    }
-
-    public void categoriesListHandler(View v) {
-        Intent intent = new Intent(getActivity(), CategoriesListActivity.class);
-        startActivity(intent);
-    }
-
-
-    /*@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
     }*/
 
     private ArrayList<Task> setListTasks() {

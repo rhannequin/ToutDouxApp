@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -30,20 +31,25 @@ public class MainActivity extends ActionBarActivity {
     private LinearLayout mDrawer ;
     private List<HashMap<String,String>> mList ;
     private SimpleAdapter mAdapter;
+    
     final private String PAGE = "page";
     final private String ICON = "icon";
     final private String COUNT = "count";
     
-    int mPosition = -1;
+    public ArrayList<Category> categories;
+    public ArrayList<Task> tasks;
+    
     String mTitle = "";
     String[] mPages ;
+    String[] mCount = new String[]{"", "", "", "", "","", "", "", "", ""};
+
+    int mPosition = -1;
     int[] mIcons = new int[]{
         R.drawable.ic_action_view_as_list,
         R.drawable.ic_todo,
         R.drawable.ic_done,
         R.drawable.ic_action_add_category
     };
-    String[] mCount = new String[]{"", "", "", "", "","", "", "", "", ""};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +104,17 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
 
-                if(position==0){
-                    showMainFragment();
+                switch(position){
+                    case 0:
+                        showMainFragment();
+                        break;
+                    case 1:
+                        break;
+                    case 2: 
+                        break;
+                    case 3:
+                        showCategoriesListFragment();
+                        break;
                 }
 
                 mDrawerLayout.closeDrawer(mDrawer);
@@ -109,6 +124,9 @@ public class MainActivity extends ActionBarActivity {
 
         // Setting the adapter to the listView
         mDrawerList.setAdapter(mAdapter);
+        
+        // Load showMainFragment
+        showMainFragment();
 
     }
 
@@ -132,6 +150,12 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
     
+    public void addTaskHandler(View v) {
+        Intent intent = new Intent(this, AddTaskActivity.class);
+        intent.putParcelableArrayListExtra("categories", this.categories);
+        startActivity(intent);
+    }
+    
     public void showMainFragment(){
 
         mTitle = mPages[0];
@@ -140,6 +164,23 @@ public class MainActivity extends ActionBarActivity {
         
         Bundle data = new Bundle();
         data.putInt("position", 0);
+
+        cFragment.setArguments(data);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.content_frame, cFragment);
+        ft.commit();
+    }
+    
+    public void showCategoriesListFragment(){
+
+        mTitle = mPages[1];
+        
+        CategoriesListFragment cFragment = new CategoriesListFragment();
+        
+        Bundle data = new Bundle();
+        data.putInt("position", 1);
 
         cFragment.setArguments(data);
 

@@ -36,21 +36,12 @@ public class AddTaskActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.activity_add_task);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
         final Intent intent = getIntent();
         this.categories = intent.getParcelableArrayListExtra("categories");
 
         initFormFields();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_task, menu);
-        return true;
     }
 
     public void submitForm(View v) {
