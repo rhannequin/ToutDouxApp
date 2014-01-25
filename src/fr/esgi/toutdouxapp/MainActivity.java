@@ -11,8 +11,10 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NavUtils;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +26,8 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 public class MainActivity extends ActionBarActivity {
-    
+	
+    private static final String TAG = "MyActivity";
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
@@ -64,7 +67,7 @@ public class MainActivity extends ActionBarActivity {
         mPages = getResources().getStringArray(R.array.pages);
         mTitle = (String)getTitle();
         mDrawerList = (ListView) findViewById(R.id.drawer_list);
-        mDrawer = ( LinearLayout) findViewById(R.id.drawer);
+        mDrawer = (LinearLayout) findViewById(R.id.drawer);
 
         mList = new ArrayList<HashMap<String,String>>();
         for(int i=0;i<4;i++){
@@ -140,7 +143,7 @@ public class MainActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
-        }
+        } 
         return super.onOptionsItemSelected(item);
     }
  
