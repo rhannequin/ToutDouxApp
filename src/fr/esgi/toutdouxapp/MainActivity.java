@@ -153,12 +153,6 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
     
-    public void addTaskHandler(View v) {
-        Intent intent = new Intent(this, AddTaskActivity.class);
-        intent.putParcelableArrayListExtra("categories", this.categories);
-        startActivity(intent);
-    }
-    
     public void showMainFragment(){
 
         mTitle = mPages[0];

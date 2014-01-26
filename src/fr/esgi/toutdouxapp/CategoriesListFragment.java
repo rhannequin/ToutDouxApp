@@ -8,8 +8,11 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v7.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -36,9 +39,26 @@ public class CategoriesListFragment extends Fragment {
         listView.setAdapter(adapter);
     }
 
-    public void addCategoryHandler(View v) {
-        Intent intent = new Intent(getActivity(), AddCategoryActivity.class);
-        startActivity(intent);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+ 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.categories_list, menu);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       switch (item.getItemId()) {
+          case R.id.add_category:
+              Intent intent = new Intent(getActivity(), AddCategoryActivity.class);
+              startActivity(intent);
+          default:
+             return super.onOptionsItemSelected(item);
+       }
     }
 
 }

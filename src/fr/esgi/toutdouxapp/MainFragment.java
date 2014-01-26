@@ -19,6 +19,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -70,12 +72,6 @@ public class MainFragment extends Fragment {
         });
     }
     
-    /*public void addTaskHandler(View v) {
-        Intent intent = new Intent(getActivity(), AddTaskActivity.class);
-        intent.putParcelableArrayListExtra("categories", this.categories);
-        startActivity(intent);
-    }*/
-
     private ArrayList<Task> setListTasks() {
         ArrayList<Category> categories = this.categories;
         Task.deleteAll(getActivity());
@@ -107,5 +103,28 @@ public class MainFragment extends Fragment {
         }
         return Category.findAll(getActivity());
     }
-
+    
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+ 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.tasks_list, menu);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+       switch (item.getItemId()) {
+          case R.id.add_task:
+        	  Intent intent = new Intent(getActivity(), AddTaskActivity.class);
+              intent.putParcelableArrayListExtra("categories", this.categories);
+              startActivity(intent);
+          default:
+             return super.onOptionsItemSelected(item);
+       }
+    }
+    
 }

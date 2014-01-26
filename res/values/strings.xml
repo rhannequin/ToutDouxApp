@@ -16,4 +16,5 @@
     <string name="title_activity_add_task">AddTaskActivity</string>
     <string name="title_activity_categories_list">CategoriesListActivity</string>
     <string name="title_activity_add_category">AddCategoryActivity</string>
+    <string name="add_new_category">Add new category</string>
 </resources>
