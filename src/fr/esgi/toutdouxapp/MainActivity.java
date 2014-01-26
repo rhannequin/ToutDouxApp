@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import fr.esgi.toutdouxapp.db.Category;
-import fr.esgi.toutdouxapp.db.Task;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,6 +11,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,9 +35,6 @@ public class MainActivity extends ActionBarActivity {
     final private String ICON = "icon";
     final private String COUNT = "count";
 
-    public ArrayList<Category> categories;
-    public ArrayList<Task> tasks;
-
     String mTitle = "";
     String[] mPages ;
     String[] mCount = new String[]{"", "", "", "", "","", "", "", "", ""};
@@ -55,9 +51,10 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayShowHomeEnabled(true);
+        supportActionBar.setBackgroundDrawable(
             new ColorDrawable(Color.parseColor("#333333"))
         );
 
@@ -69,7 +66,7 @@ public class MainActivity extends ActionBarActivity {
         mDrawer = (LinearLayout) findViewById(R.id.drawer);
 
         mList = new ArrayList<HashMap<String,String>>();
-        for(int i=0; i<4; i++){
+        for(int i=0; i<4; i++) {
             HashMap<String, String> hm = new HashMap<String,String>();
             hm.put(PAGE, mPages[i]);
             hm.put(COUNT, mCount[i]);
@@ -77,11 +74,10 @@ public class MainActivity extends ActionBarActivity {
             mList.add(hm);
         }
 
-        String[] from = { ICON,PAGE,COUNT };
-        int[] to = { R.id.icon , R.id.page , R.id.count};
+        String[] from = { ICON, PAGE, COUNT };
+        int[] to = { R.id.icon, R.id.page, R.id.count };
 
         mAdapter = new SimpleAdapter(this, mList, R.layout.drawer_layout, from, to);
-
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -157,14 +153,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void showMainFragment(){
-
         mTitle = mPages[0];
-
         MainFragment cFragment = new MainFragment();
 
         Bundle data = new Bundle();
         data.putInt("position", 0);
-
         cFragment.setArguments(data);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -174,14 +167,11 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void showCategoriesListFragment(){
-
         mTitle = mPages[1];
-
         CategoriesListFragment cFragment = new CategoriesListFragment();
 
         Bundle data = new Bundle();
         data.putInt("position", 1);
-
         cFragment.setArguments(data);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -192,9 +182,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void highlightSelectedPage(){
         int selectedItem = mDrawerList.getCheckedItemPosition();
-
         mPosition = selectedItem;
-
         if(mPosition != -1) {
             getSupportActionBar().setTitle(mPages[mPosition]);
         }

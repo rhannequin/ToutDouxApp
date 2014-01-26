@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -19,9 +20,10 @@ public class TaskActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#333333")));
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayShowHomeEnabled(true);
+        supportActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#333333")));
         setContentView(R.layout.activity_task);
 
         titleView = (TextView) findViewById(R.id.title);

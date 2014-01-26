@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,20 +23,20 @@ import android.widget.Toast;
 
 public class AddTaskActivity extends ActionBarActivity {
 
-    ArrayList<Category> categories;
-
-    EditText titleInput, descriptionInput;
-    DatePicker datePicker;
-    TimePicker timePicker;
-    Spinner categoriesSpinner;
+    private ArrayList<Category> categories;
+    private EditText titleInput, descriptionInput;
+    private DatePicker datePicker;
+    private TimePicker timePicker;
+    private Spinner categoriesSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#333333")));
+        ActionBar supportActionBar = getSupportActionBar();
+        supportActionBar.setDisplayHomeAsUpEnabled(true);
+        supportActionBar.setDisplayShowHomeEnabled(true);
+        supportActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#333333")));
         setContentView(R.layout.activity_add_task);
 
         final Intent intent = getIntent();
