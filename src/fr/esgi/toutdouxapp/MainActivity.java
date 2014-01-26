@@ -1,121 +1,202 @@
 package fr.esgi.toutdouxapp;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.HashMap;
+import java.util.List;
 
-import fr.esgi.toutdouxapp.db.CategoriesDataSource;
 import fr.esgi.toutdouxapp.db.Category;
 import fr.esgi.toutdouxapp.db.Task;
-import fr.esgi.toutdouxapp.db.TasksDataSource;
-import android.os.Bundle;
-import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SimpleAdapter;
 
-public class MainActivity extends Activity {
+public class MainActivity extends ActionBarActivity {
 
-    private final String TAG = "MainActivity";
-    private ListView listView;
-    private ArrayAdapter<Task> adapter;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+    private LinearLayout mDrawer ;
+    private List<HashMap<String,String>> mList ;
+    private SimpleAdapter mAdapter;
+
+    final private String PAGE = "page";
+    final private String ICON = "icon";
+    final private String COUNT = "count";
 
     public ArrayList<Category> categories;
     public ArrayList<Task> tasks;
+
+    String mTitle = "";
+    String[] mPages ;
+    String[] mCount = new String[]{"", "", "", "", "","", "", "", "", ""};
+
+    int mPosition = -1;
+    int[] mIcons = new int[]{
+        R.drawable.ic_action_view_as_list,
+        R.drawable.ic_todo,
+        R.drawable.ic_done,
+        R.drawable.ic_action_add_category
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(
+            new ColorDrawable(Color.parseColor("#333333"))
+        );
+
         setContentView(R.layout.activity_main);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
-        listView = (ListView) findViewById(R.id.list);
+        mPages = getResources().getStringArray(R.array.pages);
+        mTitle = (String)getTitle();
+        mDrawerList = (ListView) findViewById(R.id.drawer_list);
+        mDrawer = (LinearLayout) findViewById(R.id.drawer);
+
+        mList = new ArrayList<HashMap<String,String>>();
+        for(int i=0; i<4; i++){
+            HashMap<String, String> hm = new HashMap<String,String>();
+            hm.put(PAGE, mPages[i]);
+            hm.put(COUNT, mCount[i]);
+            hm.put(ICON, Integer.toString(mIcons[i]) );
+            mList.add(hm);
+        }
+
+        String[] from = { ICON,PAGE,COUNT };
+        int[] to = { R.id.icon , R.id.page , R.id.count};
+
+        mAdapter = new SimpleAdapter(this, mList, R.layout.drawer_layout, from, to);
+
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+
+        mDrawerToggle = new ActionBarDrawerToggle(
+            this,
+            mDrawerLayout,
+            R.drawable.ic_drawer ,
+            R.string.drawer_open,
+            R.string.drawer_close
+        ) {
+
+            public void onDrawerClosed(View view) {
+                highlightSelectedPage();
+                supportInvalidateOptionsMenu();
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getSupportActionBar().setTitle(getString(R.string.app_name));
+                supportInvalidateOptionsMenu();
+            }
+        };
+
+        // Setting event listener for the drawer
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        // ItemClick event handler for the drawer items
+        mDrawerList.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+
+                switch(position){
+                    case 0:
+                        showMainFragment();
+                        break;
+                    case 3:
+                        showCategoriesListFragment();
+                        break;
+                    default:
+                        break;
+                }
+
+                mDrawerLayout.closeDrawer(mDrawer);
+            }
+
+        });
+
+        // Setting the adapter to the listView
+        mDrawerList.setAdapter(mAdapter);
+
+        // Load showMainFragment
+        showMainFragment();
+
     }
 
-    public void addTaskHandler(View v) {
-        Intent intent = new Intent(this, AddTaskActivity.class);
-        intent.putParcelableArrayListExtra("categories", this.categories);
-        startActivity(intent);
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
     }
 
-    public void categoriesListHandler(View v) {
-        Intent intent = new Intent(this, CategoriesListActivity.class);
-        startActivity(intent);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
+    public void showMainFragment(){
 
-        this.categories = Category.findAll(this);
-        if(this.categories.size() == 0) {
-            this.categories = setListCategories();
-        }
+        mTitle = mPages[0];
 
-        this.tasks = Task.findAll(this);
-        if(this.tasks.size() == 0) {
-            this.tasks = setListTasks();
-        }
+        MainFragment cFragment = new MainFragment();
 
-        adapter = new TaskArrayAdapter(this, R.layout.activity_tasklist_row, tasks);
-        listView.setAdapter(adapter);
+        Bundle data = new Bundle();
+        data.putInt("position", 0);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-                Intent taskActivityIntent = new Intent(MainActivity.this, TaskActivity.class);
-                taskActivityIntent.putExtra("task", MainActivity.this.tasks.get(position));
-                startActivity(taskActivityIntent);
-            }
-        });
+        cFragment.setArguments(data);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.content_frame, cFragment);
+        ft.commit();
     }
 
-    private ArrayList<Task> setListTasks() {
-        ArrayList<Category> categories = this.categories;
-        Task.deleteAll(this);
-        for(int i = 1; i <= 5; i++) {
-            Task.create(
-                this,
-                "This is my task #" + i,
-                "This is my description #" + i,
-                getOneDay(i),
-                categories.get(new Random().nextInt(categories.size())).getId());
+    public void showCategoriesListFragment(){
+
+        mTitle = mPages[1];
+
+        CategoriesListFragment cFragment = new CategoriesListFragment();
+
+        Bundle data = new Bundle();
+        data.putInt("position", 1);
+
+        cFragment.setArguments(data);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.content_frame, cFragment);
+        ft.commit();
+    }
+
+    public void highlightSelectedPage(){
+        int selectedItem = mDrawerList.getCheckedItemPosition();
+
+        mPosition = selectedItem;
+
+        if(mPosition != -1) {
+            getSupportActionBar().setTitle(mPages[mPosition]);
         }
-        return Task.findAll(this);
     }
-
-    private Date getOneDay(int dayBefore) {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, dayBefore);
-        return cal.getTime();
-    }
-
-    private ArrayList<Category> setListCategories() {
-        Category.deleteAll(this);
-        for(int i = 1; i <= 5; i++) {
-            String title = "This is my category #" + i;
-            Random r = new Random();
-            int color = Color.argb(255, r.nextInt(256), r.nextInt(256), r.nextInt(256));
-            String hexa = String.format("#%06X", 0xFFFFFF & color);
-            Category.create(this, title, hexa);
-        }
-        return Category.findAll(this);
-    }
-
 }

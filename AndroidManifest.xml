@@ -12,13 +12,12 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/ToutDouxAppTheme" >
+        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
         <activity
             android:name="fr.esgi.toutdouxapp.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -29,10 +28,6 @@
         <activity
             android:name="fr.esgi.toutdouxapp.AddTaskActivity"
             android:label="@string/title_activity_add_task" >
-        </activity>
-        <activity
-            android:name="fr.esgi.toutdouxapp.CategoriesListActivity"
-            android:label="@string/title_activity_categories_list" >
         </activity>
         <activity
             android:name="fr.esgi.toutdouxapp.AddCategoryActivity"

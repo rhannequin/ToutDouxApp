@@ -6,14 +6,13 @@ import java.util.Date;
 
 import fr.esgi.toutdouxapp.db.Category;
 import fr.esgi.toutdouxapp.db.Task;
-import fr.esgi.toutdouxapp.db.TasksDataSource;
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
-import android.view.Menu;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.app.ActionBarActivity;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -21,9 +20,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-public class AddTaskActivity extends Activity {
-
-    final private String TAG = "AddTaskActivity";
+public class AddTaskActivity extends ActionBarActivity {
 
     ArrayList<Category> categories;
 
@@ -36,9 +33,10 @@ public class AddTaskActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#333333")));
         setContentView(R.layout.activity_add_task);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
         final Intent intent = getIntent();
         this.categories = intent.getParcelableArrayListExtra("categories");
@@ -46,24 +44,17 @@ public class AddTaskActivity extends Activity {
         initFormFields();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.add_task, menu);
-        return true;
-    }
-
     public void submitForm(View v) {
         final String title = this.titleInput.getText().toString();
         final String description = this.descriptionInput.getText().toString();
         Calendar cal = Calendar.getInstance();
         cal.set(
-              datePicker.getYear(),
-              datePicker.getMonth(),
-              datePicker.getDayOfMonth(),
-              timePicker.getCurrentHour(),
-              timePicker.getCurrentMinute(),
-              00);
+            datePicker.getYear(),
+            datePicker.getMonth(),
+            datePicker.getDayOfMonth(),
+            timePicker.getCurrentHour(),
+            timePicker.getCurrentMinute(),
+            00);
         final Date dueDate = cal.getTime();
         Category category = (Category) categoriesSpinner.getSelectedItem();
 
@@ -84,6 +75,16 @@ public class AddTaskActivity extends Activity {
             this,
             android.R.layout.simple_spinner_item, this.categories);
         this.categoriesSpinner.setAdapter(spinnerArrayAdapter);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

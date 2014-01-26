@@ -8,7 +8,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+//import android.util.Log;
 
 public class CategoriesDataSource {
 
@@ -19,8 +19,6 @@ public class CategoriesDataSource {
         MySQLiteHelper.COLUMN_CATEGORY_ID,
         MySQLiteHelper.COLUMN_CATEGORY_TITLE,
         MySQLiteHelper.COLUMN_CATEGORY_COLOR };
-
-    private String TAG = "CategoriesDataSource";
 
     public CategoriesDataSource(Context context) {
         dbHelper = new MySQLiteHelper(context);
