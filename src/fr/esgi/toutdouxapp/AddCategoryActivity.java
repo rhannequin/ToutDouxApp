@@ -1,23 +1,18 @@
 package fr.esgi.toutdouxapp;
 
 import fr.esgi.toutdouxapp.db.CategoriesDataSource;
-import fr.esgi.toutdouxapp.db.TasksDataSource;
 import android.os.Bundle;
-import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class AddCategoryActivity extends ActionBarActivity {
 
-    final private String TAG = "AddCategoryActivity";
+    //final private String TAG = "AddCategoryActivity";
     private CategoriesDataSource categoriesDatasource;
 
     EditText titleInput, colorInput;

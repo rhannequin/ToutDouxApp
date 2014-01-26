@@ -12,9 +12,13 @@
         <item>Done</item>
         <item>Categories</item>
     </string-array>
-    <string name="title_activity_task">TaskActivity</string>
-    <string name="title_activity_add_task">AddTaskActivity</string>
-    <string name="title_activity_categories_list">CategoriesListActivity</string>
-    <string name="title_activity_add_category">AddCategoryActivity</string>
-    <string name="add_new_category">Add new category</string>
+    <string name="title_activity_task">Task details</string>
+    <string name="title_activity_add_task">Add new task</string>
+    <string name="title_activity_categories_list">My categories</string>
+    <string name="title_activity_add_category">Add new category</string>
+    <string name="hint_title">Title</string>
+    <string name="hint_color">#000000</string>
+    <string name="task_add">Add new task</string>
+    <string name="category_add">Add new category</string>
+    <string name="category_create">Create category</string>
 </resources>

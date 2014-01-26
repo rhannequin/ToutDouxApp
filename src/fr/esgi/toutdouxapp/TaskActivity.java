@@ -3,24 +3,19 @@ package fr.esgi.toutdouxapp;
 import fr.esgi.toutdouxapp.db.Category;
 import fr.esgi.toutdouxapp.db.Task;
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v4.app.NavUtils;
-import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.TextView;
 
 public class TaskActivity extends ActionBarActivity {
 
+    //private String TAG = "TaskActivity";
+    
     Task task;
     private TextView titleView, descriptionView, dueDateView, stateView, categoryView;
-
-    private String TAG = "TaskActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

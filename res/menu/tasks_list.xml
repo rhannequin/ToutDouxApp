@@ -4,7 +4,7 @@
     <item
       android:id="@+id/add_task"
       android:icon="@drawable/ic_action_new"
-      android:title="@string/add_new_category"
+      android:title="@string/task_add"
       tda:showAsAction="ifRoom" />
     
 </menu>

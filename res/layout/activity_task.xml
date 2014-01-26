@@ -17,7 +17,7 @@
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Titre"
+                android:text=""
                 android:textSize="25sp"
                 android:gravity="center" />
 
@@ -32,7 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/description"
-                android:text="Description"
+                android:text=""
                 android:textSize="15sp"
                 android:gravity="center" />
 
@@ -47,7 +47,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/due_date"
-                android:text="5 days"
+                android:text=""
                 android:textSize="15sp"
                 android:gravity="center" />
 
@@ -62,7 +62,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/state"
-                android:text="State: Done"
+                android:text=""
                 android:textSize="15sp"
                 android:gravity="center" />
 
@@ -77,7 +77,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/category"
-                android:text="My category"
+                android:text=""
                 android:textSize="15sp"
                 android:gravity="center" />
 

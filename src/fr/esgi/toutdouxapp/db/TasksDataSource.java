@@ -9,9 +9,11 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
+//import android.util.Log;
 
 public class TasksDataSource {
+
+    //private String TAG = "TasksDataSource";
 
     // Database fields
     private SQLiteDatabase database;
@@ -24,8 +26,6 @@ public class TasksDataSource {
         MySQLiteHelper.COLUMN_TASK_DUE_DATE,
         MySQLiteHelper.COLUMN_TASK_STATE,
         MySQLiteHelper.COLUMN_TASK_CATEGORY_ID };
-
-    private String TAG = "TasksDataSource";
 
     public TasksDataSource(Context context) {
         this.context = context;

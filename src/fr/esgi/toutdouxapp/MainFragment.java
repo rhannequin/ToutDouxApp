@@ -5,33 +5,25 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.Random;
 
-import fr.esgi.toutdouxapp.db.CategoriesDataSource;
 import fr.esgi.toutdouxapp.db.Category;
 import fr.esgi.toutdouxapp.db.Task;
-import fr.esgi.toutdouxapp.db.TasksDataSource;
 import android.os.Bundle;
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class MainFragment extends Fragment {
 
-    private final String TAG = "MainFragment";
+    //private final String TAG = "MainFragment";
     private ListView listView;
     private ArrayAdapter<Task> adapter;
 
