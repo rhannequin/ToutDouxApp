@@ -12,15 +12,13 @@ import android.widget.TextView;
 
 public class TaskActivity extends ActionBarActivity {
 
-    //private String TAG = "TaskActivity";
-    
     Task task;
     private TextView titleView, descriptionView, dueDateView, stateView, categoryView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#333333")));
@@ -47,7 +45,7 @@ public class TaskActivity extends ActionBarActivity {
         Category category = task.getCategory();
         categoryView.setText("Category: " + category.getTitle() + " (" + category.getColor() + ")");
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

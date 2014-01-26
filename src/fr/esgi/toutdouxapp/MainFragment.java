@@ -23,7 +23,6 @@ import android.widget.ListView;
 
 public class MainFragment extends Fragment {
 
-    //private final String TAG = "MainFragment";
     private ListView listView;
     private ArrayAdapter<Task> adapter;
 
@@ -38,7 +37,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        
+
         listView = (ListView) getView().findViewById(R.id.list);
 
         this.categories = Category.findAll(getActivity());
@@ -63,7 +62,7 @@ public class MainFragment extends Fragment {
             }
         });
     }
-    
+
     private ArrayList<Task> setListTasks() {
         ArrayList<Category> categories = this.categories;
         Task.deleteAll(getActivity());
@@ -95,28 +94,28 @@ public class MainFragment extends Fragment {
         }
         return Category.findAll(getActivity());
     }
-    
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
- 
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.tasks_list, menu);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
        switch (item.getItemId()) {
           case R.id.add_task:
-        	  Intent intent = new Intent(getActivity(), AddTaskActivity.class);
+              Intent intent = new Intent(getActivity(), AddTaskActivity.class);
               intent.putParcelableArrayListExtra("categories", this.categories);
               startActivity(intent);
           default:
              return super.onOptionsItemSelected(item);
        }
     }
-    
+
 }

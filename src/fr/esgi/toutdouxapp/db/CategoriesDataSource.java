@@ -12,8 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class CategoriesDataSource {
 
-    //private String TAG = "CategoriesDataSource";
-
     // Database fields
     private SQLiteDatabase database;
     private MySQLiteHelper dbHelper;
