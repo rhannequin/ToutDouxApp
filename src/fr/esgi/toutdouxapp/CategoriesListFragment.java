@@ -39,21 +39,21 @@ public class CategoriesListFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
- 
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.categories_list, menu);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-       switch (item.getItemId()) {
-          case R.id.add_category:
-              Intent intent = new Intent(getActivity(), AddCategoryActivity.class);
-              startActivity(intent);
-          default:
-             return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.add_category:
+                Intent intent = new Intent(getActivity(), AddCategoryActivity.class);
+                startActivity(intent);
+            default:
+                return super.onOptionsItemSelected(item);
        }
     }
 

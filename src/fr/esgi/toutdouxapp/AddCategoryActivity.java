@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 public class AddCategoryActivity extends ActionBarActivity {
 
-    //final private String TAG = "AddCategoryActivity";
     private CategoriesDataSource categoriesDatasource;
 
     EditText titleInput, colorInput;
@@ -54,7 +53,7 @@ public class AddCategoryActivity extends ActionBarActivity {
         Toast.makeText(getApplicationContext(), "Category created!", Toast.LENGTH_SHORT).show();
         finish();
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

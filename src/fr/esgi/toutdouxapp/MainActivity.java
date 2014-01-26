@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import fr.esgi.toutdouxapp.db.Category;
+import fr.esgi.toutdouxapp.db.Task;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -15,7 +17,6 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.LinearLayout;
@@ -24,21 +25,20 @@ import android.widget.SimpleAdapter;
 
 public class MainActivity extends ActionBarActivity {
 
-    //private final String TAG = "MainActivity";
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private LinearLayout mDrawer ;
     private List<HashMap<String,String>> mList ;
     private SimpleAdapter mAdapter;
-    
+
     final private String PAGE = "page";
     final private String ICON = "icon";
     final private String COUNT = "count";
-    
+
     public ArrayList<Category> categories;
     public ArrayList<Task> tasks;
-    
+
     String mTitle = "";
     String[] mPages ;
     String[] mCount = new String[]{"", "", "", "", "","", "", "", "", ""};
@@ -54,10 +54,12 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#333333")));
+        getSupportActionBar().setBackgroundDrawable(
+            new ColorDrawable(Color.parseColor("#333333"))
+        );
 
         setContentView(R.layout.activity_main);
 
@@ -67,7 +69,7 @@ public class MainActivity extends ActionBarActivity {
         mDrawer = (LinearLayout) findViewById(R.id.drawer);
 
         mList = new ArrayList<HashMap<String,String>>();
-        for(int i=0;i<4;i++){
+        for(int i=0; i<4; i++){
             HashMap<String, String> hm = new HashMap<String,String>();
             hm.put(PAGE, mPages[i]);
             hm.put(COUNT, mCount[i]);
@@ -82,7 +84,13 @@ public class MainActivity extends ActionBarActivity {
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer , R.string.drawer_open,R.string.drawer_close){
+        mDrawerToggle = new ActionBarDrawerToggle(
+            this,
+            mDrawerLayout,
+            R.drawable.ic_drawer ,
+            R.string.drawer_open,
+            R.string.drawer_close
+        ) {
 
             public void onDrawerClosed(View view) {
                 highlightSelectedPage();
@@ -108,12 +116,10 @@ public class MainActivity extends ActionBarActivity {
                     case 0:
                         showMainFragment();
                         break;
-                    case 1:
-                        break;
-                    case 2: 
-                        break;
                     case 3:
                         showCategoriesListFragment();
+                        break;
+                    default:
                         break;
                 }
 
@@ -124,7 +130,7 @@ public class MainActivity extends ActionBarActivity {
 
         // Setting the adapter to the listView
         mDrawerList.setAdapter(mAdapter);
-        
+
         // Load showMainFragment
         showMainFragment();
 
@@ -140,22 +146,22 @@ public class MainActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
-        } 
+        }
         return super.onOptionsItemSelected(item);
     }
- 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
-    
+
     public void showMainFragment(){
 
         mTitle = mPages[0];
-        
+
         MainFragment cFragment = new MainFragment();
-        
+
         Bundle data = new Bundle();
         data.putInt("position", 0);
 
@@ -166,13 +172,13 @@ public class MainActivity extends ActionBarActivity {
         ft.replace(R.id.content_frame, cFragment);
         ft.commit();
     }
-    
+
     public void showCategoriesListFragment(){
 
         mTitle = mPages[1];
-        
+
         CategoriesListFragment cFragment = new CategoriesListFragment();
-        
+
         Bundle data = new Bundle();
         data.putInt("position", 1);
 
@@ -183,13 +189,13 @@ public class MainActivity extends ActionBarActivity {
         ft.replace(R.id.content_frame, cFragment);
         ft.commit();
     }
- 
+
     public void highlightSelectedPage(){
         int selectedItem = mDrawerList.getCheckedItemPosition();
 
         mPosition = selectedItem;
 
-        if(mPosition!=-1) {
+        if(mPosition != -1) {
             getSupportActionBar().setTitle(mPages[mPosition]);
         }
     }

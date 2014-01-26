@@ -22,8 +22,6 @@ import android.widget.Toast;
 
 public class AddTaskActivity extends ActionBarActivity {
 
-    //final private String TAG = "AddTaskActivity";
-
     ArrayList<Category> categories;
 
     EditText titleInput, descriptionInput;
@@ -51,12 +49,12 @@ public class AddTaskActivity extends ActionBarActivity {
         final String description = this.descriptionInput.getText().toString();
         Calendar cal = Calendar.getInstance();
         cal.set(
-              datePicker.getYear(),
-              datePicker.getMonth(),
-              datePicker.getDayOfMonth(),
-              timePicker.getCurrentHour(),
-              timePicker.getCurrentMinute(),
-              00);
+            datePicker.getYear(),
+            datePicker.getMonth(),
+            datePicker.getDayOfMonth(),
+            timePicker.getCurrentHour(),
+            timePicker.getCurrentMinute(),
+            00);
         final Date dueDate = cal.getTime();
         Category category = (Category) categoriesSpinner.getSelectedItem();
 
@@ -78,7 +76,7 @@ public class AddTaskActivity extends ActionBarActivity {
             android.R.layout.simple_spinner_item, this.categories);
         this.categoriesSpinner.setAdapter(spinnerArrayAdapter);
     }
-    
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

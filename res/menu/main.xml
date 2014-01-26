@@ -1,5 +1,2 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tda="http://schemas.android.com/apk/res-auto" >
-
-    
-</menu>
+    xmlns:tda="http://schemas.android.com/apk/res-auto"></menu>
