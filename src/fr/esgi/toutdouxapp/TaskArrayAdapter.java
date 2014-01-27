@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.esgi.toutdouxapp.db.Task;
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
         final ViewHolder viewHolder = new ViewHolder();
         viewHolder.text = (TextView) view.findViewById(R.id.title);
         view.setTag(viewHolder);
+        view.setBackgroundColor(Color.parseColor(list.get(position).category.color));
         ViewHolder holder = (ViewHolder) view.getTag();
         holder.text.setText(list.get(position).title);
         return view;

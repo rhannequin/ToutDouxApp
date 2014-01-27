@@ -44,6 +44,7 @@ public class TaskActivity extends ActionBarActivity {
         task = Task.findOne(this, id);
 
         titleView.setText(task.title);
+        titleView.setBackgroundColor(Color.parseColor(task.category.color));
         descriptionView.setText(task.description);
         dueDateView.setText(task.getTimeLeft());
         stateView.setText("State: " + (task.isDone() ? "done" : "todo"));
