@@ -57,7 +57,7 @@ public class MainFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
                 Intent taskActivityIntent = new Intent(getActivity(), TaskActivity.class);
-                taskActivityIntent.putExtra("task", MainFragment.this.tasks.get(position));
+                taskActivityIntent.putExtra("taskId", MainFragment.this.tasks.get(position).id);
                 startActivity(taskActivityIntent);
             }
         });

@@ -3,18 +3,20 @@ package fr.esgi.toutdouxapp;
 import fr.esgi.toutdouxapp.db.Category;
 import fr.esgi.toutdouxapp.db.Task;
 import android.os.Bundle;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class TaskActivity extends ActionBarActivity {
 
     Task task;
     private TextView titleView, descriptionView, dueDateView, stateView, categoryView;
+    private Button toogleTaskButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,14 +33,15 @@ public class TaskActivity extends ActionBarActivity {
         dueDateView = (TextView) findViewById(R.id.due_date);
         stateView = (TextView) findViewById(R.id.state);
         categoryView = (TextView) findViewById(R.id.category);
-
-        final Intent intent = getIntent();
-        task = (Task) intent.getParcelableExtra("task");
+        toogleTaskButton = (Button) findViewById(R.id.toogleTask);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        long id = (long) getIntent().getLongExtra("taskId", 1);
+        task = Task.findOne(this, id);
 
         titleView.setText(task.title);
         descriptionView.setText(task.description);
@@ -46,6 +49,7 @@ public class TaskActivity extends ActionBarActivity {
         stateView.setText("State: " + (task.isDone() ? "done" : "todo"));
         Category category = task.category;
         categoryView.setText("Category: " + category.title + " (" + category.color + ")");
+        toogleTaskButton.setText("Set this task as `" + (task.isDone() ? "todo" : "done") + "`");
     }
 
     @Override
@@ -56,6 +60,11 @@ public class TaskActivity extends ActionBarActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void toogleTaskHandler(View v) {
+        Task.toogleState(this, task);
+        finish();
     }
 
 }

@@ -89,6 +89,14 @@ public class Task implements Parcelable {
         return tasks;
     }
 
+    public static Task findOne (Context context, long id) {
+        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        tasksDataSource.open();
+        Task task = tasksDataSource.getOneTask(id);
+        tasksDataSource.close();
+        return task;
+    }
+
     public static Task create (Context context, String title, String description, Date dueDate, long categoryId) {
         TasksDataSource tasksDataSource = new TasksDataSource(context);
         tasksDataSource.open();
@@ -101,6 +109,13 @@ public class Task implements Parcelable {
         TasksDataSource tasksDataSource = new TasksDataSource(context);
         tasksDataSource.open();
         tasksDataSource.resetTable();
+        tasksDataSource.close();
+    }
+
+    public static void toogleState (Context context, Task task) {
+        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        tasksDataSource.open();
+        tasksDataSource.toogleState(task);
         tasksDataSource.close();
     }
 
