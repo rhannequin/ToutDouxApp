@@ -57,13 +57,17 @@ public class Task implements Parcelable {
         category = (Category)in.readParcelable(Category.class.getClassLoader());
     }
 
-    public String getTimeLeft() {
+    public int getDaysLeft() {
         Date now = new Date();
-
         final long timeNow = now.getTime();
         final long timeDue = dueDate.getTime();
         final long oneDay = 1000 * 60 * 60 * 24;
         final int left = (int) ((timeDue - timeNow) / oneDay);
+        return left;
+    }
+
+    public String getTimeLeft() {
+        int left = getDaysLeft();
 
         String result;
         if (left > 1) {
