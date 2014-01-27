@@ -30,10 +30,16 @@ public class AddCategoryActivity extends ActionBarActivity {
     }
 
     public void submitForm(View v) {
-        final String title = this.titleInput.getText().toString();
-        final String color = this.colorInput.getText().toString();
+        final String title = this.titleInput.getText().toString().trim();
+        String color = this.colorInput.getText().toString().trim();
+        if(title.matches("")) {
+            Toast.makeText(getApplicationContext(), "Title is empty", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(!Category.isValidColor(color)) {
+            color = "#FFFFFF";
+        }
         Category.create(this, title, color);
-
         Toast.makeText(getApplicationContext(), "Category created!", Toast.LENGTH_SHORT).show();
         finish();
     }

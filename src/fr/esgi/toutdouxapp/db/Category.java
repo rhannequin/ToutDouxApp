@@ -76,6 +76,10 @@ public class Category implements Parcelable {
         return this.getTitle();
     }
 
+    public static Boolean isValidColor(String color) {
+        return color.matches("^#([A-Fa-f0-9]{6})$");
+    }
+
     public static ArrayList<Category> findAll (Context context) {
         CategoriesDataSource categoriesDatasource = new CategoriesDataSource(context);
         categoriesDatasource.open();

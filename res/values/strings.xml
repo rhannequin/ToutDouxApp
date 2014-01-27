@@ -17,7 +17,7 @@
     <string name="title_activity_categories_list">My categories</string>
     <string name="title_activity_add_category">Add new category</string>
     <string name="hint_title">Title</string>
-    <string name="hint_color">#000000</string>
+    <string name="hint_color">#FFFFFF (optional)</string>
     <string name="task_add">Add new task</string>
     <string name="category_add">Add new category</string>
     <string name="category_create">Create category</string>
