@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
@@ -68,8 +69,8 @@ public class AddTaskActivity extends ActionBarActivity {
     private void initFormFields() {
         this.titleInput = (EditText) findViewById(R.id.editText1);
         this.descriptionInput = (EditText) findViewById(R.id.editText2);
-        this.datePicker = (DatePicker) findViewById(R.id.datePicker1);
-        this.timePicker = (TimePicker) findViewById(R.id.timePicker1);
+        //this.datePicker = (DatePicker) findViewById(R.id.datePicker1);
+        //this.timePicker = (TimePicker) findViewById(R.id.timePicker1);
         this.categoriesSpinner = (Spinner)this.findViewById(R.id.spinner1);
 
         ArrayAdapter<Category> spinnerArrayAdapter = new ArrayAdapter<Category>(
@@ -86,6 +87,16 @@ public class AddTaskActivity extends ActionBarActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+    }
+    
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
 }
