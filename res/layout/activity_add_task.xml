@@ -1,6 +1,8 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" android:fillViewport="true">
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/lightergrey">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,27 +13,47 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
             android:orientation="vertical" >
 
             <EditText
                 android:id="@+id/editText1"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
+                android:background="@color/white"
+                android:paddingTop="10dip"
+                android:paddingBottom="15dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
                 android:ems="10"
-                android:hint="Title" >
+                android:hint="Title"
+                android:gravity="center_vertical|top"
+                android:textColor="@color/darkgrey"
+                android:textColorHint="@color/grey" >
 
                 <requestFocus />
             </EditText>
 
             <EditText
                 android:id="@+id/editText2"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="80dp"
                 android:layout_marginTop="14dp"
+                android:background="@color/white"
+                android:paddingTop="10dip"
+                android:paddingBottom="15dip"
+                android:paddingLeft="10dip"
+                android:paddingRight="10dip"
                 android:ems="10"
+                android:gravity="center_vertical|top"
                 android:hint="Description"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:textColor="@color/darkgrey"
+                android:textColorHint="@color/grey" />
 
             <DatePicker
                 android:id="@+id/datePicker1"
