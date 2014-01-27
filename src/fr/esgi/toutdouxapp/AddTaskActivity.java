@@ -59,7 +59,7 @@ public class AddTaskActivity extends ActionBarActivity {
         final Date dueDate = cal.getTime();
         Category category = (Category) categoriesSpinner.getSelectedItem();
 
-        Task.create(this, title, description, dueDate, category.getId());
+        Task.create(this, title, description, dueDate, category.id);
 
         Toast.makeText(getApplicationContext(), "Task created!", Toast.LENGTH_SHORT).show();
         finish();

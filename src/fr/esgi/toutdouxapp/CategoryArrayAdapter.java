@@ -33,9 +33,9 @@ public class CategoryArrayAdapter extends ArrayAdapter<Category> {
         final ViewHolder viewHolder = new ViewHolder();
         viewHolder.text = (TextView) view.findViewById(R.id.title);
         view.setTag(viewHolder);
-        view.setBackgroundColor(Color.parseColor(list.get(position).getColor()));
+        view.setBackgroundColor(Color.parseColor(list.get(position).color));
         ViewHolder holder = (ViewHolder) view.getTag();
-        holder.text.setText(list.get(position).getTitle());
+        holder.text.setText(list.get(position).title);
         return view;
     }
 

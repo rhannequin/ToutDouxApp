@@ -72,7 +72,7 @@ public class MainFragment extends Fragment {
                 "This is my task #" + i,
                 "This is my description #" + i,
                 getOneDay(i),
-                categories.get(new Random().nextInt(categories.size())).getId());
+                categories.get(new Random().nextInt(categories.size())).id);
         }
         return Task.findAll(getActivity());
     }

@@ -10,36 +10,11 @@ import android.os.Parcelable;
 @SuppressLint("ParcelCreator")
 public class Category implements Parcelable {
 
-    private long id;
-    private String title;
-    private String color;
+    public long id;
+    public String title, color;
 
     public Category() {
         super();
-    }
-
-    public long getId() {
-        return this.id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return this.title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getColor() {
-        return this.color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     @Override
@@ -49,9 +24,9 @@ public class Category implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeLong(this.getId());
-        dest.writeString(this.getTitle());
-        dest.writeString(this.getColor());
+        dest.writeLong(id);
+        dest.writeString(title);
+        dest.writeString(color);
     }
 
     public static final Parcelable.Creator<Category> CREATOR = new Parcelable.Creator<Category>() {
@@ -67,13 +42,13 @@ public class Category implements Parcelable {
     };
 
     public Category(Parcel in) {
-        this.setId(in.readLong());
-        this.setTitle(in.readString());
-        this.setColor(in.readString());
+        id = in.readLong();
+        title = in.readString();
+        color = in.readString();
     }
 
     public String toString() {
-        return this.getTitle();
+        return title;
     }
 
     public static Boolean isValidColor(String color) {

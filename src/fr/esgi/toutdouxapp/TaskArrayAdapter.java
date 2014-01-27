@@ -33,7 +33,7 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
         viewHolder.text = (TextView) view.findViewById(R.id.title);
         view.setTag(viewHolder);
         ViewHolder holder = (ViewHolder) view.getTag();
-        holder.text.setText(list.get(position).getTitle());
+        holder.text.setText(list.get(position).title);
         return view;
     }
 

@@ -68,7 +68,7 @@ public class CategoriesDataSource {
     }
 
     public void deleteCategory(Category category) {
-        long id = category.getId();
+        long id = category.id;
         System.out.println("Category deleted with id: " + id);
         database.delete(MySQLiteHelper.TABLE_CATEGORIES, MySQLiteHelper.COLUMN_CATEGORY_ID
             + " = " + id, null);
@@ -80,9 +80,9 @@ public class CategoriesDataSource {
 
     private Category cursorToCategory(Cursor cursor) {
         Category category = new Category();
-        category.setId(cursor.getLong(0));
-        category.setTitle(cursor.getString(1));
-        category.setColor(cursor.getString(2));
+        category.id = cursor.getLong(0);
+        category.title = cursor.getString(1);
+        category.color = cursor.getString(2);
         return category;
     }
 

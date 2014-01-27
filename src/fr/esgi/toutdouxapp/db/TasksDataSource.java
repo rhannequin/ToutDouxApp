@@ -76,7 +76,7 @@ public class TasksDataSource {
     }
 
     public void deleteTask(Task task) {
-        long id = task.getId();
+        long id = task.id;
         System.out.println("Task deleted with id: " + id);
         database.delete(MySQLiteHelper.TABLE_TASKS, MySQLiteHelper.COLUMN_TASK_ID
             + " = " + id, null);
@@ -84,12 +84,12 @@ public class TasksDataSource {
 
     private Task cursorToTask(Cursor cursor) {
         Task task = new Task();
-        task.setId(cursor.getLong(0));
-        task.setTitle(cursor.getString(1));
-        task.setDescription(cursor.getString(2));
-        task.setDueDate(new Date(cursor.getLong(3)));
-        task.setState(cursor.getInt(4));
-        task.setCategory(Category.findOne(context, cursor.getInt(5)));
+        task.id = cursor.getLong(0);
+        task.title = cursor.getString(1);
+        task.description = cursor.getString(2);
+        task.dueDate = new Date(cursor.getLong(3));
+        task.state = cursor.getInt(4);
+        task.category = Category.findOne(context, cursor.getInt(5));
         return task;
     }
 

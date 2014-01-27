@@ -40,12 +40,12 @@ public class TaskActivity extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
 
-        titleView.setText(task.getTitle());
-        descriptionView.setText(task.getDescription());
+        titleView.setText(task.title);
+        descriptionView.setText(task.description);
         dueDateView.setText(task.getTimeLeft());
         stateView.setText("State: " + (task.isDone() ? "done" : "todo"));
-        Category category = task.getCategory();
-        categoryView.setText("Category: " + category.getTitle() + " (" + category.getColor() + ")");
+        Category category = task.category;
+        categoryView.setText("Category: " + category.title + " (" + category.color + ")");
     }
 
     @Override
