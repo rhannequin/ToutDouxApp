@@ -48,11 +48,11 @@ public class TasksDataSource {
         return getOneTask(insertId);
     }
 
-    public ArrayList<Task> getAllTasks() {
+    public ArrayList<Task> getAllTasks(String where) {
         ArrayList<Task> tasks = new ArrayList<Task>();
 
         Cursor cursor = database.query(MySQLiteHelper.TABLE_TASKS,
-            allColumns, null, null, null, null, null);
+            allColumns, where, null, null, null, null);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

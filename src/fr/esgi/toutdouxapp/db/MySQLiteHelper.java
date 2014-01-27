@@ -1,5 +1,9 @@
 package fr.esgi.toutdouxapp.db;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -40,11 +44,27 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
             COLUMN_TASK_STATE + " integer not null, " +
             COLUMN_TASK_CATEGORY_ID + " integer not null);";
 
+    private static final String DATABASE_FILL_TABLE_TASKS_FIRST =
+        "INSERT INTO " + TABLE_TASKS + " (" + COLUMN_TASK_TITLE + ", " + COLUMN_TASK_DESCRIPTION + ", " + COLUMN_TASK_DUE_DATE + ", " + COLUMN_TASK_STATE + ", " + COLUMN_TASK_CATEGORY_ID + ") VALUES (" +
+            "'Task todo', 'Description of task todo', '" + getOneDay(2) + "', 0, 1);";
+
+    private static final String DATABASE_FILL_TABLE_TASKS_SECOND =
+        "INSERT INTO " + TABLE_TASKS + " (" + COLUMN_TASK_TITLE + ", " + COLUMN_TASK_DESCRIPTION + ", " + COLUMN_TASK_DUE_DATE + ", " + COLUMN_TASK_STATE + ", " + COLUMN_TASK_CATEGORY_ID + ") VALUES (" +
+            "'Task done', 'Description of task done', '" + getOneDay(3) + "', 1, 2);";
+
     private static final String DATABASE_CREATE_TABLE_CATEGORIES =
         "CREATE TABLE " + TABLE_CATEGORIES + "(" +
             COLUMN_CATEGORY_ID + " integer primary key autoincrement, " +
             COLUMN_CATEGORY_TITLE + " VARCHAR(255) not null, " +
             COLUMN_CATEGORY_COLOR + " VARCHAR(10) not null);";
+
+    private static final String DATABASE_FILL_TABLE_CATEGORIES_FIRST =
+        "INSERT INTO '" + TABLE_CATEGORIES + "' ('" + COLUMN_CATEGORY_TITLE + "', '" + COLUMN_CATEGORY_COLOR + "') VALUES (" +
+            "'Important', '#E04646')";
+
+    private static final String DATABASE_FILL_TABLE_CATEGORIES_SECOND =
+        "INSERT INTO '" + TABLE_CATEGORIES + "' ('" + COLUMN_CATEGORY_TITLE + "', '" + COLUMN_CATEGORY_COLOR + "') VALUES (" +
+             "'Not important', '#64BF5C');";
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -52,8 +72,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL(DATABASE_CREATE_TABLE_TASKS);
         database.execSQL(DATABASE_CREATE_TABLE_CATEGORIES);
+        database.execSQL(DATABASE_FILL_TABLE_CATEGORIES_FIRST);
+        database.execSQL(DATABASE_FILL_TABLE_CATEGORIES_SECOND);
+        database.execSQL(DATABASE_CREATE_TABLE_TASKS);
+        database.execSQL(DATABASE_FILL_TABLE_TASKS_FIRST);
+        database.execSQL(DATABASE_FILL_TABLE_TASKS_SECOND);
     }
 
     @Override
@@ -68,6 +92,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     public void dropDatabase(SQLiteDatabase db) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_TASKS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
+    }
+
+    private static String getOneDay(int dayBefore) {
+        DateFormat df = new SimpleDateFormat("yy/MM/dd HH:mm:ss", java.util.Locale.getDefault());
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, dayBefore);
+        return df.format(cal.getTime());
     }
 
 }

@@ -1,7 +1,5 @@
 package fr.esgi.toutdouxapp;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -26,11 +24,15 @@ public class MainFragment extends Fragment {
     private ListView listView;
     private ArrayAdapter<Task> adapter;
 
+    public String TASK_FILTER;
+
     public ArrayList<Category> categories;
     public ArrayList<Task> tasks;
 
+
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_layout, container, false);
     }
 
@@ -45,10 +47,8 @@ public class MainFragment extends Fragment {
             this.categories = setListCategories();
         }
 
-        this.tasks = Task.findAll(getActivity());
-        if(this.tasks.size() == 0) {
-            this.tasks = setListTasks();
-        }
+        TASK_FILTER = getArguments().getString("filter");
+        this.tasks = getTaskList(TASK_FILTER);
 
         adapter = new TaskArrayAdapter(getActivity(), R.layout.activity_tasklist_row, tasks);
         listView.setAdapter(adapter);
@@ -63,24 +63,25 @@ public class MainFragment extends Fragment {
         });
     }
 
-    private ArrayList<Task> setListTasks() {
-        ArrayList<Category> categories = this.categories;
-        Task.deleteAll(getActivity());
-        for(int i = 1; i <= 5; i++) {
-            Task.create(
-                getActivity(),
-                "This is my task #" + i,
-                "This is my description #" + i,
-                getOneDay(i),
-                categories.get(new Random().nextInt(categories.size())).id);
-        }
-        return Task.findAll(getActivity());
+    private enum Filters {
+        all, todo, done;
     }
 
-    private Date getOneDay(int dayBefore) {
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, dayBefore);
-        return cal.getTime();
+    private ArrayList<Task> getTaskList(String filter) {
+        ArrayList<Task> tasks;
+        switch(Filters.valueOf(filter)) {
+        case all:
+        default:
+            tasks = Task.findAll(getActivity(), null);
+            break;
+        case todo:
+            tasks = Task.findAll(getActivity(), "state = 0");
+            break;
+        case done:
+            tasks = Task.findAll(getActivity(), "state = 1");
+            break;
+        }
+        return tasks;
     }
 
     private ArrayList<Category> setListCategories() {

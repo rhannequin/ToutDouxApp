@@ -81,10 +81,10 @@ public class Task implements Parcelable {
         return state == 1;
     }
 
-    public static ArrayList<Task> findAll (Context context) {
+    public static ArrayList<Task> findAll (Context context, String where) {
         TasksDataSource tasksDataSource = new TasksDataSource(context);
         tasksDataSource.open();
-        ArrayList<Task> tasks = tasksDataSource.getAllTasks();
+        ArrayList<Task> tasks = tasksDataSource.getAllTasks(where);
         tasksDataSource.close();
         return tasks;
     }

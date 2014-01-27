@@ -61,7 +61,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         mPages = getResources().getStringArray(R.array.pages);
-        mTitle = (String)getTitle();
+        mTitle = (String) getTitle();
         mDrawerList = (ListView) findViewById(R.id.drawer_list);
         mDrawer = (LinearLayout) findViewById(R.id.drawer);
 
@@ -112,10 +112,14 @@ public class MainActivity extends ActionBarActivity {
                     case 0:
                         showMainFragment();
                         break;
+                    case 1:
+                        showTodoListFragment();
+                        break;
+                    case 2:
+                        showDoneListFragment();
+                        break;
                     case 3:
                         showCategoriesListFragment();
-                        break;
-                    default:
                         break;
                 }
 
@@ -158,6 +162,37 @@ public class MainActivity extends ActionBarActivity {
 
         Bundle data = new Bundle();
         data.putInt("position", 0);
+        data.putString("filter", "all");
+        cFragment.setArguments(data);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.content_frame, cFragment);
+        ft.commit();
+    }
+
+    public void showTodoListFragment(){
+        mTitle = mPages[1];
+        MainFragment cFragment = new MainFragment();
+
+        Bundle data = new Bundle();
+        data.putInt("position", 1);
+        data.putString("filter", "todo");
+        cFragment.setArguments(data);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft.replace(R.id.content_frame, cFragment);
+        ft.commit();
+    }
+
+    public void showDoneListFragment(){
+        mTitle = mPages[2];
+        MainFragment cFragment = new MainFragment();
+
+        Bundle data = new Bundle();
+        data.putInt("position", 2);
+        data.putString("filter", "done");
         cFragment.setArguments(data);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
