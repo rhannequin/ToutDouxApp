@@ -110,13 +110,13 @@ public class MainActivity extends ActionBarActivity {
 
                 switch(position){
                     case 0:
-                        showMainFragment();
+                        showMainFragment(0, "all");
                         break;
                     case 1:
-                        showTodoListFragment();
+                        showMainFragment(1, "todo");
                         break;
                     case 2:
-                        showDoneListFragment();
+                        showMainFragment(2, "done");
                         break;
                     case 3:
                         showCategoriesListFragment();
@@ -132,7 +132,7 @@ public class MainActivity extends ActionBarActivity {
         mDrawerList.setAdapter(mAdapter);
 
         // Load showMainFragment
-        showMainFragment();
+        showMainFragment(0, "all");
 
     }
 
@@ -156,43 +156,13 @@ public class MainActivity extends ActionBarActivity {
         return true;
     }
 
-    public void showMainFragment(){
-        mTitle = mPages[0];
+    public void showMainFragment(int i, String filter){
+        mTitle = mPages[i];
         MainFragment cFragment = new MainFragment();
 
         Bundle data = new Bundle();
-        data.putInt("position", 0);
-        data.putString("filter", "all");
-        cFragment.setArguments(data);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.content_frame, cFragment);
-        ft.commit();
-    }
-
-    public void showTodoListFragment(){
-        mTitle = mPages[1];
-        MainFragment cFragment = new MainFragment();
-
-        Bundle data = new Bundle();
-        data.putInt("position", 1);
-        data.putString("filter", "todo");
-        cFragment.setArguments(data);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction ft = fragmentManager.beginTransaction();
-        ft.replace(R.id.content_frame, cFragment);
-        ft.commit();
-    }
-
-    public void showDoneListFragment(){
-        mTitle = mPages[2];
-        MainFragment cFragment = new MainFragment();
-
-        Bundle data = new Bundle();
-        data.putInt("position", 2);
-        data.putString("filter", "done");
+        data.putInt("position", i);
+        data.putString("filter", filter);
         cFragment.setArguments(data);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
