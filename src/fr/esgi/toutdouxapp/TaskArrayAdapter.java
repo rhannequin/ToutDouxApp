@@ -30,12 +30,25 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflator = context.getLayoutInflater();
         View view = inflator.inflate(R.layout.activity_tasklist_row, null);
-        final ViewHolder viewHolder = new ViewHolder();
-        viewHolder.text = (TextView) view.findViewById(R.id.title);
-        view.setTag(viewHolder);
-        view.setBackgroundColor(Color.parseColor(list.get(position).category.color));
-        ViewHolder holder = (ViewHolder) view.getTag();
-        holder.text.setText(list.get(position).title);
+
+        Task task = list.get(position);
+
+        TextView titleView = (TextView) view.findViewById(R.id.title);
+        titleView.setText(task.title);
+
+        TextView descriptionView = (TextView) view.findViewById(R.id.description);
+        descriptionView.setText(task.description);
+
+        TextView dueDateView = (TextView) view.findViewById(R.id.dueDate);
+        String timeLeft = task.getTimeLeft();
+        int daysLeft = task.getDaysLeft();
+        if(daysLeft < 1) {
+            dueDateView.setTextColor(Color.parseColor("#FF0000"));
+        }
+        dueDateView.setText(timeLeft);
+
+        view.findViewById(R.id.category_icon).setBackgroundColor(Color.parseColor(task.category.color));
+
         return view;
     }
 
