@@ -23,7 +23,10 @@
     <string name="hint_color">#FFFFFF (optional)</string>
     <string name="task_add">New task</string>
     <string name="task_create">Create task</string>
+    <string name="task_validate">Done</string>
+    <string name="task_edit">Edit</string>
+    <string name="task_delete">Delete</string>
     <string name="category_add">New category</string>
     <string name="category_create">Create category</string>
-    <string name="category_thumbnail_description">Category color</string>
+    <string name="description_category">Category</string>
 </resources>
