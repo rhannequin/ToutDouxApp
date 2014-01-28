@@ -13,13 +13,16 @@
         <item>Categories</item>
     </string-array>
     <string name="title_activity_task">Task details</string>
-    <string name="title_activity_add_task">Add new task</string>
+    <string name="title_activity_add_task">New task</string>
     <string name="title_activity_categories_list">My categories</string>
-    <string name="title_activity_add_category">Add new category</string>
+    <string name="title_activity_add_category">New category</string>
     <string name="hint_title">Title</string>
+    <string name="hint_date">Date</string>
+    <string name="hint_time">Time</string>
     <string name="hint_description">Description</string>
     <string name="hint_color">#FFFFFF (optional)</string>
-    <string name="task_add">Add new task</string>
-    <string name="category_add">Add new category</string>
+    <string name="task_add">New task</string>
+    <string name="task_create">Create task</string>
+    <string name="category_add">New category</string>
     <string name="category_create">Create category</string>
 </resources>

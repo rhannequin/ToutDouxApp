@@ -6,126 +6,102 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
         android:orientation="vertical" >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="5dp"
-            android:layout_weight="1"
-            android:orientation="vertical" >
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:gravity="center_vertical|top"
+            android:hint="@string/hint_title"
+            android:paddingBottom="15dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="10dip"
+            android:textColor="@color/darkgrey"
+            android:textColorHint="@color/grey" >
 
-            <EditText
-                android:id="@+id/editText1"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:background="@color/white"
-                android:ems="10"
-                android:gravity="center_vertical|top"
-                android:hint="@string/hint_title"
-                android:paddingBottom="15dip"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:paddingTop="10dip"
-                android:textColor="@color/darkgrey"
-                android:textColorHint="@color/grey" >
+            <requestFocus />
+        </EditText>
 
-                <requestFocus />
-            </EditText>
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_marginTop="14dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:gravity="center_vertical|top"
+            android:hint="@string/hint_description"
+            android:inputType="textMultiLine"
+            android:paddingBottom="15dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="10dip"
+            android:textColor="@color/darkgrey"
+            android:textColorHint="@color/grey" />
 
-            <EditText
-                android:id="@+id/editText2"
-                android:layout_width="fill_parent"
-                android:layout_height="80dp"
-                android:layout_marginTop="14dp"
-                android:background="@color/white"
-                android:ems="10"
-                android:gravity="center_vertical|top"
-                android:hint="@string/hint_description"
-                android:inputType="textMultiLine"
-                android:paddingBottom="15dip"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:paddingTop="10dip"
-                android:textColor="@color/darkgrey"
-                android:textColorHint="@color/grey" />
+        <EditText
+            android:id="@+id/editText3"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:gravity="center_vertical|top"
+            android:hint="@string/hint_date"
+            android:focusable="false"
+            android:onClick="showDatePickerDialog"
+            android:paddingBottom="15dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="10dip"
+            android:textColor="@color/darkgrey"
+            android:textColorHint="@color/grey" />
 
-            <EditText
-                android:id="@+id/datePicker1"
-                android:layout_width="175dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:background="@color/white"
-                android:ems="10"
-                android:gravity="center_vertical|top"
-                android:hint="Date"
-                android:focusable="false"
-                android:onClick="showDatePickerDialog"
-                android:paddingBottom="15dip"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:paddingTop="10dip"
-                android:textColor="@color/darkgrey"
-                android:textColorHint="@color/grey" />
+        <EditText
+            android:id="@+id/editText4"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@color/white"
+            android:ems="10"
+            android:gravity="center_vertical|top"
+            android:hint="@string/hint_time"
+            android:focusable="false"
+            android:onClick="showTimePickerDialog"
+            android:paddingBottom="15dip"
+            android:paddingLeft="10dip"
+            android:paddingRight="10dip"
+            android:paddingTop="10dip"
+            android:textColor="@color/darkgrey"
+            android:textColorHint="@color/grey" />
 
-            <EditText
-                android:id="@+id/timePicker1"
-                android:layout_width="125dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:background="@color/white"
-                android:ems="10"
-                android:gravity="center_vertical|top"
-                android:hint="Time"
-                android:focusable="false"
-                android:onClick="showTimePickerDialog"
-                android:paddingBottom="15dip"
-                android:paddingLeft="10dip"
-                android:paddingRight="10dip"
-                android:paddingTop="10dip"
-                android:textColor="@color/darkgrey"
-                android:textColorHint="@color/grey" />
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp" />
 
-            <!--
-                DatePicker
-                android:id="@+id/datePicker1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" /
-            -->
-
-
-            <!--
-                TimePicker
-                android:id="@+id/timePicker1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="28dp" /
-            -->
-
-            <Spinner
-                android:id="@+id/spinner1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp" />
-
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:background="@color/grey"
-                android:gravity="right"
-                android:onClick="submitForm"
-                android:padding="10dip"
-                android:text="Create Task"
-                android:textColor="@color/white" />
-        </LinearLayout>
-
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:background="@color/grey"
+            android:gravity="right"
+            android:onClick="submitForm"
+            android:padding="10dip"
+            android:text="@string/task_create"
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </ScrollView>

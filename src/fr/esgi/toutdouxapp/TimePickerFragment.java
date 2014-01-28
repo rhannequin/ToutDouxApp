@@ -32,7 +32,7 @@ public class TimePickerFragment extends DialogFragment
 
         SimpleDateFormat sdf = new SimpleDateFormat("hh:mm aa", Locale.US);
         String formattedDate = sdf.format(c.getTime());
-        ((TextView) getActivity().findViewById(R.id.timePicker1)).setText(formattedDate);
+        ((TextView) getActivity().findViewById(R.id.editText4)).setText(formattedDate);
     }
 
 }

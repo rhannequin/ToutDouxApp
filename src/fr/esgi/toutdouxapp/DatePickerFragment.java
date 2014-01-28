@@ -30,7 +30,7 @@ public class DatePickerFragment extends DialogFragment
 
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
         String formattedDate = sdf.format(c.getTime());
-        ((TextView) getActivity().findViewById(R.id.datePicker1)).setText(formattedDate);
+        ((TextView) getActivity().findViewById(R.id.editText3)).setText(formattedDate);
     }
 
 }
