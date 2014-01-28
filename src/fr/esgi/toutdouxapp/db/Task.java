@@ -67,15 +67,19 @@ public class Task implements Parcelable {
     }
 
     public String getTimeLeft() {
-        int left = getDaysLeft();
+        final int left = getDaysLeft();
 
         String result;
         if (left > 1) {
             result = left + " days left";
         } else if (left > 0) {
             result = "Tomorrow";
-        } else {
+        } else if (left == 0) {
             result = "Today";
+        } else if (left == -1) {
+            result = "Yesterday";
+        } else {
+            result = Math.abs(left) + " days ago";
         }
 
         return result;

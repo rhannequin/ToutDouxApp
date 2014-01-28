@@ -41,7 +41,7 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
 
         TextView dueDateView = (TextView) view.findViewById(R.id.dueDate);
         String timeLeft = task.getTimeLeft();
-        int daysLeft = task.getDaysLeft();
+        int daysLeft = (int) task.getDaysLeft();
         if(daysLeft < 1) {
             dueDateView.setTextColor(Color.parseColor("#FF0000"));
         }

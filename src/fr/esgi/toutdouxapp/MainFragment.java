@@ -141,7 +141,6 @@ public class MainFragment extends Fragment {
        switch (item.getItemId()) {
           case R.id.add_task:
             Intent intent = new Intent(getActivity(), AddTaskActivity.class);
-            intent.putParcelableArrayListExtra("categories", this.categories);
             startActivity(intent);
           default:
             return super.onOptionsItemSelected(item);

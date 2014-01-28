@@ -1,7 +1,5 @@
 package fr.esgi.toutdouxapp.db;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import android.content.Context;
@@ -50,7 +48,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_FILL_TABLE_TASKS_SECOND =
         "INSERT INTO " + TABLE_TASKS + " (" + COLUMN_TASK_TITLE + ", " + COLUMN_TASK_DESCRIPTION + ", " + COLUMN_TASK_DUE_DATE + ", " + COLUMN_TASK_STATE + ", " + COLUMN_TASK_CATEGORY_ID + ") VALUES (" +
-            "'Task done', 'Description of task done', '" + getOneDay(3) + "', 1, 2);";
+            "'Task done', 'Description of task done', '" + getOneDay(-3) + "', 1, 2);";
 
     private static final String DATABASE_CREATE_TABLE_CATEGORIES =
         "CREATE TABLE " + TABLE_CATEGORIES + "(" +
@@ -94,11 +92,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
     }
 
-    private static String getOneDay(int dayBefore) {
-        DateFormat df = new SimpleDateFormat("yy/MM/dd HH:mm:ss", java.util.Locale.getDefault());
+    private static long getOneDay(int day) {
         Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, dayBefore);
-        return df.format(cal.getTime());
+        cal.add(Calendar.DATE, day);
+        return cal.getTime().getTime();
     }
 
 }
