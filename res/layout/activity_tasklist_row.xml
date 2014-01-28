@@ -1,57 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="5dip">
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:id="@+id/category_icon"
-        android:layout_width="wrap_content"
+        android:id="@+id/task_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="3dip"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="5dip">
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp">
 
-        <ImageView
-            android:contentDescription="category"
-            android:layout_width="10dip"
-            android:layout_height="10dip" />
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#040404"
+            android:typeface="sans"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/dueDate"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginRight="5dip"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/category_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dip"
+            android:layout_marginRight="5dip">
+
+            <ImageView
+                android:contentDescription="@string/description_category"
+                android:layout_width="10dip"
+                android:layout_height="10dip" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/category_icon"
-        android:layout_toRightOf="@+id/category_icon"
-        android:text="@+id/title"
-        android:textColor="#040404"
-        android:typeface="sans"
-        android:textSize="15sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/description"
+    <LinearLayout
+        android:id="@+id/task_pannel"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/title"
-        android:textColor="#343434"
-        android:textSize="12sp"
-        android:layout_marginTop="1dip"
-        android:layout_toRightOf="@+id/category_icon" />
+        android:layout_below="@+id/task_content"
+        android:orientation="vertical"
+        android:background="@color/lightergrey"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:visibility="gone">
 
-    <TextView
-        android:id="@+id/dueDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@id/title"
-        android:gravity="right"
-        android:layout_marginRight="5dip"
-        android:textSize="12sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/grey"
+            android:textSize="12sp"
+            android:gravity="center_horizontal"/>
 
+        <LinearLayout
+            android:id="@+id/task_actions"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/validateTask"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/grey"
+                android:text="@string/task_validate"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/editTask"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginRight="5dp"
+                android:background="@color/grey"
+                android:text="@string/task_edit"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/deleteTask"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:background="@color/grey"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:text="@string/task_delete"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 </RelativeLayout>
