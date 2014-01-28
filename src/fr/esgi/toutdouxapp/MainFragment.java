@@ -1,13 +1,11 @@
 package fr.esgi.toutdouxapp;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import fr.esgi.toutdouxapp.db.Category;
 import fr.esgi.toutdouxapp.db.Task;
 import android.os.Bundle;
 import android.content.Intent;
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,60 +14,97 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 public class MainFragment extends Fragment {
 
     private ListView listView;
-    private ArrayAdapter<Task> adapter;
-
-    public String TASK_FILTER;
+    private Spinner categoriesSpinner;
+    private String spinnerHint = "Bitch please";
 
     public ArrayList<Category> categories;
     public ArrayList<Task> tasks;
 
-
+    private enum StateFilters {
+        all, todo, done;
+    };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_layout, container, false);
+        return inflater.inflate(R.layout.main_fragment_layout, container, false);
+    }
+
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        initUI();
+    }
 
+    private void initUI() {
         listView = (ListView) getView().findViewById(R.id.list);
+        tasks = getTaskList(getArguments().getString("filter"));
+        listView.setAdapter(setTaskAdapter(tasks));
+        listView.setOnItemClickListener(onListViewItemClickListener);
 
-        this.categories = Category.findAll(getActivity());
-        if(this.categories.size() == 0) {
-            this.categories = setListCategories();
+        categoriesSpinner = (Spinner) getView().findViewById(R.id.categories);
+        categories = initCategories();
+        categoriesSpinner.setAdapter(setSpinnerAdapter(categories));
+        categoriesSpinner.setOnItemSelectedListener(spinnerOnSelectedItem);
+    }
+
+    private TaskArrayAdapter setTaskAdapter (ArrayList<Task> tasks) {
+        return new TaskArrayAdapter(getActivity(), R.layout.activity_tasklist_row, tasks);
+    }
+
+    private OnItemClickListener onListViewItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
+            Intent taskActivityIntent = new Intent(getActivity(), TaskActivity.class);
+            taskActivityIntent.putExtra("taskId", MainFragment.this.tasks.get(position).id);
+            startActivity(taskActivityIntent);
         }
+    };
 
-        TASK_FILTER = getArguments().getString("filter");
-        this.tasks = getTaskList(TASK_FILTER);
+    private ArrayList<Category> initCategories() {
+        ArrayList<Category> categories = Category.findAll(getActivity());
+        Category hint = new Category();
+        hint.title = spinnerHint;
+        categories.add(0, hint);
+        return categories;
+    }
 
-        adapter = new TaskArrayAdapter(getActivity(), R.layout.activity_tasklist_row, tasks);
-        listView.setAdapter(adapter);
+    private ArrayAdapter<Category> setSpinnerAdapter (ArrayList<Category> categories) {
+        return new ArrayAdapter<Category>(
+            getActivity(),
+            android.R.layout.simple_spinner_item,
+            categories
+        );
+    }
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+    private OnItemSelectedListener spinnerOnSelectedItem =
+        new OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View v, int position, long id) {
-                Intent taskActivityIntent = new Intent(getActivity(), TaskActivity.class);
-                taskActivityIntent.putExtra("taskId", MainFragment.this.tasks.get(position).id);
-                startActivity(taskActivityIntent);
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                Category selected = (Category) categoriesSpinner.getSelectedItem();
+                Boolean applyFilter = !(selected.title == spinnerHint);
             }
-        });
-    }
 
-    private enum Filters {
-        all, todo, done;
-    }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {}
+        };
 
     private ArrayList<Task> getTaskList(String filter) {
         ArrayList<Task> tasks;
-        switch(Filters.valueOf(filter)) {
+        switch(StateFilters.valueOf(filter)) {
         case all:
         default:
             tasks = Task.findAll(getActivity(), null);
@@ -82,23 +117,6 @@ public class MainFragment extends Fragment {
             break;
         }
         return tasks;
-    }
-
-    private ArrayList<Category> setListCategories() {
-        Category.deleteAll(getActivity());
-        for(int i = 1; i <= 5; i++) {
-            String title = "This is my category #" + i;
-            Random r = new Random();
-            int color = Color.argb(255, r.nextInt(256), r.nextInt(256), r.nextInt(256));
-            String hexa = String.format("#%06X", 0xFFFFFF & color);
-            Category.create(getActivity(), title, hexa);
-        }
-        return Category.findAll(getActivity());
-    }
-
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
     }
 
     @Override

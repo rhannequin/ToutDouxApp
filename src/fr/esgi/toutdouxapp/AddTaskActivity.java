@@ -66,11 +66,11 @@ public class AddTaskActivity extends ActionBarActivity {
     }
 
     private void initFormFields() {
-        this.titleInput = (EditText) findViewById(R.id.editText1);
-        this.descriptionInput = (EditText) findViewById(R.id.editText2);
-        this.datePicker = (DatePicker) findViewById(R.id.datePicker1);
-        this.timePicker = (TimePicker) findViewById(R.id.timePicker1);
-        this.categoriesSpinner = (Spinner)this.findViewById(R.id.spinner1);
+        titleInput = (EditText) findViewById(R.id.editText1);
+        descriptionInput = (EditText) findViewById(R.id.editText2);
+        datePicker = (DatePicker) findViewById(R.id.datePicker1);
+        timePicker = (TimePicker) findViewById(R.id.timePicker1);
+        categoriesSpinner = (Spinner) findViewById(R.id.spinner1);
 
         ArrayAdapter<Category> spinnerArrayAdapter = new ArrayAdapter<Category>(
             this,
