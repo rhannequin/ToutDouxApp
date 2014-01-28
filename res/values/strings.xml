@@ -25,4 +25,5 @@
     <string name="task_create">Create task</string>
     <string name="category_add">New category</string>
     <string name="category_create">Create category</string>
+    <string name="category_thumbnail_description">Category color</string>
 </resources>

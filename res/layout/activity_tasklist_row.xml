@@ -15,7 +15,7 @@
         android:layout_marginRight="5dip">
 
         <ImageView
-            android:contentDescription="category"
+            android:contentDescription="@string/category_thumbnail_description"
             android:layout_width="10dip"
             android:layout_height="10dip" />
 
