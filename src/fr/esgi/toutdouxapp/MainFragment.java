@@ -96,6 +96,17 @@ public class MainFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                 Category selected = (Category) categoriesSpinner.getSelectedItem();
                 Boolean applyFilter = !(selected.title == spinnerHint);
+                tasks = getTaskList(getArguments().getString("filter"));
+                if(applyFilter) {
+                  ArrayList<Task> newTasks = new ArrayList<Task>();
+                  for(Task task : tasks) {
+                        if(task.category.id == selected.id) {
+                            newTasks.add(task);
+                        }
+                    }
+                  tasks = newTasks;
+                }
+                listView.setAdapter(setTaskAdapter(tasks));
             }
 
             @Override
@@ -129,11 +140,11 @@ public class MainFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
        switch (item.getItemId()) {
           case R.id.add_task:
-              Intent intent = new Intent(getActivity(), AddTaskActivity.class);
-              intent.putParcelableArrayListExtra("categories", this.categories);
-              startActivity(intent);
+            Intent intent = new Intent(getActivity(), AddTaskActivity.class);
+            intent.putParcelableArrayListExtra("categories", this.categories);
+            startActivity(intent);
           default:
-             return super.onOptionsItemSelected(item);
+            return super.onOptionsItemSelected(item);
        }
     }
 
