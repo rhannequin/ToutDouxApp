@@ -1,12 +1,15 @@
 package fr.esgi.toutdouxapp;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 public class DatePickerFragment extends DialogFragment
     implements DatePickerDialog.OnDateSetListener {
@@ -22,7 +25,12 @@ public class DatePickerFragment extends DialogFragment
     }
 
     public void onDateSet(DatePicker view, int year, int month, int day) {
-        
+        Calendar c = Calendar.getInstance();
+        c.set(year, month, day);
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        String formattedDate = sdf.format(c.getTime());
+        ((TextView) getActivity().findViewById(R.id.datePicker1)).setText(formattedDate);
     }
 
 }

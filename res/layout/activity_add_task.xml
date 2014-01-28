@@ -56,7 +56,7 @@
                 android:textColorHint="@color/grey" />
 
             <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/datePicker1"
                 android:layout_width="175dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
@@ -74,7 +74,7 @@
                 android:textColorHint="@color/grey" />
 
             <EditText
-                android:id="@+id/editText4"
+                android:id="@+id/timePicker1"
                 android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"

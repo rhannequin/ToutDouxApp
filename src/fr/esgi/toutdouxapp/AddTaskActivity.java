@@ -1,8 +1,10 @@
 package fr.esgi.toutdouxapp;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import fr.esgi.toutdouxapp.db.Category;
 import fr.esgi.toutdouxapp.db.Task;
@@ -16,18 +18,16 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 public class AddTaskActivity extends ActionBarActivity {
 
     private ArrayList<Category> categories;
     private EditText titleInput, descriptionInput;
-    private DatePicker datePicker;
-    private TimePicker timePicker;
+    private EditText datePicker;
+    private EditText timePicker;
     private Spinner categoriesSpinner;
 
     @Override
@@ -49,28 +49,37 @@ public class AddTaskActivity extends ActionBarActivity {
     public void submitForm(View v) {
         final String title = this.titleInput.getText().toString();
         final String description = this.descriptionInput.getText().toString();
-        Calendar cal = Calendar.getInstance();
-        cal.set(
-            datePicker.getYear(),
-            datePicker.getMonth(),
-            datePicker.getDayOfMonth(),
-            timePicker.getCurrentHour(),
-            timePicker.getCurrentMinute(),
-            00);
-        final Date dueDate = cal.getTime();
-        Category category = (Category) categoriesSpinner.getSelectedItem();
+        final String date = this.datePicker.getText().toString();
+        final String time = this.timePicker.getText().toString();
+        final String dateTime = date+" "+time;
+        
+        try {
 
-        Task.create(this, title, description, dueDate, category.id);
+            Calendar cal = Calendar.getInstance();
 
-        Toast.makeText(getApplicationContext(), "Task created!", Toast.LENGTH_SHORT).show();
-        finish();
+            SimpleDateFormat curFormater = new SimpleDateFormat("MM/dd/yyyy hh:mm aa", Locale.US); 
+            Date dateObj = curFormater.parse(dateTime); 
+            cal.setTime(dateObj);
+
+            final Date dueDate = cal.getTime();
+            Category category = (Category) categoriesSpinner.getSelectedItem();
+
+            Task.create(this, title, description, dueDate, category.id);
+            Toast.makeText(getApplicationContext(), "Task created!", Toast.LENGTH_SHORT).show();
+            finish();
+
+        } catch (java.text.ParseException e) {
+            Toast.makeText(getApplicationContext(), "Error in parsing date!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
     }
 
     private void initFormFields() {
         this.titleInput = (EditText) findViewById(R.id.editText1);
         this.descriptionInput = (EditText) findViewById(R.id.editText2);
-        //this.datePicker = (DatePicker) findViewById(R.id.datePicker1);
-        //this.timePicker = (TimePicker) findViewById(R.id.timePicker1);
+        this.datePicker = (EditText) findViewById(R.id.datePicker1);
+        this.timePicker = (EditText) findViewById(R.id.timePicker1);
         this.categoriesSpinner = (Spinner)this.findViewById(R.id.spinner1);
 
         ArrayAdapter<Category> spinnerArrayAdapter = new ArrayAdapter<Category>(
