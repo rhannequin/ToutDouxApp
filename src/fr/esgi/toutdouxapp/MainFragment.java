@@ -141,6 +141,8 @@ public class MainFragment extends Fragment {
        switch (item.getItemId()) {
           case R.id.add_task:
             Intent intent = new Intent(getActivity(), AddTaskActivity.class);
+            Task task = new Task().empty(categories.get(0));
+            intent.putExtra("task", task);
             startActivity(intent);
           default:
             return super.onOptionsItemSelected(item);

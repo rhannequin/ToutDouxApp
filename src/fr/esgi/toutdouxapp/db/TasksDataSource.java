@@ -48,6 +48,16 @@ public class TasksDataSource {
         return getOneTask(insertId);
     }
 
+    public void updateTask(Task task) {
+        ContentValues values = new ContentValues();
+        values.put(MySQLiteHelper.COLUMN_TASK_TITLE, task.title);
+        values.put(MySQLiteHelper.COLUMN_TASK_DESCRIPTION, task.description);
+        values.put(MySQLiteHelper.COLUMN_TASK_DUE_DATE, task.dueDate.getTime());
+        values.put(MySQLiteHelper.COLUMN_TASK_STATE, 0);
+        values.put(MySQLiteHelper.COLUMN_TASK_CATEGORY_ID, task.category.id);
+        database.update(MySQLiteHelper.TABLE_TASKS, values, null, null);
+    }
+
     public ArrayList<Task> getAllTasks(String where) {
         ArrayList<Task> tasks = new ArrayList<Task>();
 
