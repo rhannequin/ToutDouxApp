@@ -4,10 +4,10 @@
 
     <item
         android:id="@+id/order_task"
-        android:icon="@drawable/ic_action_sort_by_size"
         android:title="@string/task_order"
-        tda:showAsAction="ifRoom" />
-        
+        tda:showAsAction="ifRoom"
+        tda:actionViewClass="android.widget.Spinner"/>
+
     <item
         android:id="@+id/add_task"
         android:icon="@drawable/ic_action_new"

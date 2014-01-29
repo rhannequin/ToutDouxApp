@@ -6,6 +6,7 @@ import fr.esgi.toutdouxapp.db.Task;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,8 +47,10 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
         final TextView dueDateView = (TextView) view.findViewById(R.id.dueDate);
         manageDueDateView(dueDateView, task);
 
-        view.findViewById(R.id.category_icon).setBackgroundColor(Color.parseColor(task.category.color));
-
+        final TextView categoryView = (TextView) view.findViewById(R.id.category);
+        categoryView.setTextColor(Color.parseColor(task.category.color));
+        categoryView.setTypeface(null, Typeface.ITALIC);
+        categoryView.setText(task.category.title);
 
         /** Action buttons **/
 

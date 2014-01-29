@@ -7,6 +7,7 @@ import fr.esgi.toutdouxapp.db.Task;
 import android.os.Bundle;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.MenuItemCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,7 +24,7 @@ import android.widget.Spinner;
 public class MainFragment extends Fragment {
 
     private ListView listView;
-    private Spinner categoriesSpinner;
+    private MenuItem orderSpinner;
     private String spinnerHint = "Bitch please";
 
     public ArrayList<Category> categories;
@@ -54,11 +55,6 @@ public class MainFragment extends Fragment {
         tasks = getTaskList(getArguments().getString("filter"));
         listView.setAdapter(setTaskAdapter(tasks));
         listView.setOnItemClickListener(onListViewItemClickListener);
-
-        categoriesSpinner = (Spinner) getView().findViewById(R.id.categories);
-        categories = initCategories();
-        categoriesSpinner.setAdapter(setSpinnerAdapter(categories));
-        categoriesSpinner.setOnItemSelectedListener(spinnerOnSelectedItem);
     }
 
     private TaskArrayAdapter setTaskAdapter (ArrayList<Task> tasks) {
@@ -90,29 +86,6 @@ public class MainFragment extends Fragment {
         );
     }
 
-    private OnItemSelectedListener spinnerOnSelectedItem =
-        new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                Category selected = (Category) categoriesSpinner.getSelectedItem();
-                Boolean applyFilter = !(selected.title == spinnerHint);
-                tasks = getTaskList(getArguments().getString("filter"));
-                if(applyFilter) {
-                  ArrayList<Task> newTasks = new ArrayList<Task>();
-                  for(Task task : tasks) {
-                        if(task.category.id == selected.id) {
-                            newTasks.add(task);
-                        }
-                    }
-                  tasks = newTasks;
-                }
-                listView.setAdapter(setTaskAdapter(tasks));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {}
-        };
-
     private ArrayList<Task> getTaskList(String filter) {
         ArrayList<Task> tasks;
         switch(StateFilters.valueOf(filter)) {
@@ -134,6 +107,38 @@ public class MainFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.tasks_list, menu);
+
+        orderSpinner = menu.findItem(R.id.order_task);
+        View v = (Spinner) MenuItemCompat.getActionView(orderSpinner);
+
+        if (v instanceof Spinner) {
+            final Spinner spinner = (Spinner) v;
+            categories = initCategories();
+            spinner.setAdapter(setSpinnerAdapter(categories));
+
+            spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                    Category selected = (Category) spinner.getSelectedItem();
+                    Boolean applyFilter = !(selected.title == spinnerHint);
+                    tasks = getTaskList(getArguments().getString("filter"));
+                    if(applyFilter) {
+                        ArrayList<Task> newTasks = new ArrayList<Task>();
+                        for(Task task : tasks) {
+                            if(task.category.id == selected.id) {
+                                newTasks.add(task);
+                            }
+                        }
+                        tasks = newTasks;
+                    }
+                    listView.setAdapter(setTaskAdapter(tasks));
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parentView) {}
+            });
+
+        }
     }
 
     @Override
