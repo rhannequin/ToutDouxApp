@@ -3,6 +3,12 @@
     xmlns:tda="http://schemas.android.com/apk/res-auto" >
 
     <item
+        android:id="@+id/order_task"
+        android:icon="@drawable/ic_action_sort_by_size"
+        android:title="@string/task_order"
+        tda:showAsAction="ifRoom" />
+        
+    <item
         android:id="@+id/add_task"
         android:icon="@drawable/ic_action_new"
         android:title="@string/task_add"

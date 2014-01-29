@@ -22,6 +22,7 @@
     <string name="hint_description">Description</string>
     <string name="hint_color">#FFFFFF (optional)</string>
     <string name="task_add">New task</string>
+    <string name="task_order">Order task</string>
     <string name="task_create">Create task</string>
     <string name="task_validate">Done</string>
     <string name="task_edit">Edit</string>
