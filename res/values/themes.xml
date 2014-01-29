@@ -1,47 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- the theme applied to the application or activity -->
     <style
-        name="CustomActionBarTheme"
-        parent="@style/Theme.AppCompat.Light">
+        name="ToutDouxAppTheme"
+        parent="@style/Theme.AppCompat.Light.DarkActionBar">
 
-        <!-- Support library compatibility -->
-        <item name="actionBarStyle">@style/MyActionBar</item>
-        <item name="actionBarTabTextStyle">@style/TabTextStyle</item>
-        <item name="actionMenuTextColor">@color/white</item>
-    </style>
-
-    <!-- general styles for the action bar -->
-    <style
-        name="MyActionBar"
-        parent="@style/Widget.AppCompat.ActionBar">
-
-        <item name="android:background">@color/darkgrey</item>
-
-        <!-- Support library compatibility -->
-        <item name="titleTextStyle">@style/TitleTextStyle</item>
-        <item name="background">@color/darkgrey</item>
-        <item name="backgroundStacked">@color/darkgrey</item>
-        <item name="backgroundSplit">@color/darkgrey</item>
+        <item name="android:spinnerStyle">@style/StandardSpinner</item>
+        <item name="android:spinnerItemStyle">@style/StandardSpinnerItem</item>
+        <item name="android:spinnerDropDownItemStyle">@style/StandardSpinnerDropDownItem</item>
 
     </style>
 
-    <!-- action bar title text -->
-    <style
-        name="TitleTextStyle"
-        parent="@style/TextAppearance.AppCompat.Widget.ActionBar.Title">
-
-        <item name="android:textColor">#000000</item>
+    <style name="StandardSpinner" parent="@android:style/Widget.Spinner">
 
     </style>
 
-    <!-- action bar tab text -->
-    <style
-        name="TabTextStyle"
-        parent="@style/Widget.AppCompat.ActionBar.TabText">
+    <style name="StandardSpinnerItem" parent="@android:style/Widget.TextView.SpinnerItem">
+       <item name="android:textColor">@color/white</item>
+       <item name="android:padding">5dp</item>
+    </style>
 
-        <item name="android:textColor">@color/white</item>
+    <style name="StandardSpinnerDropDownItem" parent="@android:style/Widget.DropDownItem.Spinner">
 
     </style>
 

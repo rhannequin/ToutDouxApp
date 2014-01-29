@@ -12,7 +12,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/Theme.AppCompat.Light.DarkActionBar" >
+        android:theme="@style/ToutDouxAppTheme" >
         <activity
             android:name="fr.esgi.toutdouxapp.MainActivity"
             android:label="@string/app_name" >

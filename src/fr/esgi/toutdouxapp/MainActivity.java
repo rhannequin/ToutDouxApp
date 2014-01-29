@@ -131,8 +131,9 @@ public class MainActivity extends ActionBarActivity {
         // Setting the adapter to the listView
         mDrawerList.setAdapter(mAdapter);
 
-        // Load showMainFragment
+        // Load showMainFragment && set title
         showMainFragment(0, "all");
+        getSupportActionBar().setTitle(mPages[0]);
 
     }
 
