@@ -29,5 +29,6 @@
     <string name="task_delete">Delete</string>
     <string name="category_add">New category</string>
     <string name="category_create">Create category</string>
+    <string name="category_empty">No category</string>
     <string name="description_category">Category</string>
 </resources>
