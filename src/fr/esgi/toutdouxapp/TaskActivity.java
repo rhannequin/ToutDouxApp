@@ -64,7 +64,7 @@ public class TaskActivity extends ActionBarActivity {
     }
 
     public void toogleTaskHandler(View v) {
-        Task.toogleState(this, task);
+        task.toggleState(this);
         finish();
     }
 
