@@ -97,7 +97,7 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
             @Override
             public void onClick(View v) {
                 if(!task.isDone()) {
-                    Task.toogleState(context, task);
+                    task.toggleState(context);
                     list.remove(task);
                     notifyDataSetChanged();
                 }

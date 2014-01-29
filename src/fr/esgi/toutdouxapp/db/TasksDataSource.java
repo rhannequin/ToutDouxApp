@@ -82,14 +82,16 @@ public class TasksDataSource {
             + " = " + id, null);
     }
 
-    public void toogleState(Task task) {
+    public int toggleState(Task task) {
         ContentValues cv = new ContentValues();
-        cv.put("state", task.isDone() ? "0" : "1");
+        int newState = task.isDone() ? 0 : 1;
+        cv.put("state", newState);
         database.update(
             MySQLiteHelper.TABLE_TASKS,
             cv,
             MySQLiteHelper.COLUMN_TASK_ID + " = " + task.id,
             null);
+        return newState;
     }
 
     private Task cursorToTask(Cursor cursor) {

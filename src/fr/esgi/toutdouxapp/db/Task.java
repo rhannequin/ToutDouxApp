@@ -89,6 +89,14 @@ public class Task implements Parcelable {
         return state == 1;
     }
 
+    public Task toggleState (Context context) {
+        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        tasksDataSource.open();
+        state = tasksDataSource.toggleState(this);
+        tasksDataSource.close();
+        return this;
+    }
+
     public static ArrayList<Task> findAll (Context context, String where) {
         TasksDataSource tasksDataSource = new TasksDataSource(context);
         tasksDataSource.open();
@@ -124,13 +132,6 @@ public class Task implements Parcelable {
         TasksDataSource tasksDataSource = new TasksDataSource(context);
         tasksDataSource.open();
         tasksDataSource.deleteTask(task);
-        tasksDataSource.close();
-    }
-
-    public static void toogleState (Context context, Task task) {
-        TasksDataSource tasksDataSource = new TasksDataSource(context);
-        tasksDataSource.open();
-        tasksDataSource.toogleState(task);
         tasksDataSource.close();
     }
 
