@@ -68,7 +68,7 @@
             android:layout_weight="1"
             android:textColor="@color/grey"
             android:textSize="12sp"
-            android:gravity="center_horizontal"/>
+            android:gravity="center_horizontal" />
 
         <LinearLayout
             android:id="@+id/task_actions"
@@ -105,9 +105,10 @@
                 android:background="@color/grey"
                 android:textColor="@color/white"
                 android:textSize="12sp"
-                android:text="@string/task_delete"/>
+                android:text="@string/task_delete" />
 
         </LinearLayout>
 
     </LinearLayout>
+
 </RelativeLayout>

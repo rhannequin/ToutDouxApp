@@ -5,11 +5,13 @@ import java.util.List;
 import fr.esgi.toutdouxapp.db.Task;
 import android.app.Activity;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,35 +32,40 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflator = context.getLayoutInflater();
-        View view = inflator.inflate(R.layout.activity_tasklist_row, null);
+        final LayoutInflater inflator = context.getLayoutInflater();
+        final View view = inflator.inflate(R.layout.activity_tasklist_row, null);
+        final Task task = list.get(position);
 
-        Task task = list.get(position);
-
-        TextView titleView = (TextView) view.findViewById(R.id.title);
+        final TextView titleView = (TextView) view.findViewById(R.id.title);
         titleView.setText(task.title);
 
-        TextView descriptionView = (TextView) view.findViewById(R.id.description);
+        final TextView descriptionView = (TextView) view.findViewById(R.id.description);
         descriptionView.setText(task.description);
 
-        TextView dueDateView = (TextView) view.findViewById(R.id.dueDate);
-        String timeLeft = task.getTimeLeft();
-        int daysLeft = (int) task.getDaysLeft();
-        if(daysLeft < 1) {
-            dueDateView.setTextColor(Color.parseColor("#FF0000"));
-        }
-        dueDateView.setText(timeLeft);
+        final TextView dueDateView = (TextView) view.findViewById(R.id.dueDate);
+        manageDueDateView(dueDateView, task);
 
         view.findViewById(R.id.category_icon).setBackgroundColor(Color.parseColor(task.category.color));
 
-        LinearLayout taskContent = (LinearLayout) view.findViewById(R.id.task_content);
+
+        /** Action buttons **/
+
+        final LinearLayout taskContent = (LinearLayout) view.findViewById(R.id.task_content);
         taskContent.setOnClickListener(onTaskContentClickListener);
+
+        final Button validateButton = (Button) view.findViewById(R.id.validateTask);
+        validateButton.setOnClickListener(validateTaskHandler(task));
+
+        final Button editButton = (Button) view.findViewById(R.id.editTask);
+        editButton.setOnClickListener(editTaskHandler(task));
+
+        final Button deleteButton = (Button) view.findViewById(R.id.deleteTask);
+        deleteButton.setOnClickListener(deleteTaskHandler(task));
 
         return view;
     }
 
     private OnClickListener onTaskContentClickListener = new OnClickListener(){
-
         @Override
         public void onClick(View view) {
             LinearLayout taskPannel = null;
@@ -73,8 +80,43 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
                     taskPannel.setVisibility(View.VISIBLE);
                 }
             }
-
         }
     };
+
+    private void manageDueDateView(TextView dueDateView, final Task task) {
+        final String timeLeft = task.getTimeLeft();
+        final int daysLeft = (int) task.getDaysLeft();
+        if(daysLeft < 1) {
+            dueDateView.setTextColor(Color.parseColor("#FF0000"));
+        }
+        dueDateView.setText(timeLeft);
+    }
+
+    private OnClickListener validateTaskHandler(final Task task) {
+        return new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("MOFO", "Validate " + task.title);
+            }
+        };
+    }
+
+    private OnClickListener editTaskHandler(final Task task) {
+        return new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("MOFO", "Edit " + task.title);
+            }
+        };
+    }
+
+    private OnClickListener deleteTaskHandler(final Task task) {
+        return new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.v("MOFO", "Delete " + task.title);
+            }
+        };
+    }
 
 }
