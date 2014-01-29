@@ -120,6 +120,13 @@ public class Task implements Parcelable {
         tasksDataSource.close();
     }
 
+    public static void deleteOne (Context context, Task task) {
+        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        tasksDataSource.open();
+        tasksDataSource.deleteTask(task);
+        tasksDataSource.close();
+    }
+
     public static void toogleState (Context context, Task task) {
         TasksDataSource tasksDataSource = new TasksDataSource(context);
         tasksDataSource.open();

@@ -96,7 +96,11 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("MOFO", "Validate " + task.title);
+                if(!task.isDone()) {
+                    Task.toogleState(context, task);
+                    list.remove(task);
+                    notifyDataSetChanged();
+                }
             }
         };
     }
@@ -114,7 +118,9 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("MOFO", "Delete " + task.title);
+                Task.deleteOne(context, task);
+                list.remove(task);
+                notifyDataSetChanged();
             }
         };
     }
