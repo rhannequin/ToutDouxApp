@@ -25,6 +25,7 @@ public class MainFragment extends Fragment {
 
     private ListView listView;
     private MenuItem orderSpinner;
+    private static String stateFilter;
     private String spinnerHint = "Bitch please";
 
     public ArrayList<Category> categories;
@@ -51,14 +52,15 @@ public class MainFragment extends Fragment {
     }
 
     private void initUI() {
+        stateFilter = getArguments().getString("filter");
         listView = (ListView) getView().findViewById(R.id.list);
         tasks = getTaskList(getArguments().getString("filter"));
-        listView.setAdapter(setTaskAdapter(tasks));
+        listView.setAdapter(setTaskAdapter(tasks, stateFilter));
         listView.setOnItemClickListener(onListViewItemClickListener);
     }
 
-    private TaskArrayAdapter setTaskAdapter (ArrayList<Task> tasks) {
-        return new TaskArrayAdapter(getActivity(), R.layout.activity_tasklist_row, tasks);
+    private TaskArrayAdapter setTaskAdapter (ArrayList<Task> tasks, String filter) {
+        return new TaskArrayAdapter(getActivity(), R.layout.activity_tasklist_row, tasks, filter);
     }
 
     private OnItemClickListener onListViewItemClickListener = new AdapterView.OnItemClickListener() {
@@ -121,7 +123,7 @@ public class MainFragment extends Fragment {
                 public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
                     Category selected = (Category) spinner.getSelectedItem();
                     Boolean applyFilter = !(selected.title == spinnerHint);
-                    tasks = getTaskList(getArguments().getString("filter"));
+                    tasks = getTaskList(MainFragment.stateFilter);
                     if(applyFilter) {
                         ArrayList<Task> newTasks = new ArrayList<Task>();
                         for(Task task : tasks) {
@@ -131,7 +133,7 @@ public class MainFragment extends Fragment {
                         }
                         tasks = newTasks;
                     }
-                    listView.setAdapter(setTaskAdapter(tasks));
+                    listView.setAdapter(setTaskAdapter(tasks, MainFragment.stateFilter));
                 }
 
                 @Override

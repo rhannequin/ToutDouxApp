@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,13 +18,15 @@ import android.widget.TextView;
 
 public class TaskArrayAdapter extends ArrayAdapter<Task> {
 
-    private final List<Task> list;
-    private final Activity context;
+    private List<Task> list;
+    private Activity context;
+    private String stateFilter;
 
-    public TaskArrayAdapter(Activity context, int resource, List<Task> list) {
-        super(context, resource, list);
-        this.context = context;
-        this.list = list;
+    public TaskArrayAdapter(Activity c, int resource, List<Task> l, String f) {
+        super(c, resource, l);
+        context = c;
+        list = l;
+        stateFilter = f;
     }
 
     static class ViewHolder {
@@ -52,13 +53,21 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
         categoryView.setTypeface(null, Typeface.ITALIC);
         categoryView.setText(task.category.title);
 
+
         /** Action buttons **/
 
         final LinearLayout taskContent = (LinearLayout) view.findViewById(R.id.task_content);
         taskContent.setOnClickListener(onTaskContentClickListener);
 
-        final Button validateButton = (Button) view.findViewById(R.id.validateTask);
-        validateButton.setOnClickListener(validateTaskHandler(task));
+        final Button toggleButton = (Button) view.findViewById(R.id.toggle);
+        toggleButton.setOnClickListener(toggleTaskHandler(task));
+        if(task.isDone()) {
+            toggleButton.setText(R.string.task_undo);
+            toggleButton.setBackgroundResource(R.color.danger);
+        } else {
+            toggleButton.setText(R.string.task_validate);
+            toggleButton.setBackgroundResource(R.color.success);
+        }
 
         final Button editButton = (Button) view.findViewById(R.id.editTask);
         editButton.setOnClickListener(editTaskHandler(task));
@@ -96,15 +105,17 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
         dueDateView.setText(timeLeft);
     }
 
-    private OnClickListener validateTaskHandler(final Task task) {
+    private OnClickListener toggleTaskHandler(final Task task) {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!task.isDone()) {
-                    task.toggleState(context);
+                task.toggleState(context);
+                if(
+                    (stateFilter == "todo" && task.isDone()) ||
+                    (stateFilter == "done" && !task.isDone())) {
                     list.remove(task);
-                    notifyDataSetChanged();
                 }
+                notifyDataSetChanged();
             }
         };
     }
@@ -113,7 +124,6 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.v("MOFO", "Edit " + task.title);
                 Intent intent = new Intent(context, AddTaskActivity.class);
                 intent.putExtra("task", task);
                 context.startActivity(intent);

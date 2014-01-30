@@ -25,8 +25,8 @@ public class AddCategoryActivity extends ActionBarActivity {
         supportActionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#333333")));
         setContentView(R.layout.activity_add_category);
 
-        this.titleInput = (EditText) findViewById(R.id.title);
-        this.colorInput = (EditText) findViewById(R.id.color);
+        titleInput = (EditText) findViewById(R.id.title);
+        colorInput = (EditText) findViewById(R.id.color);
     }
 
     public void submitForm(View v) {

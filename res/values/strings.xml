@@ -25,6 +25,7 @@
     <string name="task_order">Order task</string>
     <string name="task_submit">Submit</string>
     <string name="task_validate">Done</string>
+    <string name="task_undo">Undo</string>
     <string name="task_edit">Edit</string>
     <string name="task_delete">Delete</string>
     <string name="category_add">New category</string>
