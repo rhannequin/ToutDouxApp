@@ -55,7 +55,7 @@ public class TasksDataSource {
         values.put(MySQLiteHelper.COLUMN_TASK_DUE_DATE, task.dueDate.getTime());
         values.put(MySQLiteHelper.COLUMN_TASK_STATE, 0);
         values.put(MySQLiteHelper.COLUMN_TASK_CATEGORY_ID, task.category.id);
-        database.update(MySQLiteHelper.TABLE_TASKS, values, null, null);
+        database.update(MySQLiteHelper.TABLE_TASKS, values, MySQLiteHelper.COLUMN_TASK_ID + " = " + task.id, null);
     }
 
     public ArrayList<Task> getAllTasks(String where) {
