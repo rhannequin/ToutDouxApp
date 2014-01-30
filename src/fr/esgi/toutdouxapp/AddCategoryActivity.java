@@ -37,7 +37,7 @@ public class AddCategoryActivity extends ActionBarActivity {
             return;
         }
         if(!Category.isValidColor(color)) {
-            color = "#FFFFFF";
+            color = "#000000";
         }
         Category.create(this, title, color);
         Toast.makeText(getApplicationContext(), "Category created!", Toast.LENGTH_SHORT).show();

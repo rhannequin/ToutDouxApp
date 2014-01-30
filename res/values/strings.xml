@@ -20,7 +20,7 @@
     <string name="hint_date">Date</string>
     <string name="hint_time">Time</string>
     <string name="hint_description">Description</string>
-    <string name="hint_color">#FFFFFF (optional)</string>
+    <string name="hint_color">#000000 (optional)</string>
     <string name="task_add">New task</string>
     <string name="task_order">Order task</string>
     <string name="task_submit">Submit</string>
