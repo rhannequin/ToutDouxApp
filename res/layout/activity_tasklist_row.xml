@@ -85,9 +85,9 @@
             <Button
                 android:id="@+id/validateTask"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="25dp"
                 android:layout_marginRight="5dp"
-                android:background="@color/grey"
+                android:background="@color/success"
                 android:text="@string/task_validate"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
@@ -95,7 +95,7 @@
             <Button
                 android:id="@+id/editTask"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
+                android:layout_height="25dp"
                 android:layout_marginRight="5dp"
                 android:background="@color/grey"
                 android:text="@string/task_edit"
@@ -105,8 +105,8 @@
             <Button
                 android:id="@+id/deleteTask"
                 android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:background="@color/grey"
+                android:layout_height="25dp"
+                android:background="@color/danger"
                 android:textColor="@color/white"
                 android:textSize="12sp"
                 android:text="@string/task_delete" />

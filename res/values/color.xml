@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="success">#468847</color>
+    <color name="sucess_text">#468847</color>
+    <color name="danger">#B94A48</color>
+    <color name="danger_text">#B94A48</color>
     <color name="white">#FFFFFF</color>
     <color name="lightergrey">#E4E4E4</color>
     <color name="lightgrey">#CCCCCC</color>

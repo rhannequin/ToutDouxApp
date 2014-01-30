@@ -33,11 +33,9 @@ public class MainActivity extends ActionBarActivity {
 
     final private String PAGE = "page";
     final private String ICON = "icon";
-    final private String COUNT = "count";
 
     String mTitle = "";
     String[] mPages ;
-    String[] mCount = new String[]{"", "", "", "", "","", "", "", "", ""};
 
     int mPosition = -1;
     int[] mIcons = new int[]{
@@ -69,13 +67,12 @@ public class MainActivity extends ActionBarActivity {
         for(int i=0; i<4; i++) {
             HashMap<String, String> hm = new HashMap<String,String>();
             hm.put(PAGE, mPages[i]);
-            hm.put(COUNT, mCount[i]);
             hm.put(ICON, Integer.toString(mIcons[i]) );
             mList.add(hm);
         }
 
-        String[] from = { ICON, PAGE, COUNT };
-        int[] to = { R.id.icon, R.id.page, R.id.count };
+        String[] from = { ICON, PAGE};
+        int[] to = { R.id.icon, R.id.page};
 
         mAdapter = new SimpleAdapter(this, mList, R.layout.drawer_layout, from, to);
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
