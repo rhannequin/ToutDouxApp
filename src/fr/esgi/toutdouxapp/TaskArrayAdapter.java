@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.esgi.toutdouxapp.db.Task;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.Log;
@@ -113,6 +114,9 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
             @Override
             public void onClick(View v) {
                 Log.v("MOFO", "Edit " + task.title);
+                Intent intent = new Intent(context, AddTaskActivity.class);
+                intent.putExtra("task", task);
+                context.startActivity(intent);
             }
         };
     }

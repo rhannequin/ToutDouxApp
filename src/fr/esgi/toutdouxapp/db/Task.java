@@ -97,6 +97,13 @@ public class Task implements Parcelable {
         return this;
     }
 
+    public void update (Context context) {
+        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        tasksDataSource.open();
+        tasksDataSource.updateTask(this);
+        tasksDataSource.close();
+    }
+
     public static ArrayList<Task> findAll (Context context, String where) {
         TasksDataSource tasksDataSource = new TasksDataSource(context);
         tasksDataSource.open();
@@ -133,6 +140,15 @@ public class Task implements Parcelable {
         tasksDataSource.open();
         tasksDataSource.deleteTask(task);
         tasksDataSource.close();
+    }
+
+    public Task empty(Category c) {
+        title = "";
+        description = "";
+        dueDate = new Date();
+        state = 0;
+        category = c;
+        return this;
     }
 
 }
