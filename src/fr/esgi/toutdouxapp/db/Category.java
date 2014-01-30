@@ -79,4 +79,11 @@ public class Category implements Parcelable {
         return category;
     }
 
+    public static void deleteOne (Context context, Category category) {
+        CategoriesDataSource categoriesDataSource = new CategoriesDataSource(context);
+        categoriesDataSource.open();
+        categoriesDataSource.deleteCategory(category);
+        categoriesDataSource.close();
+    }
+
 }

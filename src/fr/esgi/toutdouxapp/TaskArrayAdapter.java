@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class TaskArrayAdapter extends ArrayAdapter<Task> {
 
@@ -116,11 +117,16 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
             @Override
             public void onClick(View v) {
                 task.toggleState(context);
+                Boolean isDone = task.isDone();
                 if(
-                    (stateFilter == "todo" && task.isDone()) ||
-                    (stateFilter == "done" && !task.isDone())) {
+                    (stateFilter == "todo" && isDone) ||
+                    (stateFilter == "done" && !isDone)) {
                     list.remove(task);
                 }
+                Toast.makeText(
+                    context,
+                    "Task set as " + (isDone ? "done" : "todo") + ".",
+                    Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();
             }
         };
@@ -143,6 +149,7 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
             public void onClick(View v) {
                 Task.deleteOne(context, task);
                 list.remove(task);
+                Toast.makeText(context, "Task deleted", Toast.LENGTH_SHORT).show();
                 notifyDataSetChanged();
             }
         };

@@ -3,11 +3,8 @@ package fr.esgi.toutdouxapp;
 import java.util.List;
 
 import fr.esgi.toutdouxapp.db.Category;
-import fr.esgi.toutdouxapp.db.Task;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CategoryArrayAdapter extends ArrayAdapter<Category> {
 
@@ -36,23 +34,21 @@ public class CategoryArrayAdapter extends ArrayAdapter<Category> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflator = context.getLayoutInflater();
         View view = inflator.inflate(R.layout.activity_categorylist_row, null);
-        final ViewHolder viewHolder = new ViewHolder();
-        viewHolder.text = (TextView) view.findViewById(R.id.title);
-        view.setTag(viewHolder);
+        final Category category = list.get(position);
+
+        final TextView titleView = (TextView) view.findViewById(R.id.title);
+        titleView.setText(list.get(position).title);
+
         view.findViewById(R.id.category_icon).setBackgroundColor(Color.parseColor(list.get(position).color));
-        ViewHolder holder = (ViewHolder) view.getTag();
-        holder.text.setText(list.get(position).title);
+
 
         /** Action buttons **/
 
         final LinearLayout categoryContent = (LinearLayout) view.findViewById(R.id.category_content);
         categoryContent.setOnClickListener(onCategoryContentClickListener);
 
-        //final Button editButton = (Button) view.findViewById(R.id.editTask);
-        // TODO: editButton.setOnClickListener();
-
-        //final Button deleteButton = (Button) view.findViewById(R.id.deleteTask);
-        // TODO: deleteButton.setOnClickListener();
+        final Button deleteButton = (Button) view.findViewById(R.id.deleteCategory);
+        deleteButton.setOnClickListener(deleteCategoryHandler(category));
 
         return view;
     }
@@ -74,5 +70,17 @@ public class CategoryArrayAdapter extends ArrayAdapter<Category> {
             }
         }
     };
+
+    private OnClickListener deleteCategoryHandler(final Category category) {
+        return new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Category.deleteOne(context, category);
+                list.remove(category);
+                Toast.makeText(context, "Category deleted", Toast.LENGTH_SHORT).show();
+                notifyDataSetChanged();
+            }
+        };
+    }
 
 }

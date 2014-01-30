@@ -54,16 +54,6 @@
         android:gravity="center_horizontal">
 
         <Button
-            android:id="@+id/editCategory"
-            android:layout_width="wrap_content"
-            android:layout_height="25dp"
-            android:layout_marginRight="5dp"
-            android:background="@color/grey"
-            android:text="@string/task_edit"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
-
-        <Button
             android:id="@+id/deleteCategory"
             android:layout_width="wrap_content"
             android:layout_height="25dp"
