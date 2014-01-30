@@ -25,6 +25,15 @@
             android:textSize="15sp"
             android:textStyle="bold" />
 
+        <ImageView
+            android:id="@+id/icon_done"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_action_check" 
+            android:contentDescription="@string/task_validate"
+            android:visibility="gone"/>
+
         <LinearLayout
             android:id="@+id/task_metas"
             android:layout_width="fill_parent"
