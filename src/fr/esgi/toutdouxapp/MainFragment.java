@@ -26,7 +26,7 @@ public class MainFragment extends Fragment {
     private ListView listView;
     private MenuItem orderSpinner;
     private static String stateFilter;
-    private String spinnerHint = "Bitch please";
+    private String spinnerHint = "Filter by category";
 
     public ArrayList<Category> categories;
     public ArrayList<Task> tasks;

@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -44,6 +45,11 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
 
         final TextView descriptionView = (TextView) view.findViewById(R.id.description);
         descriptionView.setText(task.description);
+
+        if(task.isDone()){
+            final ImageView doneIcon = (ImageView) view.findViewById(R.id.icon_done);
+            doneIcon.setVisibility(View.VISIBLE);
+        }
 
         final TextView dueDateView = (TextView) view.findViewById(R.id.dueDate);
         manageDueDateView(dueDateView, task);
