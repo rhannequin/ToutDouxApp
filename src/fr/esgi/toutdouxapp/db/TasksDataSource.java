@@ -62,7 +62,7 @@ public class TasksDataSource {
         ArrayList<Task> tasks = new ArrayList<Task>();
 
         Cursor cursor = database.query(MySQLiteHelper.TABLE_TASKS,
-            allColumns, where, null, null, null, null);
+            allColumns, where, null, null, null, MySQLiteHelper.COLUMN_TASK_DUE_DATE);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
@@ -70,7 +70,6 @@ public class TasksDataSource {
             tasks.add(task);
             cursor.moveToNext();
         }
-        // make sure to close the cursor
         cursor.close();
         return tasks;
     }
