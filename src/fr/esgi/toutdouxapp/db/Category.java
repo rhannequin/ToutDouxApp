@@ -47,41 +47,53 @@ public class Category implements Parcelable {
         color = in.readString();
     }
 
+
+    /** Instance methods **/
+
     public String toString() {
         return title;
     }
+
+
+    /** Class methods **/
 
     public static Boolean isValidColor(String color) {
         return color.matches("^#([A-Fa-f0-9]{6})$");
     }
 
     public static ArrayList<Category> findAll (Context context) {
-        CategoriesDataSource categoriesDatasource = new CategoriesDataSource(context);
+        final CategoriesDataSource categoriesDatasource = new CategoriesDataSource(context);
         categoriesDatasource.open();
-        ArrayList<Category> categories = categoriesDatasource.getAllCategories();
+        final ArrayList<Category> categories = categoriesDatasource.getAllCategories();
         categoriesDatasource.close();
         return categories;
     }
 
     public static Category findOne (Context context, long id) {
-        CategoriesDataSource categoriesDatasource = new CategoriesDataSource(context);
+        final CategoriesDataSource categoriesDatasource = new CategoriesDataSource(context);
         categoriesDatasource.open();
-        Category category = categoriesDatasource.getOneCategory(id);
+        final Category category = categoriesDatasource.getOneCategory(id);
         categoriesDatasource.close();
         return category;
     }
 
     public static Category create (Context context, String title, String color) {
-        CategoriesDataSource categoriesDatasource = new CategoriesDataSource(context);
+        final CategoriesDataSource categoriesDatasource = new CategoriesDataSource(context);
         categoriesDatasource.open();
-        Category category = categoriesDatasource.createCategory(title, color);
+        final Category category = categoriesDatasource.createCategory(title, color);
         categoriesDatasource.close();
         return category;
     }
 
     public static void deleteOne (Context context, Category category) {
-        CategoriesDataSource categoriesDataSource = new CategoriesDataSource(context);
+        final CategoriesDataSource categoriesDataSource = new CategoriesDataSource(context);
         categoriesDataSource.open();
+        final ArrayList<Task> tasks = Task.findAll(context, null);
+        for(final Task task : tasks) {
+            if(task.category.id == category.id) {
+                Task.deleteOne(context, task);
+            }
+        }
         categoriesDataSource.deleteCategory(category);
         categoriesDataSource.close();
     }

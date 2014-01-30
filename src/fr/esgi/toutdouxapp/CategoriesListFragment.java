@@ -17,7 +17,7 @@ import android.widget.ListView;
 
 public class CategoriesListFragment extends Fragment {
 
-    ArrayList<Category> categories;
+    private ArrayList<Category> categories;
     private ListView listView;
     private ArrayAdapter<Category> adapter;
 
@@ -30,7 +30,7 @@ public class CategoriesListFragment extends Fragment {
     public void onStart() {
         super.onStart();
         listView = (ListView) getView().findViewById(R.id.list);
-        this.categories = Category.findAll(getActivity());
+        categories = Category.findAll(getActivity());
         adapter = new CategoryArrayAdapter(getActivity(), R.layout.activity_categorylist_row, CategoriesListFragment.this.categories);
         listView.setAdapter(adapter);
     }

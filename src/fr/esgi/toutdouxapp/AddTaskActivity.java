@@ -93,17 +93,17 @@ public class AddTaskActivity extends ActionBarActivity {
         descriptionInput.setText(task.description);
 
         datePicker = (EditText) findViewById(R.id.editText3);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
         datePicker.setText(dateFormat.format(task.dueDate));
 
         timePicker = (EditText) findViewById(R.id.editText4);
-        SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
+        final SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm aa", Locale.US);
         timePicker.setText(timeFormat.format(task.dueDate));
 
         categoriesSpinner = (Spinner) findViewById(R.id.spinner1);
-        ArrayAdapter<Category> spinnerArrayAdapter = new ArrayAdapter<Category>(
+        final ArrayAdapter<Category> spinnerArrayAdapter = new ArrayAdapter<Category>(
             this,
-            android.R.layout.simple_spinner_item, this.categories);
+            android.R.layout.simple_spinner_item, categories);
         categoriesSpinner.setAdapter(spinnerArrayAdapter);
 
         int pos = 0;

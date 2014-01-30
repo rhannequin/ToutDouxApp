@@ -20,10 +20,10 @@ public class CategoryArrayAdapter extends ArrayAdapter<Category> {
     private final List<Category> list;
     private final Activity context;
 
-    public CategoryArrayAdapter(Activity context, int resource, List<Category> list) {
-        super(context, resource, list);
-        this.context = context;
-        this.list = list;
+    public CategoryArrayAdapter(Activity c, int resource, List<Category> l) {
+        super(c, resource, l);
+        context = c;
+        list = l;
     }
 
     static class ViewHolder {
@@ -32,8 +32,8 @@ public class CategoryArrayAdapter extends ArrayAdapter<Category> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflator = context.getLayoutInflater();
-        View view = inflator.inflate(R.layout.activity_categorylist_row, null);
+        final LayoutInflater inflator = context.getLayoutInflater();
+        final View view = inflator.inflate(R.layout.activity_categorylist_row, null);
         final Category category = list.get(position);
 
         final TextView titleView = (TextView) view.findViewById(R.id.title);
@@ -57,7 +57,7 @@ public class CategoryArrayAdapter extends ArrayAdapter<Category> {
         @Override
         public void onClick(View view) {
             LinearLayout taskPannel = null;
-            ViewGroup row = (ViewGroup) view.getParent();
+            final ViewGroup row = (ViewGroup) view.getParent();
 
             View v = row.getChildAt(1);
             if (v instanceof LinearLayout) {

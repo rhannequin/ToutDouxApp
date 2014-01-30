@@ -57,6 +57,9 @@ public class Task implements Parcelable {
         category = (Category)in.readParcelable(Category.class.getClassLoader());
     }
 
+
+    /** Instance methods **/
+
     public int getDaysLeft() {
         Date now = new Date();
         final long timeNow = now.getTime();
@@ -90,7 +93,7 @@ public class Task implements Parcelable {
     }
 
     public Task toggleState (Context context) {
-        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        final TasksDataSource tasksDataSource = new TasksDataSource(context);
         tasksDataSource.open();
         state = tasksDataSource.toggleState(this);
         tasksDataSource.close();
@@ -98,7 +101,7 @@ public class Task implements Parcelable {
     }
 
     public void update (Context context) {
-        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        final TasksDataSource tasksDataSource = new TasksDataSource(context);
         tasksDataSource.open();
         tasksDataSource.updateTask(this);
         tasksDataSource.close();
@@ -113,32 +116,35 @@ public class Task implements Parcelable {
         return this;
     }
 
+
+    /** Class methods **/
+
     public static ArrayList<Task> findAll (Context context, String where) {
-        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        final TasksDataSource tasksDataSource = new TasksDataSource(context);
         tasksDataSource.open();
-        ArrayList<Task> tasks = tasksDataSource.getAllTasks(where);
+        final ArrayList<Task> tasks = tasksDataSource.getAllTasks(where);
         tasksDataSource.close();
         return tasks;
     }
 
     public static Task findOne (Context context, long id) {
-        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        final TasksDataSource tasksDataSource = new TasksDataSource(context);
         tasksDataSource.open();
-        Task task = tasksDataSource.getOneTask(id);
+        final Task task = tasksDataSource.getOneTask(id);
         tasksDataSource.close();
         return task;
     }
 
     public static Task create (Context context, String title, String description, Date dueDate, long categoryId) {
-        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        final TasksDataSource tasksDataSource = new TasksDataSource(context);
         tasksDataSource.open();
-        Task task = tasksDataSource.createTask(title, description, dueDate, categoryId);
+        final Task task = tasksDataSource.createTask(title, description, dueDate, categoryId);
         tasksDataSource.close();
         return task;
     }
 
     public static void deleteOne (Context context, Task task) {
-        TasksDataSource tasksDataSource = new TasksDataSource(context);
+        final TasksDataSource tasksDataSource = new TasksDataSource(context);
         tasksDataSource.open();
         tasksDataSource.deleteTask(task);
         tasksDataSource.close();

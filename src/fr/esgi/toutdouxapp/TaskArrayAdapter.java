@@ -89,7 +89,7 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
         @Override
         public void onClick(View view) {
             LinearLayout taskPannel = null;
-            ViewGroup row = (ViewGroup) view.getParent();
+            final ViewGroup row = (ViewGroup) view.getParent();
 
             View v = row.getChildAt(1);
             if (v instanceof LinearLayout) {
@@ -117,7 +117,7 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
             @Override
             public void onClick(View v) {
                 task.toggleState(context);
-                Boolean isDone = task.isDone();
+                final Boolean isDone = task.isDone();
                 if(
                     (stateFilter == "todo" && isDone) ||
                     (stateFilter == "done" && !isDone)) {
@@ -136,7 +136,7 @@ public class TaskArrayAdapter extends ArrayAdapter<Task> {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, AddTaskActivity.class);
+                final Intent intent = new Intent(context, AddTaskActivity.class);
                 intent.putExtra("task", task);
                 context.startActivity(intent);
             }

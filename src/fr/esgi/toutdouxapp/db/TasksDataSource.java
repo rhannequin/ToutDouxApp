@@ -24,8 +24,8 @@ public class TasksDataSource {
         MySQLiteHelper.COLUMN_TASK_STATE,
         MySQLiteHelper.COLUMN_TASK_CATEGORY_ID };
 
-    public TasksDataSource(Context context) {
-        this.context = context;
+    public TasksDataSource(Context c) {
+        context = c;
         dbHelper = new MySQLiteHelper(context);
     }
 
@@ -38,18 +38,18 @@ public class TasksDataSource {
     }
 
     public Task createTask(String title, String description, Date dueDate, long categoryId) {
-        ContentValues values = new ContentValues();
+        final ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_TASK_TITLE, title);
         values.put(MySQLiteHelper.COLUMN_TASK_DESCRIPTION, description);
         values.put(MySQLiteHelper.COLUMN_TASK_DUE_DATE, dueDate.getTime());
         values.put(MySQLiteHelper.COLUMN_TASK_STATE, 0);
         values.put(MySQLiteHelper.COLUMN_TASK_CATEGORY_ID, categoryId);
-        long insertId = database.insert(MySQLiteHelper.TABLE_TASKS, null, values);
+        final long insertId = database.insert(MySQLiteHelper.TABLE_TASKS, null, values);
         return getOneTask(insertId);
     }
 
     public void updateTask(Task task) {
-        ContentValues values = new ContentValues();
+        final ContentValues values = new ContentValues();
         values.put(MySQLiteHelper.COLUMN_TASK_TITLE, task.title);
         values.put(MySQLiteHelper.COLUMN_TASK_DESCRIPTION, task.description);
         values.put(MySQLiteHelper.COLUMN_TASK_DUE_DATE, task.dueDate.getTime());
@@ -61,12 +61,12 @@ public class TasksDataSource {
     public ArrayList<Task> getAllTasks(String where) {
         ArrayList<Task> tasks = new ArrayList<Task>();
 
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_TASKS,
+        final Cursor cursor = database.query(MySQLiteHelper.TABLE_TASKS,
             allColumns, where, null, null, null, MySQLiteHelper.COLUMN_TASK_DUE_DATE);
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            Task task = cursorToTask(cursor);
+            final Task task = cursorToTask(cursor);
             tasks.add(task);
             cursor.moveToNext();
         }
@@ -75,25 +75,25 @@ public class TasksDataSource {
     }
 
     public Task getOneTask(long id) {
-        Cursor cursor = database.query(MySQLiteHelper.TABLE_TASKS,
+        final Cursor cursor = database.query(MySQLiteHelper.TABLE_TASKS,
             allColumns, MySQLiteHelper.COLUMN_TASK_ID + " = " + id, null,
             null, null, null);
         cursor.moveToFirst();
-        Task task = cursorToTask(cursor);
+        final Task task = cursorToTask(cursor);
         cursor.close();
         return task;
     }
 
     public void deleteTask(Task task) {
-        long id = task.id;
+        final long id = task.id;
         System.out.println("Task deleted with id: " + id);
         database.delete(MySQLiteHelper.TABLE_TASKS, MySQLiteHelper.COLUMN_TASK_ID
             + " = " + id, null);
     }
 
     public int toggleState(Task task) {
-        ContentValues cv = new ContentValues();
-        int newState = task.isDone() ? 0 : 1;
+        final ContentValues cv = new ContentValues();
+        final int newState = task.isDone() ? 0 : 1;
         cv.put("state", newState);
         database.update(
             MySQLiteHelper.TABLE_TASKS,
@@ -104,7 +104,7 @@ public class TasksDataSource {
     }
 
     private Task cursorToTask(Cursor cursor) {
-        Task task = new Task();
+        final Task task = new Task();
         task.id = cursor.getLong(0);
         task.title = cursor.getString(1);
         task.description = cursor.getString(2);
